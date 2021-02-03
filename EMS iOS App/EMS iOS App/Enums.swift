@@ -14,8 +14,8 @@ enum NedocsScore: String {
     case busy = "Busy"
 }
 
-enum HospitalType: String {
-    case adultTraumaCenter = "Adult Trauma Center"
-    case heart = "Emergency Cardiac Care Center"
-    case brain = "Stroke Center"
+enum HospitalType {
+    case adultTraumaCenter
+    case heart
+    case brain
 }

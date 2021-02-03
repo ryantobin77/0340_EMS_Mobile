@@ -15,26 +15,13 @@ class HospitalIH: NSObject {
     var hospitalType: HospitalType!
     var distance: Float!
     var hasDiversion: Bool!
-    var address: String!
-    var phoneNumber: String!
-    var regionNumber: Int!
-    var county: String!
-    var rch: String! //Regional Coordinating Hospital
     
-    init(name: String, nedocsScore: NedocsScore, hospitalType: HospitalType, distance: Float, hasDiversion: Bool, address: String, phoneNumber: String,
-         regionNumber: Int,
-         county: String,
-         rch: String) {
+    init(name: String, nedocsScore: NedocsScore, hospitalType: HospitalType, distance: Float, hasDiversion: Bool) {
         self.name = name
         self.nedocsScore = nedocsScore
         self.hospitalType = hospitalType
         self.distance = distance
         self.hasDiversion = hasDiversion
-        self.address = address
-        self.phoneNumber = phoneNumber
-        self.regionNumber = regionNumber
-        self.county = county
-        self.rch = rch
     }
-
+    
 }

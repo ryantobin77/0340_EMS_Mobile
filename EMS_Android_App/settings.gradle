@@ -1,2 +1,0 @@
-include ':app'
-rootProject.name = "EMS_Android_App"
