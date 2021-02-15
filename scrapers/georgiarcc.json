@@ -1,115 +1,119 @@
-{"Hospital":"Grady Health System","County":"Fulton","Nedocs":"Overcrowded","Status":"CALL RCC (404) 616-6440  Call (404) 616-6440 first","Updated":"11\/23\/2020 15:20:02"}
-{"Hospital":"Piedmont - Atlanta Hospital","County":"Fulton","Nedocs":"Busy","Status":"ICU\/CCU Diversion  ICU\/CCU unable to accept incoming ambulance traffic","Updated":"11\/23\/2020 15:19:44"}
-{"Hospital":"WellStar - AMC South","County":"Fulton","Nedocs":"Normal","Status":"STEMI Diversion  STEMI unable to accept incoming ambulance traffic","Updated":"11\/23\/2020 15:15:09"}
-{"Hospital":"Emory - University Hospital","County":"DeKalb","Nedocs":"Busy","Status":"ICU\/CCU Saturation  ICU nearing capacity  Medical Saturation  Medical nearing capacity","Updated":"11\/23\/2020 15:14:20"}
-{"Hospital":"WellStar - AMC","County":"Fulton","Nedocs":"Severe","Status":"Psych Diversion  Psych unable to accept incoming ambulance traffic","Updated":"11\/23\/2020 15:00:50"}
-{"Hospital":"Northside - Atlanta Hospital","County":"Fulton","Nedocs":"Busy","Status":"Psych Diversion  Psych unable to accept incoming ambulance traffic","Updated":"11\/23\/2020 14:53:51"}
-{"Hospital":"Jeff Davis Hospital","County":"Jeff Davis","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 14:46:33"}
-{"Hospital":"Emory - University Hospital Midtown","County":"Fulton","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 14:40:17"}
-{"Hospital":"Miller County Hospital","County":"Miller","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 14:30:04"}
-{"Hospital":"Piedmont Newnan","County":"Coweta","Nedocs":"Busy","Status":"ICU\/CCU Diversion  ICU\/CCU unable to accept incoming ambulance traffic","Updated":"11\/23\/2020 14:25:54"}
-{"Hospital":"Colquitt Regional Regional Medical Center","County":"Colquitt","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 14:24:19"}
-{"Hospital":"Wellstar Douglas Hospital","County":"Douglas","Nedocs":"Severe","Status":"Normal  Open to accept incoming ambulance traffic  Psych Diversion  Psych unable to accept incoming ambulance traffic","Updated":"11\/23\/2020 14:21:57"}
-{"Hospital":"Atlanta VA Health Care System","County":"DeKalb","Nedocs":"Busy","Status":"Psych Diversion  Psych unable to accept incoming ambulance traffic","Updated":"11\/23\/2020 14:06:38"}
-{"Hospital":"Emory - Johns Creek Hospital","County":"Fulton","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 13:58:29"}
-{"Hospital":"Southern Regional Medical Center","County":"Clayton","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 13:57:49"}
-{"Hospital":"Emory - St. Joseph's Hospital","County":"Fulton","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 13:53:35"}
-{"Hospital":"Emory - Hillandale Hospital","County":"DeKalb","Nedocs":"Severe","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 13:47:29"}
-{"Hospital":"Northside - Duluth Hospital","County":"Gwinnett","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 13:41:17"}
-{"Hospital":"Northside - Gwinnett","County":"Gwinnett","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 13:41:00"}
-{"Hospital":"Emory - Decatur Hospital","County":"DeKalb","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 13:33:30"}
-{"Hospital":"WellStar Kennestone Hospital","County":"Cobb","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 13:29:03"}
-{"Hospital":"Houston Medical Center","County":"Houston","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 13:22:38"}
-{"Hospital":"Perry Hospital","County":"Houston","Nedocs":"Overcrowded","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 13:12:49"}
-{"Hospital":"Liberty Regional Medical Center","County":"Liberty","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 13:07:37"}
-{"Hospital":"Piedmont - Fayette Hospital","County":"Fayette","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 13:07:28"}
-{"Hospital":"WellStar - North Fulton Hospital","County":"Fulton","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 12:29:17"}
-{"Hospital":"Piedmont Henry Hospital","County":"Henry","Nedocs":"Busy","Status":"ICU\/CCU Diversion  ICU\/CCU unable to accept incoming ambulance traffic","Updated":"11\/23\/2020 12:24:17"}
-{"Hospital":"WellStar Spalding Regional Hospital","County":"Spalding","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 12:07:00"}
-{"Hospital":"Coliseum Northside Hospital","County":"Bibb","Nedocs":"Severe","Status":"ICU\/CCU Diversion  ICU\/CCU unable to accept incoming ambulance traffic  Medical Diversion  Medical unable to accept incoming ambulance traffic","Updated":"11\/23\/2020 11:56:42"}
-{"Hospital":"Coliseum Medical Center","County":"Bibb","Nedocs":"Overcrowded","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 11:56:11"}
-{"Hospital":"Wellstar Paulding Hospital","County":"Paulding","Nedocs":"Severe","Status":"ER Diversion  ER unable to accept incoming ambulance traffic  ICU\/CCU Diversion  ICU\/CCU unable to accept incoming ambulance traffic","Updated":"11\/23\/2020 11:53:41"}
-{"Hospital":"St. Francis Hospital","County":"Muscogee","Nedocs":"Busy","Status":"ICU\/CCU Saturation  ICU nearing capacity  Medical Saturation  Medical nearing capacity","Updated":"11\/23\/2020 11:37:23"}
-{"Hospital":"Augusta University Medical Center","County":"Richmond","Nedocs":"Busy","Status":"ICU\/CCU Diversion  ICU\/CCU unable to accept incoming ambulance traffic  Medical Diversion  Medical unable to accept incoming ambulance traffic","Updated":"11\/23\/2020 11:35:07"}
-{"Hospital":"Northside - Cherokee Hospital","County":"Cherokee","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 11:12:05"}
-{"Hospital":"Wellstar Cobb Hospital","County":"Cobb","Nedocs":"Overcrowded","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 11:06:39"}
-{"Hospital":"Taylor Regional Hospital","County":"Pulaski","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 10:30:45"}
-{"Hospital":"Burke Medical Center","County":"Burke","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 10:23:22"}
-{"Hospital":"Optim Medical Tattnall","County":"Tattnall","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 10:21:54"}
-{"Hospital":"Jenkins County Medical Center","County":"Jenkins","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 10:03:51"}
-{"Hospital":"Navicent Health Baldwin","County":"Baldwin","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 09:41:55"}
-{"Hospital":"Coffee Regional Medical Center","County":"Coffee","Nedocs":"Busy","Status":"ICU\/CCU Diversion  ICU\/CCU unable to accept incoming ambulance traffic","Updated":"11\/23\/2020 09:38:02"}
-{"Hospital":"CHOA - Hughes Spalding","County":"Fulton","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 09:31:22"}
-{"Hospital":"St. Marys Good Samaritan Hospital","County":"Greene","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 09:30:33"}
-{"Hospital":"Dorminy Medical Center","County":"Ben Hill","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 09:17:09"}
-{"Hospital":"St. Marys Hospital","County":"Clarke","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 09:06:49"}
-{"Hospital":"Emanuel Medical Center","County":"Emanuel","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 09:02:40"}
-{"Hospital":"Effingham Health System","County":"Effingham","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 09:00:37"}
-{"Hospital":"Piedmont Columbus Regional - Northside","County":"Muscogee","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 08:59:20"}
-{"Hospital":"Piedmont Columbus Regional - Midtown Camp","County":"Muscogee","Nedocs":"Normal","Status":"ICU\/CCU Saturation  ICU nearing capacity","Updated":"11\/23\/2020 08:58:44"}
-{"Hospital":"Phoebe Putney Memorial Hospital","County":"Dougherty","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 08:58:13"}
-{"Hospital":"St. Marys Sacred Heart Hospital","County":"Franklin","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 08:56:34"}
-{"Hospital":"Piedmont Mountainside","County":"Pickens","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 08:34:26"}
-{"Hospital":"Fairview Park Hospital","County":"Laurens","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 08:26:13"}
-{"Hospital":"Memorial Hospital and Manor","County":"Decatur","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 08:19:01"}
-{"Hospital":"Medical Center of Peach County","County":"Peach","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 08:11:46"}
-{"Hospital":"Piedmont - Newton Hospital","County":"Newton","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 08:06:17"}
-{"Hospital":"University Hospital-Summerville","County":"Richmond","Nedocs":"Normal","Status":"ICU\/CCU Diversion  ICU\/CCU unable to accept incoming ambulance traffic","Updated":"11\/23\/2020 07:47:03"}
-{"Hospital":"Piedmont Athens Regional Medical Center","County":"Clarke","Nedocs":"Normal","Status":"ICU\/CCU Diversion  ICU\/CCU unable to accept incoming ambulance traffic  Medical Diversion  Medical unable to accept incoming ambulance traffic","Updated":"11\/23\/2020 07:43:42"}
-{"Hospital":"Medical Center, Navicent Health","County":"Bibb","Nedocs":"Busy","Status":"Medical Diversion  Medical unable to accept incoming ambulance traffic","Updated":"11\/23\/2020 07:32:41"}
-{"Hospital":"University Hospital","County":"Richmond","Nedocs":"Normal","Status":"ICU\/CCU Diversion  ICU\/CCU unable to accept incoming ambulance traffic","Updated":"11\/23\/2020 07:14:17"}
-{"Hospital":"WellStar Sylvan Grove Hospital","County":"Butts","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 07:03:45"}
-{"Hospital":"WellStar West Georgia Medical Center","County":"Troup","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 06:30:53"}
-{"Hospital":"Upson Regional Medical Center","County":"Upson","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 06:27:37"}
-{"Hospital":"Northside - Forsyth Hospital","County":"Forsyth","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 06:23:49"}
-{"Hospital":"NGMC Lumpkin","County":"Lumpkin","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 06:21:50"}
-{"Hospital":"NGMC Braselton","County":"Hall","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 06:18:26"}
-{"Hospital":"NGMC Gainesville RCH","County":"Hall","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 06:17:20"}
-{"Hospital":"John D. Archbold Memorial Hospital","County":"Thomas","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 06:02:34"}
-{"Hospital":"Elbert Memorial Hospital","County":"Elbert","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/23\/2020 04:32:44"}
-{"Hospital":"Wayne Memorial Hospital","County":"Wayne","Nedocs":"Normal","Status":"ICU\/CCU Diversion  ICU\/CCU unable to accept incoming ambulance traffic  Medical Diversion  Medical unable to accept incoming ambulance traffic","Updated":"11\/23\/2020 04:23:43"}
-{"Hospital":"Fannin Regional","County":"Fannin","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/22\/2020 22:14:48"}
-{"Hospital":"Dodge County Hospital","County":"Dodge","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/22\/2020 21:21:08"}
-{"Hospital":"CHOA - Egleston","County":"DeKalb","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/22\/2020 17:16:31"}
-{"Hospital":"CHOA - Scottish Rite","County":"Fulton","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/22\/2020 17:15:38"}
-{"Hospital":"Jasper Memorial Hospital","County":"Jasper","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/22\/2020 07:35:39"}
-{"Hospital":"NGMC Barrow","County":"Barrow","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/22\/2020 06:26:17"}
-{"Hospital":"Tanner Medical Center Carrollton","County":"Carroll","Nedocs":"Severe","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/22\/2020 05:41:57"}
-{"Hospital":"Phoebe Sumter Medical Center","County":"Sumter","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/22\/2020 05:11:56"}
-{"Hospital":"Eastside Medical Center","County":"Gwinnett","Nedocs":"Overcrowded","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/21\/2020 22:02:32"}
-{"Hospital":"Tanner Medical Center Villa Rica","County":"Carroll","Nedocs":"Severe","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/21\/2020 06:47:35"}
-{"Hospital":"HCC-C Tanner Higgins","County":"Haralson","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/21\/2020 06:45:45"}
-{"Hospital":"Clinch Memorial Hospital","County":"Clinch","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/20\/2020 15:40:02"}
-{"Hospital":"Flint River Hospital","County":"Macon","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/20\/2020 13:16:38"}
-{"Hospital":"University Hospital-McDuffie","County":"McDuffie","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/20\/2020 09:51:38"}
-{"Hospital":"Evans Memorial Hospital","County":"Evans","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/20\/2020 09:21:19"}
-{"Hospital":"Piedmont Rockdale","County":"Rockdale","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/18\/2020 09:42:11"}
-{"Hospital":"Mountain Lakes Medical Center","County":"Rabun","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/18\/2020 09:07:51"}
-{"Hospital":"Crisp Regional Hospital","County":"Crisp","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic  ICU\/CCU Diversion  ICU\/CCU unable to accept incoming ambulance traffic  Medical Diversion  Medical unable to accept incoming ambulance traffic","Updated":"11\/16\/2020 11:23:37"}
+{"Hospital":"Emory - University Hospital Midtown","County":"Fulton","Nedocs":"Busy","Status":"ICU\/CCU Saturation  ICU nearing capacity","Updated":"02\/14\/2021 21:38:40"}
+{"Hospital":"Grady Health System","County":"Fulton","Nedocs":"Severe","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 21:29:55"}
+{"Hospital":"WellStar - AMC","County":"Fulton","Nedocs":"Severe","Status":"ER Diversion  ER unable to accept incoming ambulance traffic  ICU\/CCU Diversion  ICU\/CCU unable to accept incoming ambulance traffic  Medical Diversion  Medical unable to accept incoming ambulance traffic","Updated":"02\/14\/2021 21:28:24"}
+{"Hospital":"Northside - Atlanta Hospital","County":"Fulton","Nedocs":"Busy","Status":"Psych Diversion  Psych unable to accept incoming ambulance traffic","Updated":"02\/14\/2021 21:27:08"}
+{"Hospital":"Emory - Decatur Hospital","County":"DeKalb","Nedocs":"Severe","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 21:24:15"}
+{"Hospital":"Piedmont Henry Hospital","County":"Henry","Nedocs":"Overcrowded","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 21:24:06"}
+{"Hospital":"Emory - University Hospital","County":"DeKalb","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 21:17:14"}
+{"Hospital":"Piedmont - Atlanta Hospital","County":"Fulton","Nedocs":"Overcrowded","Status":"ER Diversion  ER unable to accept incoming ambulance traffic  ICU\/CCU Diversion  ICU\/CCU unable to accept incoming ambulance traffic  ICU\/CCU Saturation  ICU nearing capacity","Updated":"02\/14\/2021 21:07:37"}
+{"Hospital":"CHOA - Egleston","County":"DeKalb","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 21:01:51"}
+{"Hospital":"Emory - Hillandale Hospital","County":"DeKalb","Nedocs":"Severe","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 20:57:42"}
+{"Hospital":"WellStar - AMC South","County":"Fulton","Nedocs":"Severe","Status":"ICU\/CCU Diversion  ICU\/CCU unable to accept incoming ambulance traffic  STEMI Diversion  STEMI unable to accept incoming ambulance traffic","Updated":"02\/14\/2021 20:39:49"}
+{"Hospital":"WellStar Kennestone Hospital","County":"Cobb","Nedocs":"Busy","Status":"Psych Diversion  Psych unable to accept incoming ambulance traffic","Updated":"02\/14\/2021 20:09:13"}
+{"Hospital":"Piedmont Athens Regional Medical Center","County":"Clarke","Nedocs":"Overcrowded","Status":"ICU\/CCU Diversion  ICU\/CCU unable to accept incoming ambulance traffic  Medical Diversion  Medical unable to accept incoming ambulance traffic","Updated":"02\/14\/2021 20:08:19"}
+{"Hospital":"Piedmont Newnan","County":"Coweta","Nedocs":"Busy","Status":"ICU\/CCU Diversion  ICU\/CCU unable to accept incoming ambulance traffic  Psych Diversion  Psych unable to accept incoming ambulance traffic","Updated":"02\/14\/2021 20:05:44"}
+{"Hospital":"Wellstar Cobb Hospital","County":"Cobb","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 19:54:43"}
+{"Hospital":"Fairview Park Hospital","County":"Laurens","Nedocs":"Normal","Status":"ICU\/CCU Diversion  ICU\/CCU unable to accept incoming ambulance traffic  Medical Diversion  Medical unable to accept incoming ambulance traffic","Updated":"02\/14\/2021 19:52:25"}
+{"Hospital":"Dodge County Hospital","County":"Dodge","Nedocs":"Normal","Status":"ICU\/CCU Diversion  ICU\/CCU unable to accept incoming ambulance traffic","Updated":"02\/14\/2021 19:50:11"}
+{"Hospital":"WellStar Spalding Regional Hospital","County":"Spalding","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 19:28:33"}
+{"Hospital":"Houston Medical Center","County":"Houston","Nedocs":"Busy","Status":"ICU\/CCU Diversion  ICU\/CCU unable to accept incoming ambulance traffic","Updated":"02\/14\/2021 19:28:31"}
+{"Hospital":"Cartersville Medical Ctr","County":"Bartow","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 19:27:36"}
+{"Hospital":"Memorial Hospital and Manor","County":"Decatur","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 19:15:46"}
+{"Hospital":"WellStar - North Fulton Hospital","County":"Fulton","Nedocs":"Normal","Status":"Psych Diversion  Psych unable to accept incoming ambulance traffic","Updated":"02\/14\/2021 19:08:16"}
+{"Hospital":"St. Francis Hospital","County":"Muscogee","Nedocs":"Busy","Status":"ICU\/CCU Diversion  ICU\/CCU unable to accept incoming ambulance traffic  Medical Saturation  Medical nearing capacity","Updated":"02\/14\/2021 19:02:20"}
+{"Hospital":"Emory - St. Joseph's Hospital","County":"Fulton","Nedocs":"Overcrowded","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 18:51:14"}
+{"Hospital":"Northside - Cherokee Hospital","County":"Cherokee","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 18:46:50"}
+{"Hospital":"WellStar Sylvan Grove Hospital","County":"Butts","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 18:40:10"}
+{"Hospital":"Appling Healthcare","County":"Appling","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 18:31:56"}
+{"Hospital":"Wellstar Douglas Hospital","County":"Douglas","Nedocs":"Severe","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 18:29:37"}
+{"Hospital":"John D. Archbold Memorial Hospital","County":"Thomas","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 18:29:35"}
+{"Hospital":"Northside - Forsyth Hospital","County":"Forsyth","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 18:28:56"}
+{"Hospital":"Southern Regional Medical Center","County":"Clayton","Nedocs":"Busy","Status":"ER Diversion  ER unable to accept incoming ambulance traffic  Psych Diversion  Psych unable to accept incoming ambulance traffic","Updated":"02\/14\/2021 17:52:54"}
+{"Hospital":"Eastside Medical Center","County":"Gwinnett","Nedocs":"Overcrowded","Status":"Total Diversion  Cannot accept EMS patients at this time","Updated":"02\/14\/2021 17:26:58"}
+{"Hospital":"CHOA - Scottish Rite","County":"Fulton","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 17:19:08"}
+{"Hospital":"Piedmont Columbus Regional - Midtown Camp","County":"Muscogee","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 17:02:43"}
+{"Hospital":"Piedmont Columbus Regional - Northside","County":"Muscogee","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 17:00:25"}
+{"Hospital":"Piedmont - Fayette Hospital","County":"Fayette","Nedocs":"Overcrowded","Status":"ICU\/CCU Diversion  ICU\/CCU unable to accept incoming ambulance traffic","Updated":"02\/14\/2021 16:53:52"}
+{"Hospital":"Jeff Davis Hospital","County":"Jeff Davis","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 16:00:26"}
+{"Hospital":"Atlanta VA Health Care System","County":"DeKalb","Nedocs":"Severe","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 15:06:59"}
+{"Hospital":"CHOA - Hughes Spalding","County":"Fulton","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 14:22:54"}
+{"Hospital":"Polk Medical Center","County":"Polk","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 13:50:27"}
+{"Hospital":"Burke Medical Center","County":"Burke","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 13:40:19"}
+{"Hospital":"Augusta University Medical Center","County":"Richmond","Nedocs":"Busy","Status":"ICU\/CCU Diversion  ICU\/CCU unable to accept incoming ambulance traffic  Medical Diversion  Medical unable to accept incoming ambulance traffic","Updated":"02\/14\/2021 13:27:11"}
+{"Hospital":"St. Marys Hospital","County":"Clarke","Nedocs":"Normal","Status":"ICU\/CCU Diversion  ICU\/CCU unable to accept incoming ambulance traffic","Updated":"02\/14\/2021 13:21:30"}
+{"Hospital":"Emory - Johns Creek Hospital","County":"Fulton","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 13:06:17"}
+{"Hospital":"University Hospital","County":"Richmond","Nedocs":"Severe","Status":"ER Diversion  ER unable to accept incoming ambulance traffic  Psych Diversion  Psych unable to accept incoming ambulance traffic  Total Diversion  Cannot accept EMS patients at this time","Updated":"02\/14\/2021 12:37:36"}
+{"Hospital":"Coliseum Northside Hospital","County":"Bibb","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 12:06:59"}
+{"Hospital":"Coliseum Medical Center","County":"Bibb","Nedocs":"Overcrowded","Status":"ER Saturation  ER nearing capacity  ICU\/CCU Diversion  ICU\/CCU unable to accept incoming ambulance traffic  Medical Diversion  Medical unable to accept incoming ambulance traffic","Updated":"02\/14\/2021 12:06:27"}
+{"Hospital":"Miller County Hospital","County":"Miller","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 11:55:18"}
+{"Hospital":"East Georgia Regional Medical Center","County":"Bulloch","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 10:45:33"}
+{"Hospital":"Piedmont - Newton Hospital","County":"Newton","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 10:39:48"}
+{"Hospital":"Navicent Health Baldwin","County":"Baldwin","Nedocs":"Normal","Status":"ICU\/CCU Diversion  ICU\/CCU unable to accept incoming ambulance traffic  Medical Diversion  Medical unable to accept incoming ambulance traffic","Updated":"02\/14\/2021 10:22:40"}
+{"Hospital":"Piedmont Rockdale","County":"Rockdale","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 10:06:38"}
+{"Hospital":"Emanuel Medical Center","County":"Emanuel","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 09:04:55"}
+{"Hospital":"St. Marys Sacred Heart Hospital","County":"Franklin","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 09:00:38"}
+{"Hospital":"Taylor Regional Hospital","County":"Pulaski","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 08:53:01"}
+{"Hospital":"Dorminy Medical Center","County":"Ben Hill","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 08:51:28"}
+{"Hospital":"Doctors Hospital","County":"Richmond","Nedocs":"Normal","Status":"Medical Diversion  Medical unable to accept incoming ambulance traffic","Updated":"02\/14\/2021 08:50:54"}
+{"Hospital":"Wayne Memorial Hospital","County":"Wayne","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 08:44:35"}
+{"Hospital":"Medical Center of Peach County","County":"Peach","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 08:09:41"}
+{"Hospital":"Medical Center, Navicent Health","County":"Bibb","Nedocs":"Severe","Status":"ICU\/CCU Diversion  ICU\/CCU unable to accept incoming ambulance traffic  NICU Diversion  NICU unable to accept incoming ambulance traffic","Updated":"02\/14\/2021 07:27:52"}
+{"Hospital":"Optim Medical Tattnall","County":"Tattnall","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 07:18:15"}
+{"Hospital":"University Hospital-Summerville","County":"Richmond","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 07:16:06"}
+{"Hospital":"Crisp Regional Hospital","County":"Crisp","Nedocs":"Normal","Status":"ICU\/CCU Diversion  ICU\/CCU unable to accept incoming ambulance traffic","Updated":"02\/14\/2021 07:16:00"}
+{"Hospital":"Upson Regional Medical Center","County":"Upson","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 06:44:42"}
+{"Hospital":"Wellstar Paulding Hospital","County":"Paulding","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 06:27:39"}
+{"Hospital":"WellStar West Georgia Medical Center","County":"Troup","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 05:55:10"}
+{"Hospital":"Tanner Medical Center Carrollton","County":"Carroll","Nedocs":"Severe","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 05:42:47"}
+{"Hospital":"Tanner Medical Center Villa Rica","County":"Carroll","Nedocs":"Severe","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 05:41:08"}
+{"Hospital":"Tift Regional Medical Center","County":"Tift","Nedocs":"Overcrowded","Status":"ICU\/CCU Diversion  ICU\/CCU unable to accept incoming ambulance traffic  ICU\/CCU Saturation  ICU nearing capacity","Updated":"02\/14\/2021 05:18:27"}
+{"Hospital":"Phoebe Sumter Medical Center","County":"Sumter","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 05:09:51"}
+{"Hospital":"HCC-C Tanner Higgins","County":"Haralson","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/14\/2021 04:31:28"}
+{"Hospital":"Northside - Gwinnett","County":"Gwinnett","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/13\/2021 22:05:57"}
+{"Hospital":"Elbert Memorial Hospital","County":"Elbert","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/13\/2021 19:34:13"}
+{"Hospital":"Jenkins County Medical Center","County":"Jenkins","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/13\/2021 06:44:58"}
+{"Hospital":"Phoebe Putney Memorial Hospital","County":"Dougherty","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/13\/2021 06:41:42"}
+{"Hospital":"NGMC Lumpkin","County":"Lumpkin","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/13\/2021 06:14:00"}
+{"Hospital":"NGMC Barrow","County":"Barrow","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/13\/2021 06:13:32"}
+{"Hospital":"NGMC Braselton","County":"Hall","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/13\/2021 06:13:01"}
+{"Hospital":"NGMC Gainesville RCH","County":"Hall","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/13\/2021 06:11:49"}
+{"Hospital":"Northside - Duluth Hospital","County":"Gwinnett","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/12\/2021 21:28:25"}
+{"Hospital":"Effingham Health System","County":"Effingham","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/12\/2021 09:53:49"}
+{"Hospital":"Fannin Regional","County":"Fannin","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/12\/2021 08:05:54"}
+{"Hospital":"Floyd Medical Center","County":"Floyd","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/12\/2021 07:37:44"}
+{"Hospital":"Perry Hospital","County":"Houston","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/12\/2021 06:19:35"}
+{"Hospital":"Evans Memorial Hospital","County":"Evans","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/11\/2021 21:56:22"}
+{"Hospital":"Colquitt Regional Regional Medical Center","County":"Colquitt","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/11\/2021 18:03:19"}
+{"Hospital":"Piedmont Mountainside","County":"Pickens","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/11\/2021 10:38:17"}
+{"Hospital":"Memorial Satilla Health","County":"Ware","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/10\/2021 09:57:24"}
+{"Hospital":"Jasper Memorial Hospital","County":"Jasper","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/10\/2021 08:16:14"}
+{"Hospital":"Memorial Health University Medical Center","County":"Chatham","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/10\/2021 07:39:37"}
+{"Hospital":"Coffee Regional Medical Center","County":"Coffee","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/09\/2021 14:32:15"}
+{"Hospital":"Bacon County Hospital","County":"Bacon","Nedocs":"Severe","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/08\/2021 18:56:33"}
+{"Hospital":"Meadows Regional Medical Center","County":"Toombs","Nedocs":"Overcrowded","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/08\/2021 14:54:03"}
+{"Hospital":"Liberty Regional Medical Center","County":"Liberty","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/08\/2021 13:47:08"}
+{"Hospital":"Putnam General Hospital","County":"Putnam","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/08\/2021 10:34:07"}
+{"Hospital":"Piedmont Walton Hospital","County":"Walton","Nedocs":"Severe","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/07\/2021 15:22:54"}
+{"Hospital":"Advent Health Gordon","County":"Gordon","Nedocs":"Severe","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/06\/2021 10:37:52"}
+{"Hospital":"Advent Health Murray","County":"Murray","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/05\/2021 12:33:49"}
+{"Hospital":"St. Marys Good Samaritan Hospital","County":"Greene","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"02\/03\/2021 15:52:56"}
+{"Hospital":"Clinch Memorial Hospital","County":"Clinch","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"01\/31\/2021 08:29:33"}
+{"Hospital":"Redmond Regional Medical Ctr","County":"Floyd","Nedocs":"Severe","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"01\/27\/2021 14:00:49"}
+{"Hospital":"St. Joseph's Hospital","County":"Chatham","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"01\/11\/2021 20:32:25"}
+{"Hospital":"Morgan Medical Center","County":"Morgan","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"01\/11\/2021 09:53:08"}
+{"Hospital":"Monroe County Hospital","County":"Monroe","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"01\/01\/2021 07:30:39"}
+{"Hospital":"Mountain Lakes Medical Center","County":"Rabun","Nedocs":"Overcrowded","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"12\/31\/2020 22:04:40"}
+{"Hospital":"Flint River Hospital","County":"Macon","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"12\/31\/2020 14:35:13"}
+{"Hospital":"Stephens County Hospital","County":"Stephens","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"12\/16\/2020 17:16:44"}
+{"Hospital":"Southeast Georgia Health System St Marys","County":"Camden","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"12\/14\/2020 09:40:26"}
+{"Hospital":"Southeast Georgia Health System Brunswick","County":"Glynn","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"12\/14\/2020 09:38:11"}
+{"Hospital":"University Hospital-McDuffie","County":"McDuffie","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"12\/09\/2020 09:35:34"}
 {"Hospital":"Hamilton Medical Center","County":"Whitfield","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/12\/2020 13:18:15"}
-{"Hospital":"East Georgia Regional Medical Center","County":"Bulloch","Nedocs":"Busy","Status":"Total Diversion  Cannot accept EMS patients at this time","Updated":"11\/11\/2020 09:07:29"}
-{"Hospital":"Bacon County Hospital","County":"Bacon","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/05\/2020 09:01:24"}
 {"Hospital":"Optim Medical Screven","County":"Screven","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/02\/2020 08:40:44"}
-{"Hospital":"Memorial Satilla Health","County":"Ware","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"11\/02\/2020 06:59:19"}
-{"Hospital":"Polk Medical Center","County":"Polk","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"10\/28\/2020 09:54:24"}
-{"Hospital":"Floyd Medical Center","County":"Floyd","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"10\/27\/2020 09:27:04"}
 {"Hospital":"Charlie Norwood VA Medical Center","County":"Richmond","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"10\/20\/2020 08:35:43"}
 {"Hospital":"Grady General Hospital","County":"Grady","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"10\/17\/2020 10:26:06"}
-{"Hospital":"Meadows Regional Medical Center","County":"Toombs","Nedocs":"Overcrowded","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"10\/15\/2020 21:07:26"}
-{"Hospital":"Appling Healthcare","County":"Appling","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"10\/08\/2020 15:53:58"}
-{"Hospital":"Monroe County Hospital","County":"Monroe","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"09\/18\/2020 10:14:28"}
-{"Hospital":"Putnam General Hospital","County":"Putnam","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"09\/03\/2020 00:30:04"}
-{"Hospital":"Memorial Health University Medical Center","County":"Chatham","Nedocs":"Normal","Status":"ICU\/CCU Diversion  ICU\/CCU unable to accept incoming ambulance traffic","Updated":"08\/26\/2020 10:10:15"}
-{"Hospital":"Stephens County Hospital","County":"Stephens","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"08\/25\/2020 17:48:52"}
-{"Hospital":"Advent Health Murray","County":"Murray","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"08\/25\/2020 09:51:35"}
 {"Hospital":"Habersham Medical Center","County":"Habersham","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"08\/24\/2020 09:33:50"}
-{"Hospital":"Southeast Georgia Health System Brunswick","County":"Glynn","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"08\/24\/2020 09:06:28"}
-{"Hospital":"Southeast Georgia Health System St Marys","County":"Camden","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"08\/24\/2020 09:05:56"}
-{"Hospital":"Piedmont Walton Hospital","County":"Walton","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"08\/24\/2020 07:30:26"}
 {"Hospital":"South Georgia Medical Center","County":"Lowndes","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"08\/23\/2020 21:06:51"}
-{"Hospital":"Tift Regional Medical Center","County":"Tift","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"08\/20\/2020 07:40:32"}
-{"Hospital":"Doctors Hospital","County":"Richmond","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"08\/19\/2020 10:35:52"}
-{"Hospital":"Cartersville Medical Ctr","County":"Bartow","Nedocs":"Busy","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"08\/09\/2020 14:49:28"}
 {"Hospital":"Bleckley Memorial Hospital","County":"Bleckley","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"08\/06\/2020 08:03:01"}
 {"Hospital":"Southwell Medical","County":"Cook","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"07\/10\/2020 14:32:29"}
 {"Hospital":"SGMC Lanier Campus","County":"Lanier","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"07\/10\/2020 14:31:23"}
@@ -122,7 +126,6 @@
 {"Hospital":"Lifebrite Community Hospital of Early","County":"Early","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"07\/10\/2020 14:20:26"}
 {"Hospital":"Donalsonville Hospital","County":"Seminole","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"07\/10\/2020 14:18:44"}
 {"Hospital":"Brooks County Hospital","County":"Brooks","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"07\/10\/2020 14:17:35"}
-{"Hospital":"St. Joseph's Hospital","County":"Chatham","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"07\/10\/2020 14:13:07"}
 {"Hospital":"St. Joseph's Candler Hospital","County":"Chatham","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"07\/10\/2020 14:12:27"}
 {"Hospital":"Fort Stewart Winn Army","County":"Liberty","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"07\/10\/2020 14:06:13"}
 {"Hospital":"Candler County Hospital - Metter","County":"Candler","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"07\/10\/2020 14:03:03"}
@@ -133,11 +136,8 @@
 {"Hospital":"Jefferson Hospital","County":"Jefferson","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"07\/10\/2020 13:16:17"}
 {"Hospital":"Regency Hospital of Central Georgia","County":"Macon","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"07\/10\/2020 13:09:48"}
 {"Hospital":"Northridge Medical Center","County":"Jackson","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"07\/10\/2020 12:56:27"}
-{"Hospital":"Morgan Medical Center","County":"Morgan","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"07\/10\/2020 12:55:17"}
 {"Hospital":"Emory University Orthopaedics and Spine Hospital","County":"DeKalb","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"07\/10\/2020 12:28:05"}
 {"Hospital":"GWCC ACF","County":"Fulton","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"07\/10\/2020 12:27:17"}
-{"Hospital":"Redmond Regional Medical Ctr","County":"Floyd","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"07\/10\/2020 12:12:52"}
 {"Hospital":"Union General Hospital","County":"Union","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"07\/10\/2020 10:47:36"}
 {"Hospital":"Chatuge Regional Hospital","County":"Towns","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"07\/10\/2020 10:40:17"}
-{"Hospital":"Advent Health Gordon","County":"Gordon","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"07\/10\/2020 10:30:12"}
 {"Hospital":"CHI Memorial GA","County":"Catoosa","Nedocs":"Normal","Status":"Normal  Open to accept incoming ambulance traffic","Updated":"07\/10\/2020 10:23:36"}

@@ -38,7 +38,8 @@ h_types = {'Adult Trauma Centers': ['Level I', 'Level II', 'Level III', 'Level I
          'Pediatric Trauma Centers': ['Pediatric Level I', 'Pediatric Level II'],
          'Stroke Centers': ['Comprehensive Stroke Center', 'Thrombectomy Capable Stroke Center', 'Primary Stroke Center', 'Remote Treatment Stroke Center'],
          'Emergency Cardiac Care Center': ['Level I ECCC', 'Level II ECCC', 'Level III ECCC'],
-         'Neonatal Center Designation': ['Level I Neonatal Center', 'Level II Neonatal Center', 'Level III Neonatal Center']}
+         'Neonatal Center Designation': ['Level I Neonatal Center', 'Level II Neonatal Center', 'Level III Neonatal Center'],
+         'Maternal Center Designation': ['Level I Maternal Center', 'Level II Maternal Center', 'Level III Maternal Center']}
 
 for h_type in h_types:
     for spec in h_types[h_type]:
@@ -51,6 +52,23 @@ for h_type in h_types:
             df.loc[df['Hospital'] == h, (str(h_type) + "-" + str(spec))] = True
         if (str(h_type) + "-" + str(spec)) in df.columns:
             df[(str(h_type) + "-" + str(spec))] = df[(str(h_type) + "-" + str(spec))].fillna(value=False)
+
+# max_spec = 0
+# max_name = "Test"
+# for row in df[1:]:
+#     curr = 0
+#     for col in df.columns[3:]:
+#         curr = curr + 1 if df[row, col] else curr
+#     if curr > max_spec:
+#         max_spec = curr
+#         max_name = df[row, "Hospital"]
+
+# print("max specialties: " + str(max_spec))
+# print("name: " + str(max_name))
+
+# names = pandas.DataFrame(df['Hospital'])
+# names.to_csv("HospitalInfo.csv")
+
 
 
 df.to_json("extra.json", orient='records', lines=True)
