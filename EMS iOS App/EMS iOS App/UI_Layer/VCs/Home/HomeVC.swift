@@ -12,6 +12,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
     
     @IBOutlet var tableView: UITableView!
     var hospitals: Array<HospitalIH>!
+    var pinnedList: Array<HospitalIH>!
     var favoritePinTapped = false
     var thereIsCellTapped = false
     var selectedRowIndex = -1
@@ -20,6 +21,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         super.viewDidLoad()
         self.navigationController?.navigationBar.barStyle = UIBarStyle.black
         self.hospitals = Array<HospitalIH>()
+        self.pinnedList = Array<HospitalIH>()
         self.tableView.delegate = self
         self.tableView.dataSource = self
         let tasker = HospitalsTasker()
@@ -223,16 +225,54 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         guard let cell = sender.superview?.superview as? HomeTableViewCell else {
             return
         }
+
+        guard let indexPath = tableView.indexPath(for: cell) else {
+            return
+        }
         
-        if (!favoritePinTapped) {
+        guard var newIndexPath = tableView.indexPath(for: cell) else {
+            return
+        }
+        if (pinnedList.isEmpty) {
+            newIndexPath = IndexPath(item: 0, section: 0)
+        } else {
+            newIndexPath = IndexPath(item: pinnedList.count, section: 0)
+        }
+            
+        let pinnedHospital = self.hospitals[indexPath.row]
+        print("PINNED HOSPITAL ",pinnedHospital.name)
+        //pinnedList.append(pinnedHospital)
+        
+        
+        
+        //print(pinnedList)
+        
+        if (!pinnedList.contains(pinnedHospital)) {
+            //!favoritePinTapped) {
             let myImage = UIImage(named: "FilledFavoritePin")
             cell.favoritePin.setImage(myImage, for: .normal)
             self.favoritePinTapped = true
+            self.pinnedList.append(pinnedHospital)
+            self.hospitals.remove(at:indexPath.row)
+            self.hospitals.insert(pinnedHospital, at:0)
+            self.tableView.moveRow(at: indexPath, to: IndexPath(item: 0, section: 0))
+            //let hospital = hospitals.remove(at:indexPath.row)
+            //hospitals.insert(hospital, at: 0)
         } else {
             let myImage = UIImage(named: "OutlineFavoritePin")
             cell.favoritePin.setImage(myImage, for: .normal)
             self.favoritePinTapped = false
+            guard let pinIndex = pinnedList.firstIndex(of:pinnedHospital) else {
+                return
+            }
+            pinnedList.remove(at:pinIndex)
+            self.hospitals.remove(at:indexPath.row)
+            self.hospitals.insert(pinnedHospital, at: pinnedList.count + 1)
+            self.tableView.moveRow(at: indexPath, to: newIndexPath)
         }
+        //print("PINNED HOSPTAL ",pinnedList.enumerated())
+        self.tableView.beginUpdates()
+        self.tableView.endUpdates()
     }
     
 }
