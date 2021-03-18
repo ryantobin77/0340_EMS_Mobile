@@ -30,6 +30,7 @@ import java.util.List;
 class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewHolder> {
 
     private List<Hospital> mHospitalList;
+    private List<Hospital> mPinnedList;
     private Context mContext;
 
     /**
@@ -39,6 +40,7 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
      */
     public HospitalListAdapter(List<Hospital> hospitalList, Context context) {
         mHospitalList = hospitalList;
+        mPinnedList = new ArrayList<Hospital>();
         mContext = context;
     }
 
@@ -256,18 +258,33 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
         else
             holder.mFavoriteView.setImageDrawable(ResourcesCompat.getDrawable(mContext.getResources(), R.drawable.outlined_favorite_pin, null));
 
+        int position = mHospitalList.indexOf(hospital);
         holder.mFavoriteView.setOnClickListener(view -> {
+            int pos = mHospitalList.indexOf(hospital);
 
             boolean favorite = hospital.isFavorite();
 
             hospital.setFavorite(!favorite);
 
-            if (hospital.isFavorite())
+            if (hospital.isFavorite()) {
                 holder.mFavoriteView.setImageDrawable(ResourcesCompat.getDrawable(mContext.getResources(), R.drawable.filled_favorite_pin, null));
-            else
-                holder.mFavoriteView.setImageDrawable(ResourcesCompat.getDrawable(mContext.getResources(), R.drawable.outlined_favorite_pin, null));
+                mPinnedList.add(hospital);
+                mHospitalList.remove(hospital);
+                mHospitalList.add(0, hospital);
+                notifyItemMoved(pos, 0);
+                //swapItem(pos, 0);
 
+            } else {
+                holder.mFavoriteView.setImageDrawable(ResourcesCompat.getDrawable(mContext.getResources(), R.drawable.outlined_favorite_pin, null));
+                mPinnedList.remove(hospital);
+                mHospitalList.remove(hospital);
+                mHospitalList.add(mPinnedList.size()+1, hospital);
+                notifyItemMoved(0, mPinnedList.size()+1);
+                //swapItem(pos, mPinnedList.size()+1);
+
+            }
         });
+
     }
 
     /**

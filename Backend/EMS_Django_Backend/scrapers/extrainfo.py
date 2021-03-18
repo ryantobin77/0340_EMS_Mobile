@@ -3,6 +3,8 @@ import pandas
 import requests
 import json
 
+from geopy.geocoders import Nominatim
+
 regionurl1 = "https://georgiarcc.org/?county=&region="
 regionurl2 = "&regional_coordinating_hospital=&search_by_type=&search-by-hospital=&search="
 df = pandas.DataFrame()
@@ -72,6 +74,24 @@ p_a = pandas.read_csv("HospitalInfo.csv")
 p_a = p_a.drop(p_a.columns[0],axis=1)
 p_a['Street'], p_a['City'], p_a['StateZip'] = p_a['Address'].str.split(',', 2).str
 p_a['Zip'] = p_a['StateZip'].str[3:]
+
+#======insert code for lat and long here
+geolocator = Nominatim(user_agent="EMS_Mobile_App")
+latitudes = []
+longitudes = []
+for e in p_a['Address']:
+    try:
+        location = geolocator.geocode(e)
+        latitudes.append(location.latitude)
+        longitudes.append(location.longitude)
+    except:
+        latitudes.append(None)
+        longitudes.append(None)
+p_a['Latitude'] = latitudes
+p_a['Longitude'] = longitudes
+#=======================================
+
+
 p_a = p_a.drop(columns=['Address', 'StateZip'])
 p_a = p_a.drop(72)
 p_a.to_json("HospitalStaticInfo.json", orient='records', lines=True)
