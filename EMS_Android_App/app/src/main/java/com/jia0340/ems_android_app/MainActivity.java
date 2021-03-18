@@ -137,7 +137,23 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<List<Hospital>> call, Response<List<Hospital>> response) {
                 // Save the returned list
                 mHospitalList = (ArrayList<Hospital>) response.body();
+                // Retrieve pinned hospitals in new list
+                List<Hospital> pinnedList = new ArrayList<>();
+                for (Hospital pinned : mHospitalAdapter.getPinnedList()) {
+                    for (Hospital h : mHospitalList) {
+                        if (h.getName().equals(pinned.getName())) {
+                            pinnedList.add(h);
+                        }
+                    }
+                }
+                // Repin hospitals
+                for (Hospital pinned : pinnedList) {
+                    mHospitalList.remove(pinned);
+                    pinned.setFavorite(true);
+                    mHospitalList.add(0, pinned);
+                }
                 // Now we can update the recyclerView
+                mHospitalAdapter.setHospitalList(mHospitalList);
                 mHospitalAdapter.notifyDataSetChanged();
                 // Notify the swipe refresher that the data is done refreshing
                 mSwipeContainer.setRefreshing(false);

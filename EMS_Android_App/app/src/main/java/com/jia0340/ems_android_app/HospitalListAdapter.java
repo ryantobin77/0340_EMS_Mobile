@@ -45,6 +45,24 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
     }
 
     /**
+     * Getter for mPinnedList.
+     *
+     * @return the list of pinned Hospitals
+     */
+    public List<Hospital> getPinnedList() {
+        return mPinnedList;
+    }
+
+    /**
+     * Setter for mHospitalList.
+     *
+     * @param mHospitalList the new hospital list
+     */
+    public void setHospitalList(List<Hospital> mHospitalList) {
+        this.mHospitalList = mHospitalList;
+    }
+
+    /**
      * Creates the view for a specific hospital and stores it within a viewHolder
      *
      * @param parent Parent view to the individual item
@@ -278,8 +296,8 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
                 holder.mFavoriteView.setImageDrawable(ResourcesCompat.getDrawable(mContext.getResources(), R.drawable.outlined_favorite_pin, null));
                 mPinnedList.remove(hospital);
                 mHospitalList.remove(hospital);
-                mHospitalList.add(mPinnedList.size()+1, hospital);
-                notifyItemMoved(0, mPinnedList.size()+1);
+                mHospitalList.add(mPinnedList.size(), hospital);
+                notifyItemMoved(0, mPinnedList.size());
                 //swapItem(pos, mPinnedList.size()+1);
 
             }
