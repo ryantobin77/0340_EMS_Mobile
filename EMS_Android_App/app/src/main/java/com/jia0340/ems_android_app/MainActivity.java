@@ -152,6 +152,8 @@ public class MainActivity extends AppCompatActivity {
                     pinned.setFavorite(true);
                     mHospitalList.add(0, pinned);
                 }
+                // Reassign the pinned list
+                mHospitalAdapter.setPinnedList(pinnedList);
                 // Now we can update the recyclerView
                 mHospitalAdapter.setHospitalList(mHospitalList);
                 mHospitalAdapter.notifyDataSetChanged();

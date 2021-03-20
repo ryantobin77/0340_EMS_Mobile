@@ -13,7 +13,6 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
     @IBOutlet var tableView: UITableView!
     var hospitals: Array<HospitalIH>!
     var pinnedList: Array<HospitalIH>!
-    var favoritePinTapped = false
     var thereIsCellTapped = false
     var selectedRowIndex = -1
     
@@ -39,13 +38,33 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         tasker.getAllHospitals(failure: {
             print("Failure")
         }, success: { (hospitals) in
-            guard let hospitals = hospitals else {
+            guard var hospitals = hospitals else {
                 self.hospitals = Array<HospitalIH>()
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
                 return
             }
+            // Retrieve pinned hospitals in new list
+            var newPinned = [HospitalIH]();
+            for pinned in self.pinnedList {
+                for hospital in hospitals {
+                    if (hospital.name == pinned.name) {
+                        newPinned.append(hospital);
+                    }
+                }
+            }
+            // Repin hospitals
+            for pinned in newPinned {
+                if let index = hospitals.firstIndex(of: pinned) {
+                    hospitals.remove(at: index);
+                }
+                hospitals.insert(pinned, at: 0);
+                pinned.isFavorite = true
+            }
+            // Reassign the pinned list
+            self.pinnedList = newPinned
+            
             self.hospitals = hospitals
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -67,6 +86,11 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         let hospital = self.hospitals[indexPath.row]
         
         cell.hospitalName.text = hospital.name
+        if (hospital.isFavorite) {
+            cell.favoritePin.setImage(UIImage(named: "FilledFavoritePin"), for: .normal)
+        } else {
+            cell.favoritePin.setImage(UIImage(named: "OutlineFavoritePin"), for: .normal)
+        }
         cell.nedocsView.layer.cornerRadius = 5.0
         cell.nedocsView.backgroundColor = hospital.nedocsScore.getNedocsColor()
         cell.nedocsLabel.text = hospital.nedocsScore.rawValue
@@ -256,7 +280,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         }
             
         let pinnedHospital = self.hospitals[indexPath.row]
-        print("PINNED HOSPITAL ",pinnedHospital.name)
+        //print("PINNED HOSPITAL ",pinnedHospital.name)
         //pinnedList.append(pinnedHospital)
         
         
@@ -267,17 +291,16 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
             //!favoritePinTapped) {
             let myImage = UIImage(named: "FilledFavoritePin")
             cell.favoritePin.setImage(myImage, for: .normal)
-            self.favoritePinTapped = true
             self.pinnedList.append(pinnedHospital)
             self.hospitals.remove(at:indexPath.row)
             self.hospitals.insert(pinnedHospital, at:0)
             self.tableView.moveRow(at: indexPath, to: IndexPath(item: 0, section: 0))
+            pinnedHospital.isFavorite = true
             //let hospital = hospitals.remove(at:indexPath.row)
             //hospitals.insert(hospital, at: 0)
         } else {
             let myImage = UIImage(named: "OutlineFavoritePin")
             cell.favoritePin.setImage(myImage, for: .normal)
-            self.favoritePinTapped = false
             guard let pinIndex = pinnedList.firstIndex(of:pinnedHospital) else {
                 return
             }
@@ -285,6 +308,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
             self.hospitals.remove(at:indexPath.row)
             self.hospitals.insert(pinnedHospital, at: pinnedList.count + 1)
             self.tableView.moveRow(at: indexPath, to: newIndexPath)
+            pinnedHospital.isFavorite = false
         }
         //print("PINNED HOSPTAL ",pinnedList.enumerated())
         self.tableView.beginUpdates()

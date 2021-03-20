@@ -63,6 +63,15 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
     }
 
     /**
+     * Setter for mPinnedList.
+     *
+     * @param mPinnedList
+     */
+    public void setPinnedList(List<Hospital> mPinnedList) {
+        this.mPinnedList = mPinnedList;
+    }
+
+    /**
      * Creates the view for a specific hospital and stores it within a viewHolder
      *
      * @param parent Parent view to the individual item
