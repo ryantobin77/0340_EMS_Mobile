@@ -76,10 +76,11 @@ class HospitalIH: NSObject {
                 }
             }
             let address = street + ", " + city + ", " + state + " " + zip
-            let lat: Double = 33.774760
-            let long: Double = -84.388860
+            let latStr = hospital["lat"] as! String
+            let longStr = hospital["long"] as! String
+            let lat: Double = (latStr as NSString).doubleValue
+            let long: Double = (longStr as NSString).doubleValue
             
-            // Hardcoded: lat, long
             let hosp = HospitalIH(name: name, nedocsScore: NedocsScore(rawValue: nedocsScore)!, specialtyCenters: centers, distance: -1.0, lat: lat, long: long, hasDiversion: (diversions.count > 0 && diversions[0] != "Normal"), diversions: diversions, address: address, phoneNumber: phone, regionNumber: emsRegion, county: county_val, rch: rch_value)
             result.append(hosp)
         }

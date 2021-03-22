@@ -23,9 +23,6 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         self.tableView.dataSource = self
         self.pinnedList = Array<HospitalIH>()
         
-        // initial load of data
-        //buildHospitalList()
-        
         // swipe to refresh data
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(buildHospitalList), for: .valueChanged)
@@ -37,42 +34,47 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         tasker.getAllHospitals(failure: {
             print("Failure")
         }, success: { (hospitals) in
-            guard var hospitals = hospitals else {
+            guard let hospitals = hospitals else {
                 self.hospitals = Array<HospitalIH>()
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
                 return
             }
-            // Retrieve pinned hospitals in new list
-            var newPinned = [HospitalIH]();
-            for pinned in self.pinnedList {
-                for hospital in hospitals {
-                    if (hospital.name == pinned.name) {
-                        newPinned.append(hospital);
+            
+            tasker.getHospitalDistances(hospitals: hospitals, finished: { (hospitals) in
+                guard var hospitals = hospitals else {
+                    self.hospitals = Array<HospitalIH>()
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                        self.tableView.refreshControl?.endRefreshing()
+                    }
+                    return
+                }
+                // Retrieve pinned hospitals in new list
+                var newPinned = [HospitalIH]()
+                for pinned in self.pinnedList {
+                    for hospital in hospitals {
+                        if (hospital.name == pinned.name) {
+                            newPinned.append(hospital)
+                        }
                     }
                 }
-            }
-            // Repin hospitals
-            for pinned in newPinned {
-                if let index = hospitals.firstIndex(of: pinned) {
-                    hospitals.remove(at: index);
+                // Repin hospitals
+                for pinned in newPinned {
+                    if let index = hospitals.firstIndex(of: pinned) {
+                        hospitals.remove(at: index)
+                    }
+                    hospitals.insert(pinned, at: 0)
+                    pinned.isFavorite = true
                 }
-                hospitals.insert(pinned, at: 0);
-                pinned.isFavorite = true
-            }
-            // Reassign the pinned list
-            self.pinnedList = newPinned
-            
-            self.hospitals = hospitals
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-            
-            // Dismiss the refresh control
-            DispatchQueue.main.async {
-                self.tableView.refreshControl?.endRefreshing()
-            }
+                self.pinnedList = newPinned
+                self.hospitals = hospitals
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                    self.tableView.refreshControl?.endRefreshing()
+                }
+            })
         })
     }
     
