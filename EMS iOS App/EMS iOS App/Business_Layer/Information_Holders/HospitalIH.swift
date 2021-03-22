@@ -24,6 +24,8 @@ class HospitalIH: NSObject {
     var county: String!
     var rch: String! //Regional Coordinating Hospital
     
+    var isFavorite = false
+    
 
     init(name: String, nedocsScore: NedocsScore, specialtyCenters: [HospitalType], distance: Double, lat: Double, long: Double, hasDiversion: Bool, diversions: [String], address: String, phoneNumber: String, regionNumber: String, county: String, rch: String) {
         self.name = name

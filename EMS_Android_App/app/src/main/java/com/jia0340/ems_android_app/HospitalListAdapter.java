@@ -30,6 +30,7 @@ import java.util.List;
 class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewHolder> {
 
     private List<Hospital> mHospitalList;
+    private List<Hospital> mPinnedList;
     private Context mContext;
 
     /**
@@ -39,7 +40,35 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
      */
     public HospitalListAdapter(List<Hospital> hospitalList, Context context) {
         mHospitalList = hospitalList;
+        mPinnedList = new ArrayList<Hospital>();
         mContext = context;
+    }
+
+    /**
+     * Getter for mPinnedList.
+     *
+     * @return the list of pinned Hospitals
+     */
+    public List<Hospital> getPinnedList() {
+        return mPinnedList;
+    }
+
+    /**
+     * Setter for mHospitalList.
+     *
+     * @param mHospitalList the new hospital list
+     */
+    public void setHospitalList(List<Hospital> mHospitalList) {
+        this.mHospitalList = mHospitalList;
+    }
+
+    /**
+     * Setter for mPinnedList.
+     *
+     * @param mPinnedList
+     */
+    public void setPinnedList(List<Hospital> mPinnedList) {
+        this.mPinnedList = mPinnedList;
     }
 
     /**
@@ -90,7 +119,7 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
 
         handleFavoritePin(holder, hospital);
 
-        handleExpandCollapse(holder, hospital, position);
+        handleExpandCollapse(holder, hospital);
     }
 
     /**
@@ -256,18 +285,33 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
         else
             holder.mFavoriteView.setImageDrawable(ResourcesCompat.getDrawable(mContext.getResources(), R.drawable.outlined_favorite_pin, null));
 
+        int position = mHospitalList.indexOf(hospital);
         holder.mFavoriteView.setOnClickListener(view -> {
+            int pos = mHospitalList.indexOf(hospital);
 
             boolean favorite = hospital.isFavorite();
 
             hospital.setFavorite(!favorite);
 
-            if (hospital.isFavorite())
+            if (hospital.isFavorite()) {
                 holder.mFavoriteView.setImageDrawable(ResourcesCompat.getDrawable(mContext.getResources(), R.drawable.filled_favorite_pin, null));
-            else
-                holder.mFavoriteView.setImageDrawable(ResourcesCompat.getDrawable(mContext.getResources(), R.drawable.outlined_favorite_pin, null));
+                mPinnedList.add(hospital);
+                mHospitalList.remove(hospital);
+                mHospitalList.add(0, hospital);
+                notifyItemMoved(pos, 0);
+                //swapItem(pos, 0);
 
+            } else {
+                holder.mFavoriteView.setImageDrawable(ResourcesCompat.getDrawable(mContext.getResources(), R.drawable.outlined_favorite_pin, null));
+                mPinnedList.remove(hospital);
+                mHospitalList.remove(hospital);
+                mHospitalList.add(mPinnedList.size(), hospital);
+                notifyItemMoved(0, mPinnedList.size());
+                //swapItem(pos, mPinnedList.size()+1);
+
+            }
         });
+
     }
 
     /**
@@ -275,23 +319,28 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
      * Set onClickListeners for the expand/collapse buttons to handle UI changes
      * @param holder
      * @param hospital
-     * @param position
      */
-    public void handleExpandCollapse(ViewHolder holder, Hospital hospital, int position) {
+    public void handleExpandCollapse(ViewHolder holder, Hospital hospital) {
         holder.mExpandButton.setVisibility(hospital.isExpanded() ? View.GONE : View.VISIBLE);
         holder.mExpandedHospitalCard.setVisibility(hospital.isExpanded() ? View.VISIBLE : View.GONE);
 
         holder.mExpandButton.setOnClickListener(view -> {
 
-            hospital.setExpanded(true);
-            notifyItemChanged(position);
+            int pos = mHospitalList.indexOf(hospital);
+            Hospital hos = mHospitalList.get(pos);
+            if(pos!=-1){
+                hos.setExpanded(true);
+                notifyItemChanged(pos);
+            }
+
 
         });
 
         holder.mCollapseButton.setOnClickListener(view -> {
-
-            hospital.setExpanded(false);
-            notifyItemChanged(position);
+            int pos = mHospitalList.indexOf(hospital);
+            Hospital hos = mHospitalList.get(pos);
+            hos.setExpanded(false);
+            notifyItemChanged(pos);
 
         });
     }
