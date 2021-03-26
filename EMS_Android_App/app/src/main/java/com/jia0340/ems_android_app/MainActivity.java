@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.jia0340.ems_android_app.models.Hospital;
@@ -118,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(Call<List<Hospital>> call, Throwable t) {
                 // Failed to collect hospital data
                 // TODO: what do we want to happen when it fails?
-                Log.d("MainActiity", t.getMessage());
+                Log.d("MainActivity", t.getMessage());
                 Toast.makeText(MainActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_LONG).show();
             }
         });
@@ -165,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(Call<List<Hospital>> call, Throwable t) {
                 // Failed to collect hospital data
                 // TODO: what do we want to happen when it fails?
-                Log.d("MainActiity", t.getMessage());
+                Log.d("MainActivity", t.getMessage());
                 Toast.makeText(MainActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_LONG).show();
             }
         });
