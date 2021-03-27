@@ -8,9 +8,11 @@
 
 import UIKit
 
-class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
+class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, UISearchBarDelegate {
     
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var searchBar: UISearchBar!
+    @IBOutlet var searchBarHeight : NSLayoutConstraint!
     var hospitals: Array<HospitalIH>!
     var pinnedList: Array<HospitalIH>!
     var thereIsCellTapped = false
@@ -19,6 +21,8 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.barStyle = UIBarStyle.black
+        self.searchBar.isHidden = true
+        self.searchBar.delegate = self
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.pinnedList = Array<HospitalIH>()
@@ -26,6 +30,48 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         // swipe to refresh data
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(buildHospitalList), for: .valueChanged)
+    }
+    
+    func showSearchBar() {
+        self.searchBar.isHidden = false
+        self.searchBarHeight.constant = 56
+        self.searchBar.becomeFirstResponder()
+        UIView.animate(withDuration: 0.25, animations: {
+             self.view.layoutIfNeeded()
+        }, completion: nil)
+    }
+    
+    func hideSearchBar() {
+        self.searchBar.resignFirstResponder()
+        self.searchBarHeight.constant = 0
+        UIView.animate(withDuration: 0.25, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: { _ in
+            self.searchBar.isHidden = true
+        })
+    }
+    
+    @IBAction func searchPressed(_ sender: UIButton) {
+        if self.searchBar.isHidden {
+            self.showSearchBar()
+        } else {
+            self.hideSearchBar()
+        }
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar.text = nil
+        self.hideSearchBar()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar)  {
+        self.hideSearchBar()
+    }
+    
+    // TODO: Filter hospitals based on searchText
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print(searchText)
+        // tableView.reloadData()
     }
 
     // helper method to build Hospital List from data
