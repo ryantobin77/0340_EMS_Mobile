@@ -108,7 +108,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
             self.pinnedList = Array<HospitalIH>()
             for num in 0..<range {
                 print(loadedHospitalList[num].name)
-                let hosp = HospitalIH(name: loadedHospitalList[num].name, nedocsScore: loadedHospitalList[num].nedocsScore, specialtyCenters: loadedHospitalList[num].specialtyCenters, distance: loadedHospitalList[num].distance, hasDiversion: loadedHospitalList[num].hasDiversion, diversions:loadedHospitalList[num].diversions, address: loadedHospitalList[num].address, phoneNumber: loadedHospitalList[num].phoneNumber, regionNumber: loadedHospitalList[num].regionNumber, county: loadedHospitalList[num].county, rch: loadedHospitalList[num].rch)
+                let hosp = HospitalIH(name: loadedHospitalList[num].name, nedocsScore: loadedHospitalList[num].nedocsScore, specialtyCenters: loadedHospitalList[num].specialtyCenters, distance: loadedHospitalList[num].distance, lat: loadedHospitalList[num].lat ?? 0, long: loadedHospitalList[num].long ?? 0, hasDiversion: loadedHospitalList[num].hasDiversion, diversions:loadedHospitalList[num].diversions, address: loadedHospitalList[num].address, phoneNumber: loadedHospitalList[num].phoneNumber, regionNumber: loadedHospitalList[num].regionNumber, county: loadedHospitalList[num].county, rch: loadedHospitalList[num].rch)
                 if (!self.pinnedList.contains(hosp)) {
                     print(self.pinnedList.count)
                     self.pinnedList.append(hosp)
@@ -416,6 +416,8 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
                                  nedocsScore: hos.nedocsScore,
                                  specialtyCenters: hos.specialtyCenters,
                                  distance: hos.distance,
+                                 lat: hos.lat,
+                                 long: hos.long,
                                  hasDiversion: hos.hasDiversion,
                                  diversions:hos.diversions,
                                  address:hos.address,
