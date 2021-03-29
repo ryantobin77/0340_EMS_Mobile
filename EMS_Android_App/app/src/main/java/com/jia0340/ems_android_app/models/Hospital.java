@@ -3,8 +3,12 @@ package com.jia0340.ems_android_app.models;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Class representing a Hospital object.
@@ -48,7 +52,7 @@ public class Hospital {
                     @JsonProperty("ems_region") String region,
                     @JsonProperty("rch") String regionalCoordinatingHospital,
                     @JsonProperty("diversions") ArrayList<String> diversions,
-                    @JsonProperty("last_updated") Date lastUpdated,
+                    @JsonProperty("last_updated") String lastUpdated,
                     @JsonProperty("lat") double latitude,
                     @JsonProperty("long") double longitude) {
 
@@ -64,7 +68,12 @@ public class Hospital {
         mRegion = region;
         mRegionalCoordinatingHospital = regionalCoordinatingHospital;
         mDiversions = diversions;
-        mLastUpdated = lastUpdated;
+        try {
+            DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US);
+            mLastUpdated = dateFormatter.parse(lastUpdated);
+        } catch (ParseException e) {
+            mLastUpdated = new Date();
+        }
         mLatitude = latitude;
         mLongitude = longitude;
 

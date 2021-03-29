@@ -174,7 +174,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
-        dateFormatter.dateFormat = "MM/dd/yyyy HH:mm:ss"
+        dateFormatter.dateFormat = "MM/dd/yyyy h:mm:ss aa"
         let formattedLastUpdated = dateFormatter.string(from: hospital.lastUpdated)
         cell.lastUpdatedLabel.text = "Updated \(String(formattedLastUpdated))"
         
