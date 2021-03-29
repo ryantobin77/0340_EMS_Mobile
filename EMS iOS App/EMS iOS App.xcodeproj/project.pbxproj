@@ -23,6 +23,7 @@
 		94E3B277255A420F0021FCAA /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E3B276255A420F0021FCAA /* HomeTableViewCell.swift */; };
 		94E3B27F255A551E0021FCAA /* HospitalIH.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E3B27E255A551E0021FCAA /* HospitalIH.swift */; };
 		94E3B281255A5A6A0021FCAA /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E3B280255A5A6A0021FCAA /* Utils.swift */; };
+		BE1C5A322611797C00F36ADB /* FilterIH.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1C5A312611797C00F36ADB /* FilterIH.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		94E3B276255A420F0021FCAA /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		94E3B27E255A551E0021FCAA /* HospitalIH.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalIH.swift; sourceTree = "<group>"; };
 		94E3B280255A5A6A0021FCAA /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		BE1C5A312611797C00F36ADB /* FilterIH.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterIH.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,6 +222,7 @@
 			isa = PBXGroup;
 			children = (
 				94E3B27E255A551E0021FCAA /* HospitalIH.swift */,
+				BE1C5A312611797C00F36ADB /* FilterIH.swift */,
 			);
 			path = Information_Holders;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 				94E3B27F255A551E0021FCAA /* HospitalIH.swift in Sources */,
 				94E3B274255A3DF70021FCAA /* HomeVC.swift in Sources */,
 				94CC6AA125E6BD4C00D4294C /* BackendURLs.swift in Sources */,
+				BE1C5A322611797C00F36ADB /* FilterIH.swift in Sources */,
 				94E3B203255A3A200021FCAA /* AppDelegate.swift in Sources */,
 				94E3B281255A5A6A0021FCAA /* Utils.swift in Sources */,
 				94CC6A9F25E6BD3C00D4294C /* Enums.swift in Sources */,
