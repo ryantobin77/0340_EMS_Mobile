@@ -69,6 +69,9 @@ class DistanceController {
                 if (loc != null && !loc.equals(mCurrentLocation)) {
                     mCurrentLocation = loc;
 
+                    Log.d("DistanceController", "Current latitude: " + Double.toString(loc.getLatitude()));
+                    Log.d("DistanceController", "Current longitude: " + Double.toString(loc.getLongitude()));
+
                     mUpdating = true;
 
                     calculateDistances();
@@ -174,7 +177,7 @@ class DistanceController {
 
     private void parseDistances(JsonNode json) {
 
-        Log.d("DistnaceController: ", "Parsing distances from the response");
+        Log.d("DistanceController: ", "Parsing distances from the response");
 
         mDistances = new ArrayList<>();
 

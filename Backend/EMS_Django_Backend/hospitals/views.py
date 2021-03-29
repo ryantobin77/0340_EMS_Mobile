@@ -5,31 +5,36 @@ from . import models
 
 import json
 from .models import Hospital, SpecialtyCenter, Diversion
-#
-# # Create your views here.
+
+from scrapers.gccscraper import run_scrape
+
+# Create your views here.
 def home(request):
     return HttpResponse('<h1>Welcome to the EMS Mobile Backend!</h1>')
 
 
 #currently just updates the data in the database whenever the server is launched
 #could be updated to be inside a method where requests to update the data can be made from the app
-Hospital.objects.all().delete()
-for line in open('../../scrapers/georgiarcc.json', 'r'):
-     hosp = json.loads(line)
-     obj = Hospital(name=hosp['Hospital'],street=hosp['Street'],city=hosp['City'],county=hosp['County'],state='GA',zip=hosp['Zip'],phone=hosp['Phone Number'],rch=hosp['RegCoord'],ems_region=hosp['EMSRegion'],nedocs_score=hosp['Nedocs'],last_updated=hosp['Updated'])
-     obj.save()
-     # You need to fix the below 2 lines. You have to create a specialty center before adding it like you did with diversions
-     # for spec in hosp['Specialty center']:
-         # obj.specialty_center.add(spec)
-     for div in hosp['Status']:
-         try:
-             obj.diversions.add(div)
-         except:
-             Diversion.objects.create(type=div)
-             obj.diversions.add(div)
-
 
 def get_hospitals(request):
+    run_scrape()
+    Hospital.objects.all().delete()
+    for line in open('scrapers/georgiarcc.json', 'r'):
+        hosp = json.loads(line)
+        obj = Hospital(name=hosp['Hospital'],street=hosp['Street'],city=hosp['City'],county=hosp['County'],state='GA',zip=hosp['Zip'],lat=hosp['Latitude'],long=hosp['Longitude'],phone=hosp['Phone Number'],rch=hosp['RegCoord'],ems_region=hosp['EMSRegion'],nedocs_score=hosp['Nedocs'],last_updated=hosp['Updated'])
+        obj.save()
+        for spec in hosp['Specialty center']:
+            try:
+                obj.specialty_center.add(spec)
+            except:
+                SpecialtyCenter.objects.create(type=spec)
+                obj.specialty_center.add(spec)
+        for div in hosp['Status']:
+            try:
+                obj.diversions.add(div)
+            except:
+                Diversion.objects.create(type=div)
+                obj.diversions.add(div)
     hospitals_list = list()
     hospitals = models.Hospital.objects.all()
     for hospital in hospitals:
@@ -49,6 +54,8 @@ def get_hospitals(request):
             'county' : hospital.county,
             'state' : hospital.state,
             'zip' : hospital.zip,
+            'lat' : hospital.lat,
+            'long' : hospital.long,
             'phone' : hospital.phone,
             'rch' : hospital.rch,
             'ems_region' : hospital.ems_region,

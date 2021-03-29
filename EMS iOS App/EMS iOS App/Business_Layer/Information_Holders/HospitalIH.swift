@@ -13,7 +13,9 @@ class HospitalIH: NSObject {
     var name: String!
     var nedocsScore: NedocsScore!
     var specialtyCenters: [HospitalType]!
-    var distance: Float!
+    var distance: Double!
+    var lat: Double!
+    var long: Double!
     var hasDiversion: Bool!
     var diversions: [String]!
     var address: String!
@@ -22,12 +24,16 @@ class HospitalIH: NSObject {
     var county: String!
     var rch: String! //Regional Coordinating Hospital
     
+    var isFavorite = false
+    
 
-    init(name: String, nedocsScore: NedocsScore, specialtyCenters: [HospitalType], distance: Float, hasDiversion: Bool, diversions: [String], address: String, phoneNumber: String, regionNumber: String, county: String, rch: String) {
+    init(name: String, nedocsScore: NedocsScore, specialtyCenters: [HospitalType], distance: Double, lat: Double, long: Double, hasDiversion: Bool, diversions: [String], address: String, phoneNumber: String, regionNumber: String, county: String, rch: String) {
         self.name = name
         self.nedocsScore = nedocsScore
         self.specialtyCenters = specialtyCenters
         self.distance = distance
+        self.lat = lat
+        self.long = long
         self.hasDiversion = hasDiversion
         self.diversions = diversions
         self.address = address
@@ -70,9 +76,12 @@ class HospitalIH: NSObject {
                 }
             }
             let address = street + ", " + city + ", " + state + " " + zip
+            let latStr = hospital["lat"] as! String
+            let longStr = hospital["long"] as! String
+            let lat: Double = (latStr as NSString).doubleValue
+            let long: Double = (longStr as NSString).doubleValue
             
-            // Hardcoded: specialty centers, distance
-            let hosp = HospitalIH(name: name, nedocsScore: NedocsScore(rawValue: nedocsScore)!, specialtyCenters: centers, distance: 1.0, hasDiversion: (diversions.count > 0 && diversions[0] != "Normal"), diversions: diversions, address: address, phoneNumber: phone, regionNumber: emsRegion, county: county_val, rch: rch_value)
+            let hosp = HospitalIH(name: name, nedocsScore: NedocsScore(rawValue: nedocsScore)!, specialtyCenters: centers, distance: -1.0, lat: lat, long: long, hasDiversion: (diversions.count > 0 && diversions[0] != "Normal"), diversions: diversions, address: address, phoneNumber: phone, regionNumber: emsRegion, county: county_val, rch: rch_value)
             result.append(hosp)
         }
         return result

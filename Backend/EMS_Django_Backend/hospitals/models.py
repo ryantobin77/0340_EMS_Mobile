@@ -27,8 +27,8 @@ class Hospital(models.Model):
         r'^((A[LKZR])|(C[AOT])|(D[EC])|(FL)|(GA)|(HI)|(I[DLNA])|(K[SY])|(LA)|(M[EDAINSOT])|(N[EVHJMYCD])|(O[HKR])|(PA)|(RI)|(S[CD])|(T[NX])|(UT)|(V[TA])|(W[AVIY]))$')])
     zip = models.CharField(max_length=5, null=False, validators=[
                            RegexValidator(r'^[0-9]{5}$')])
-    lat = models.DecimalField(default=0, max_digits=10, decimal_places=10)
-    long = models.DecimalField(default=0, max_digits=10, decimal_places=10)
+    lat = models.DecimalField(default=0, max_digits=100, decimal_places=10)
+    long = models.DecimalField(default=0, max_digits=100, decimal_places=10)
     phone = models.CharField(verbose_name='phone number', max_length=10, null=False, validators=[RegexValidator(
             regex='^[0-9]*$',
             message='The phone number must only contain numbers in the format 01234567890',
