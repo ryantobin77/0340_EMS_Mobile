@@ -34,7 +34,7 @@
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/bottom_bar"
+        android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
@@ -42,29 +42,28 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <HorizontalScrollView
-            android:id="@+id/bottom_bar_scroll_view"
+            android:id="@+id/bottomBarScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
-                android:id="@+id/applied_filters_holder"
+                android:id="@+id/appliedFiltersHolder"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="vertical" />
         </HorizontalScrollView>
 
         <Button
-            android:id="@+id/clear_all_filters_button"
+            android:id="@+id/doneButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
             android:background="@android:color/transparent"
             android:text="@string/clear"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
