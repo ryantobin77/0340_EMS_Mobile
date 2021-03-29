@@ -8,24 +8,124 @@
 
 import UIKit
 
-class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
+class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, UISearchBarDelegate {
     
     @IBOutlet var tableView: UITableView!
     var hospitals: Array<HospitalIH>!
     var pinnedList: Array<HospitalIH>!
+    var filteredList: Array<HospitalIH>!
+    var searchedList: Array<HospitalIH>!
+    var searchActive : Bool = false
+    var filterActive : Bool = false
     var thereIsCellTapped = false
     var selectedRowIndex = -1
+    let defaults = UserDefaults.standard
+    @IBOutlet var searchBar: UISearchBar!
+    @IBOutlet var searchBarHeight : NSLayoutConstraint!
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.barStyle = UIBarStyle.black
+        self.searchBar.isHidden = true
+        self.searchBar.delegate = self
+        self.hospitals = Array<HospitalIH>()
+        self.pinnedList = Array<HospitalIH>()
+        
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.pinnedList = Array<HospitalIH>()
+        
+        // initial load of data
+        buildHospitalList()
         
         // swipe to refresh data
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(buildHospitalList), for: .valueChanged)
+    }
+    func showSearchBar() {
+            self.searchBar.isHidden = false
+            self.searchBarHeight.constant = 56
+            self.searchBar.becomeFirstResponder()
+            UIView.animate(withDuration: 0.25, animations: {
+                 self.view.layoutIfNeeded()
+            }, completion: nil)
+        }
+
+        func hideSearchBar() {
+            self.searchBar.resignFirstResponder()
+            self.searchBarHeight.constant = 0
+            UIView.animate(withDuration: 0.25, animations: {
+                self.view.layoutIfNeeded()
+            }, completion: { _ in
+                self.searchBar.isHidden = true
+            })
+        }
+
+        @IBAction func searchPressed(_ sender: UIButton) {
+            if self.searchBar.isHidden {
+                self.showSearchBar()
+            } else {
+                self.hideSearchBar()
+            }
+        }
+        func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+            searchActive = true;
+        }
+
+        func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+            searchActive = false;
+        }
+
+        func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+            self.searchBar.text = nil
+            self.hideSearchBar()
+            searchActive = false;
+            tableView.reloadData()
+        }
+
+        func searchBarSearchButtonClicked(_ searchBar: UISearchBar)  {
+            self.hideSearchBar()
+            searchActive = false;
+        }
+
+        // TODO: Filter hospitals based on searchText
+        func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+            print(searchText)
+            searchedList = hospitals.filter({ (hos) -> Bool in
+                let tmp: String = hos.name
+                return tmp.range(of: searchText, options: .caseInsensitive) != nil
+                })
+               
+            tableView.reloadData()
+        }
+    
+    func getInitialPinned() {
+        if let data = UserDefaults.standard.value(forKey:"pinnedHospitals") as? Data {
+            print("WORDS")
+            let loadedHospitalList = try! PropertyListDecoder().decode(Array<Hospital>.self, from: data)
+            print(loadedHospitalList.count)
+            let range = loadedHospitalList.count
+            self.pinnedList = Array<HospitalIH>()
+            for num in 0..<range {
+                print(loadedHospitalList[num].name)
+                let hosp = HospitalIH(name: loadedHospitalList[num].name, nedocsScore: loadedHospitalList[num].nedocsScore, specialtyCenters: loadedHospitalList[num].specialtyCenters, distance: loadedHospitalList[num].distance, hasDiversion: loadedHospitalList[num].hasDiversion, diversions:loadedHospitalList[num].diversions, address: loadedHospitalList[num].address, phoneNumber: loadedHospitalList[num].phoneNumber, regionNumber: loadedHospitalList[num].regionNumber, county: loadedHospitalList[num].county, rch: loadedHospitalList[num].rch)
+                if (!self.pinnedList.contains(hosp)) {
+                    print(self.pinnedList.count)
+                    self.pinnedList.append(hosp)
+                }
+            }
+            for pinned in self.pinnedList {
+                print(pinnedList.count)
+                if let index = hospitals.index(where: {$0.name == pinned.name}) {
+                    hospitals.remove(at: index);
+                    hospitals.insert(pinned, at: 0);
+                    pinned.isFavorite = true
+                }
+
+            }
+ 
+        }
+ 
     }
 
     // helper method to build Hospital List from data
@@ -34,7 +134,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         tasker.getAllHospitals(failure: {
             print("Failure")
         }, success: { (hospitals) in
-            guard let hospitals = hospitals else {
+            guard var hospitals = hospitals else {
                 self.hospitals = Array<HospitalIH>()
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
@@ -42,49 +142,40 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
                 return
             }
             
-            tasker.getHospitalDistances(hospitals: hospitals, finished: { (hospitals) in
-                guard var hospitals = hospitals else {
-                    self.hospitals = Array<HospitalIH>()
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                        self.tableView.refreshControl?.endRefreshing()
-                    }
-                    return
-                }
-                // Retrieve pinned hospitals in new list
-                var newPinned = [HospitalIH]()
-                for pinned in self.pinnedList {
-                    for hospital in hospitals {
-                        if (hospital.name == pinned.name) {
-                            newPinned.append(hospital)
-                        }
-                    }
-                }
-                // Repin hospitals
-                for pinned in newPinned {
-                    if let index = hospitals.firstIndex(of: pinned) {
-                        hospitals.remove(at: index)
-                    }
-                    hospitals.insert(pinned, at: 0)
-                    pinned.isFavorite = true
-                }
-                self.pinnedList = newPinned
-                self.hospitals = hospitals
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                    self.tableView.refreshControl?.endRefreshing()
-                }
-            })
+            self.hospitals = hospitals
+            self.getInitialPinned()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+            
+            // Dismiss the refresh control
+            DispatchQueue.main.async {
+                self.tableView.refreshControl?.endRefreshing()
+            }
         })
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return hospitals.count
+        if (searchActive) {
+            return searchedList.count
+        } else if (filterActive) {
+            return filteredList.count
+        }
+        else {
+            return hospitals.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let hospital:HospitalIH
         let cell = tableView.dequeueReusableCell(withIdentifier: "hospitalCell", for: indexPath) as! HomeTableViewCell
-        let hospital = self.hospitals[indexPath.row]
+        if (searchActive) {
+            hospital = self.searchedList[indexPath.row]
+        } else if (filterActive) {
+            hospital = self.filteredList[indexPath.row]
+        } else {
+            hospital = self.hospitals[indexPath.row]
+        }
         
         cell.hospitalName.text = hospital.name
         if (hospital.isFavorite) {
@@ -198,12 +289,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
             }
         }
         
-        if (hospital.distance == -1.0) {
-            cell.distanceLabel.text = "-- mi"
-        } else {
-            cell.distanceLabel.text = "\(String(hospital.distance)) mi"
-        }
-        
+        cell.distanceLabel.text = "\(String(hospital.distance)) mi"
         cell.address.attributedText = NSAttributedString(string: hospital.address, attributes:
             [.underlineStyle: NSUnderlineStyle.single.rawValue])
         cell.address.textColor = UIColor.blue
@@ -268,6 +354,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
     
     
     @IBAction func favoritePin(_ sender: UIButton) {
+        
         guard let cell = sender.superview?.superview as? HomeTableViewCell else {
             return
         }
@@ -284,15 +371,15 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         } else {
             newIndexPath = IndexPath(item: pinnedList.count, section: 0)
         }
-            
-        let pinnedHospital = self.hospitals[indexPath.row]
-        //print("PINNED HOSPITAL ",pinnedHospital.name)
-        //pinnedList.append(pinnedHospital)
-        
-        
-        
-        //print(pinnedList)
-        
+        let pinnedHospital : HospitalIH
+        if (searchActive) {
+            pinnedHospital = self.searchedList[indexPath.row]
+        } else if (filterActive) {
+            pinnedHospital = self.filteredList[indexPath.row]
+        } else {
+            pinnedHospital = self.hospitals[indexPath.row]
+        }
+
         if (!pinnedList.contains(pinnedHospital)) {
             //!favoritePinTapped) {
             let myImage = UIImage(named: "FilledFavoritePin")
@@ -312,13 +399,34 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
             }
             pinnedList.remove(at:pinIndex)
             self.hospitals.remove(at:indexPath.row)
-            self.hospitals.insert(pinnedHospital, at: pinnedList.count + 1)
+            self.hospitals.insert(pinnedHospital, at: pinnedList.count)
             self.tableView.moveRow(at: indexPath, to: newIndexPath)
             pinnedHospital.isFavorite = false
         }
-        //print("PINNED HOSPTAL ",pinnedList.enumerated())
+        self.savePinned(hospitals:self.hospitals, pinned: self.pinnedList)
         self.tableView.beginUpdates()
         self.tableView.endUpdates()
+    }
+    
+    func savePinned(hospitals: Array<HospitalIH>, pinned: Array<HospitalIH>) {
+        
+        var newList = Array<Hospital>()
+        for hos in pinned {
+            let pinnedHos = Hospital(name: hos.name,
+                                 nedocsScore: hos.nedocsScore,
+                                 specialtyCenters: hos.specialtyCenters,
+                                 distance: hos.distance,
+                                 hasDiversion: hos.hasDiversion,
+                                 diversions:hos.diversions,
+                                 address:hos.address,
+                                 phoneNumber: hos.phoneNumber,
+                                 regionNumber: hos.regionNumber,
+                                 county: hos.county,
+                                 rch: hos.rch)
+            newList.append(pinnedHos)
+        }
+        UserDefaults.standard.set(try? PropertyListEncoder().encode(newList), forKey:"pinnedHospitals")
+        
     }
     
 }
