@@ -55,7 +55,9 @@ struct Hospital: Codable {
     var name: String!
     var nedocsScore: NedocsScore!
     var specialtyCenters: [HospitalType]!
-    var distance: Float!
+    var distance: Double!
+    var lat: Double?
+    var long: Double?
     var hasDiversion: Bool!
     var diversions: [String]!
     var address: String!
