@@ -1,5 +1,7 @@
 package com.jia0340.ems_android_app.models;
 
+import android.util.Log;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -48,8 +50,8 @@ public class Hospital {
                     @JsonProperty("rch") String regionalCoordinatingHospital,
                     @JsonProperty("diversions") ArrayList<String> diversions,
                     @JsonProperty("last_updated") String lastUpdated,
-                    @JsonProperty("latitude") double latitude,
-                    @JsonProperty("longitude") double longitude) {
+                    @JsonProperty("lat") double latitude,
+                    @JsonProperty("long") double longitude) {
 
         mName = name;
         mNedocsScore = nedocsScore;
