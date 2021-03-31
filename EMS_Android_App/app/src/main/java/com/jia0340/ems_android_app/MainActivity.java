@@ -198,19 +198,22 @@ public class MainActivity extends AppCompatActivity implements SortSheetDialog.S
     public void onSortSelected(SortField selectedSort) {
         Log.d("MainActivity", "LISTENER SORT!");
 
-        switch (selectedSort) {
-            case NAME:
-                Log.d("MainActivity", "Sort A-Z");
-                //TODO: call sort method here!
-                break;
-            case DISTANCE:
-                Log.d("MainActivity", "Sort Distance");
-                //TODO: call sort method here!
-                break;
-            case NEDOCS_SCORE:
-                Log.d("MainActivity", "Sort NEDOCS");
-                //TODO: call sort method here!
-                break;
-        }
+//        switch (selectedSort) {
+//            case NAME:
+//                Log.d("MainActivity", "Sort A-Z");
+//                //TODO: call sort method here!
+//                break;
+//            case DISTANCE:
+//                Log.d("MainActivity", "Sort Distance");
+//                //TODO: call sort method here!
+//                break;
+//            case NEDOCS_SCORE:
+//                Log.d("MainActivity", "Sort NEDOCS");
+//                //TODO: call sort method here!
+//                break;
+//        }
+        mHospitalAdapter.setAppliedSort(selectedSort);
+        mHospitalAdapter.handleSort();
+        mHospitalAdapter.notifyDataSetChanged();
     }
 }

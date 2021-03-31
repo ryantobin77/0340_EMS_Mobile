@@ -94,6 +94,15 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
     }
 
     /**
+     * Setter for mAppliedSort.
+     *
+     * @param sortField
+     */
+    public void setAppliedSort(SortField sortField) {
+        this.mAppliedSort = sortField;
+    }
+
+    /**
      * Creates the view for a specific hospital and stores it within a viewHolder
      *
      * @param parent Parent view to the individual item
