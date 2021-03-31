@@ -8,5 +8,5 @@ package com.jia0340.ems_android_app.models;
  */
 
 public enum SortField {
-    DISTANCE, NEDOCS_SCORE, NAME, LAST_UPDATED
+    DISTANCE, NEDOCS_SCORE, NAME
 }

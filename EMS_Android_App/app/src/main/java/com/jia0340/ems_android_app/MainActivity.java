@@ -137,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<List<Hospital>> call, Response<List<Hospital>> response) {
                 // Save the returned list
                 mHospitalList = (ArrayList<Hospital>) response.body();
+                mHospitalAdapter.setAllHospitalList(mHospitalList);
                 // Retrieve pinned hospitals in new list
                 List<Hospital> pinnedList = new ArrayList<>();
                 for (Hospital pinned : mHospitalAdapter.getPinnedList()) {

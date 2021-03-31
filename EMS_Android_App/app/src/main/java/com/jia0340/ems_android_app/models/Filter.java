@@ -17,4 +17,13 @@ public class Filter {
         mFilterField = filterField;
         mFilterValues = filterValues;
     }
+
+    public FilterField getFilterField() {
+        return mFilterField;
+    }
+
+    public ArrayList<String> getFilterValues() {
+        return mFilterValues;
+    }
 }
+
