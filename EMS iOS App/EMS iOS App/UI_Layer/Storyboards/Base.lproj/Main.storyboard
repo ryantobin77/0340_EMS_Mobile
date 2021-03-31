@@ -381,6 +381,7 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="4Lk-Ts-jz0" firstAttribute="leading" secondItem="Wia-QZ-aUR" secondAttribute="leading" constant="10" id="5cq-xC-Jtm"/>
+                                            <constraint firstItem="4Lk-Ts-jz0" firstAttribute="centerY" secondItem="Wia-QZ-aUR" secondAttribute="centerY" id="Kbv-rI-gxT"/>
                                             <constraint firstAttribute="trailing" secondItem="4Lk-Ts-jz0" secondAttribute="trailing" constant="10" id="MCV-dZ-o99"/>
                                             <constraint firstItem="4Lk-Ts-jz0" firstAttribute="height" secondItem="MQ9-E2-bTQ" secondAttribute="height" id="QLa-lH-sHW"/>
                                             <constraint firstItem="4Lk-Ts-jz0" firstAttribute="centerY" secondItem="Wia-QZ-aUR" secondAttribute="centerY" id="Y38-P2-u2z"/>
@@ -452,6 +453,7 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="appliedFiltersView" destination="4Lk-Ts-jz0" id="2XE-TC-Dte"/>
                         <outlet property="tableView" destination="5Kd-TW-JX4" id="oZC-Uj-MUF"/>
                     </connections>
                 </viewController>

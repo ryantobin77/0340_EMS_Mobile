@@ -11,6 +11,7 @@ import UIKit
 class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
     
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var appliedFiltersView: UIStackView!
     var hospitals: Array<HospitalIH>!
     var pinnedList: Array<HospitalIH>!
     var appliedFilters : Array<FilterIH>!
@@ -31,7 +32,31 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         // swipe to refresh data
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(buildHospitalList), for: .valueChanged)
+        
+        // JUST FOR TESTING REMOVE LATER
+        appliedFilters = [FilterIH(field: FilterType.type, values: [HospitalType.adultTraumaCenterLevelI.getHospitalDisplayString()])]
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+            super.viewDidAppear(animated)
+        for filter in self.appliedFilters {
+            for value in filter.values {
+                if let filterCard = Bundle.main.loadNibNamed("FilterCard", owner: nil, options: nil)!.first as? FilterCard {
+                    filterCard.valueLabel.text = value
+                    // filterCard.removeButton.addTarget(self, action: <#T##Selector#>)
+                    appliedFiltersView.addArrangedSubview(filterCard)
+                }
+            }
+        }
+    }
+    
+//    func removeFilter(_ sender: UIButton) {
+//        let filter: FilterIH? = self.appliedFilters.first(where: {$0.field == sender.field})
+//        filter?.values = filter?.values.filter {$0 != sender.value}
+//        if filter?.values.count == 0 {
+//            self.appliedFilters = self.appliedFilters.filter {$0.field != sender.field}
+//        }
+//    }
 
     // helper method to build Hospital List from data
     @objc func buildHospitalList() {

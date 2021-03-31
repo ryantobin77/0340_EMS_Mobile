@@ -25,6 +25,8 @@
 		BE388A4F2613CD3700A3403E /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE388A4E2613CD3700A3403E /* Checkbox.swift */; };
 		BE388A5A2613D1B900A3403E /* CheckListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE388A592613D1B900A3403E /* CheckListCell.swift */; };
 		BE9C6D77261466A900BB30F6 /* FilterSelectorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9C6D76261466A900BB30F6 /* FilterSelectorVC.swift */; };
+		BE9C6D8526146F9F00BB30F6 /* FilterCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9C6D8426146F9F00BB30F6 /* FilterCard.swift */; };
+		BE9C6D8A261470F500BB30F6 /* FilterCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE9C6D89261470F500BB30F6 /* FilterCard.xib */; };
 		BEEDE79326143DB30011BB13 /* FilterIH.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEDE79226143DB30011BB13 /* FilterIH.swift */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +72,8 @@
 		BE388A4E2613CD3700A3403E /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		BE388A592613D1B900A3403E /* CheckListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListCell.swift; sourceTree = "<group>"; };
 		BE9C6D76261466A900BB30F6 /* FilterSelectorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelectorVC.swift; sourceTree = "<group>"; };
+		BE9C6D8426146F9F00BB30F6 /* FilterCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCard.swift; sourceTree = "<group>"; };
+		BE9C6D89261470F500BB30F6 /* FilterCard.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FilterCard.xib; path = "EMS iOS App/UI_Layer/VCs/Filter/FilterCard.xib"; sourceTree = SOURCE_ROOT; };
 		BEEDE79226143DB30011BB13 /* FilterIH.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterIH.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -218,6 +222,7 @@
 		94E3B27A255A44D60021FCAA /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BE9C6D89261470F500BB30F6 /* FilterCard.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -237,6 +242,7 @@
 				BE388A4E2613CD3700A3403E /* Checkbox.swift */,
 				BE9C6D76261466A900BB30F6 /* FilterSelectorVC.swift */,
 				BE388A592613D1B900A3403E /* CheckListCell.swift */,
+				BE9C6D8426146F9F00BB30F6 /* FilterCard.swift */,
 			);
 			path = Filter;
 			sourceTree = "<group>";
@@ -348,6 +354,7 @@
 				94E3B20F255A3A240021FCAA /* LaunchScreen.storyboard in Resources */,
 				94E3B20C255A3A240021FCAA /* Assets.xcassets in Resources */,
 				94E3B20A255A3A200021FCAA /* Main.storyboard in Resources */,
+				BE9C6D8A261470F500BB30F6 /* FilterCard.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,6 +379,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE9C6D8526146F9F00BB30F6 /* FilterCard.swift in Sources */,
 				94CC6AA525E6BD5C00D4294C /* HospitalsTasker.swift in Sources */,
 				BE388A4F2613CD3700A3403E /* Checkbox.swift in Sources */,
 				BE9C6D77261466A900BB30F6 /* FilterSelectorVC.swift in Sources */,
