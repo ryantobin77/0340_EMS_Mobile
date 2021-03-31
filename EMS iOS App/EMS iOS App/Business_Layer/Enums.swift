@@ -8,18 +8,35 @@
 
 import Foundation
 
-enum NedocsScore: String, Codable {
+enum NedocsScore: String, Codable, Comparable {
     case normal = "Normal"
     case busy = "Busy"
     case overcrowded = "Overcrowded"
     case severe = "Severe"
+    
+    private var comparisonValue: Int {
+            switch self {
+            case .normal:
+                return 0
+            case .busy:
+                return 1
+            case .overcrowded:
+                return 2
+            case .severe:
+                return 3
+            }
+        }
+
+        static func < (lhs: Self, rhs: Self) -> Bool {
+            return lhs.comparisonValue < rhs.comparisonValue
+        }
 }
 
 enum HospitalType: String, Codable {
     case adultTraumaCenterLevelI = "Adult Trauma Centers-Level I"
     case adultTraumaCenterLevelII = "Adult Trauma Centers-Level II"
     case adultTraumaCenterLevelIII = "Adult Trauma Centers-Level III"
-    case adultTraumaCenterLevelIV = "Adult Trauma Center - Level 3"
+    case adultTraumaCenterLevelIV = "Adult Trauma Centers - Level IV"
     case pediatricTraumaCenterLevelI = "Pediatric Trauma Centers-Pediatric Level I"
     case pediatricTraumaCenterLevelII = "Pediatric Trauma Centers-Pediatric Level II"
     case comprehensiveStrokeCenter = "Stroke Centers-Comprehensive Stroke Center"
@@ -41,14 +58,13 @@ enum FilterType: String {
     case county = "County"
     case emsRegion = "EMS Region"
     case rch = "Regional Coordinating Hospital"
-    case type = "Type"
+    case type = "Specialty Center"
 }
 
 enum SortType: String {
     case distance = "Distance"
     case az = "Alphabetical"
     case nedocs = "NEDOCS Score"
-    case county = "County"
 }
 
 struct Hospital: Codable {
