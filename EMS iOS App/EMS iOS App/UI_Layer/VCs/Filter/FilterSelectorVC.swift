@@ -116,6 +116,9 @@ class FilterSelectorViewController: UIViewController, UITableViewDataSource, UIT
                             "Wilkes",
                             "Worth"]
     
+    var appliedFilters: Array<FilterIH>!
+    var finalAppliedFilters: Array<FilterIH>!
+    
     @IBOutlet weak var exitButton: UIButton!
     
     @IBOutlet var specialtyCenterValues: UITableView!
@@ -145,6 +148,9 @@ class FilterSelectorViewController: UIViewController, UITableViewDataSource, UIT
         self.rchValues.delegate = self
         self.rchValues.dataSource = self
         
+        appliedFilters = []
+        finalAppliedFilters = []
+        
         customizeButton(buttonName: self.specialtyCenterButton)
         customizeButton(buttonName: self.emsRegionButton)
         customizeButton(buttonName: self.countyButton)
@@ -159,6 +165,25 @@ class FilterSelectorViewController: UIViewController, UITableViewDataSource, UIT
     
     @IBAction func dismiss(_ sender: UIButton) {
         self.presentingViewController?.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func done(_ sender: UIButton) {
+        self.finalAppliedFilters = self.appliedFilters
+    }
+    
+    @IBAction func clearAll(_ sender: UIButton) {
+        self.appliedFilters = []
+        self.specialtyCenterValues.reloadData()
+        self.emsRegionValues.reloadData()
+        self.countyValues.reloadData()
+        self.rchValues.reloadData()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is HomeVC {
+            let homeVC = segue.destination as? HomeVC
+            homeVC?.appliedFilters = self.finalAppliedFilters
+        }
     }
     
     @IBAction func expandCollapseField(_ sender: UIButton) {
@@ -193,6 +218,24 @@ class FilterSelectorViewController: UIViewController, UITableViewDataSource, UIT
         
     }
     
+    @objc
+    func applyFilter(_ sender: CheckBox) {
+        let filter: FilterIH? = self.appliedFilters.first(where: {$0.field == sender.field})
+        if filter != nil {
+            if sender.isChecked {
+                filter?.values.append(sender.value)
+            } else {
+                filter?.values = filter?.values.filter {$0 != sender.value}
+                if filter?.values.count == 0 {
+                    self.appliedFilters = self.appliedFilters.filter {$0.field != sender.field}
+                }
+            }
+        } else {
+            self.appliedFilters.append(FilterIH(field: sender.field, values: [sender.value]))
+        }
+        
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == specialtyCenterValues {
             return HospitalType.allCases.count
@@ -211,7 +254,12 @@ class FilterSelectorViewController: UIViewController, UITableViewDataSource, UIT
             let cell = specialtyCenterValues.dequeueReusableCell(withIdentifier: "specialtyCenterCheckListCell", for: indexPath) as! CheckListCell
             let specialtyCenter = HospitalType.allCases[indexPath.row]
             
-            cell.checkBox.isChecked = false
+            cell.checkBox.field = FilterType.type
+            cell.checkBox.value = specialtyCenter.rawValue
+            cell.checkBox.addTarget(self, action: #selector(self.applyFilter(_:)), for: .touchUpInside)
+            
+            let filter: FilterIH? = self.appliedFilters.first(where: {$0.field == FilterType.type})
+            cell.checkBox.isChecked = filter != nil && filter!.values.contains(specialtyCenter.rawValue)
             cell.checkListValueLabel.text = specialtyCenter.getHospitalDisplayString()
         
             return cell
@@ -219,7 +267,12 @@ class FilterSelectorViewController: UIViewController, UITableViewDataSource, UIT
             let cell = emsRegionValues.dequeueReusableCell(withIdentifier: "emsRegionCheckListCell", for: indexPath) as! CheckListCell
             let emsRegion = indexPath.row + 1
             
-            cell.checkBox.isChecked = false
+            cell.checkBox.field = FilterType.emsRegion
+            cell.checkBox.value = "\(emsRegion)"
+            cell.checkBox.addTarget(self, action: #selector(self.applyFilter(_:)), for: .touchUpInside)
+            
+            let filter: FilterIH? = self.appliedFilters.first(where: {$0.field == FilterType.emsRegion})
+            cell.checkBox.isChecked = filter != nil && filter!.values.contains("\(emsRegion)")
             cell.checkListValueLabel.text = "Region \(emsRegion)"
         
             return cell
@@ -227,7 +280,12 @@ class FilterSelectorViewController: UIViewController, UITableViewDataSource, UIT
             let cell = countyValues.dequeueReusableCell(withIdentifier: "countyCheckListCell", for: indexPath) as! CheckListCell
             let county = counties[indexPath.row]
             
-            cell.checkBox.isChecked = false
+            cell.checkBox.field = FilterType.county
+            cell.checkBox.value = county
+            cell.checkBox.addTarget(self, action: #selector(self.applyFilter(_:)), for: .touchUpInside)
+            
+            let filter: FilterIH? = self.appliedFilters.first(where: {$0.field == FilterType.county})
+            cell.checkBox.isChecked = filter != nil && filter!.values.contains(county)
             cell.checkListValueLabel.text = county
         
             return cell
@@ -235,7 +293,12 @@ class FilterSelectorViewController: UIViewController, UITableViewDataSource, UIT
             let cell = rchValues.dequeueReusableCell(withIdentifier: "rchCheckListCell", for: indexPath) as! CheckListCell
             let rch = Character(UnicodeScalar(indexPath.row + 65)!)
             
-            cell.checkBox.isChecked = false
+            cell.checkBox.field = FilterType.rch
+            cell.checkBox.value = "\(rch)"
+            cell.checkBox.addTarget(self, action: #selector(self.applyFilter(_:)), for: .touchUpInside)
+            
+            let filter: FilterIH? = self.appliedFilters.first(where: {$0.field == FilterType.rch})
+            cell.checkBox.isChecked = filter != nil && filter!.values.contains("\(rch)")
             cell.checkListValueLabel.text = "\(rch)"
         
             return cell

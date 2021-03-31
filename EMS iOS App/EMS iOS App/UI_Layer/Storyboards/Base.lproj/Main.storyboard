@@ -499,6 +499,9 @@
                                                 <state key="normal" title="Clear All">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="clearAll:" destination="fFE-x3-Ndo" eventType="touchUpInside" id="Lwo-IV-OE4"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.18902906780000001" green="0.33192265030000001" blue="0.66669964790000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -791,6 +794,10 @@
                                                 <state key="normal" title="Done">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="dismiss:" destination="fFE-x3-Ndo" eventType="touchUpInside" id="yi8-GQ-VM0"/>
+                                                    <action selector="done:" destination="fFE-x3-Ndo" eventType="touchUpInside" id="tUx-SS-h6j"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.2182899714" green="0.3369700015" blue="0.64316809180000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

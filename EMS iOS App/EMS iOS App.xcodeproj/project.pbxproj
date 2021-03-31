@@ -22,9 +22,10 @@
 		94E3B277255A420F0021FCAA /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E3B276255A420F0021FCAA /* HomeTableViewCell.swift */; };
 		94E3B27F255A551E0021FCAA /* HospitalIH.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E3B27E255A551E0021FCAA /* HospitalIH.swift */; };
 		94E3B281255A5A6A0021FCAA /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E3B280255A5A6A0021FCAA /* Utils.swift */; };
-		BE388A392612ED4000A3403E /* FilterSelectorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE388A382612ED4000A3403E /* FilterSelectorVC.swift */; };
 		BE388A4F2613CD3700A3403E /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE388A4E2613CD3700A3403E /* Checkbox.swift */; };
 		BE388A5A2613D1B900A3403E /* CheckListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE388A592613D1B900A3403E /* CheckListCell.swift */; };
+		BE9C6D77261466A900BB30F6 /* FilterSelectorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9C6D76261466A900BB30F6 /* FilterSelectorVC.swift */; };
+		BEEDE79326143DB30011BB13 /* FilterIH.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEDE79226143DB30011BB13 /* FilterIH.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,9 +67,10 @@
 		94E3B276255A420F0021FCAA /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		94E3B27E255A551E0021FCAA /* HospitalIH.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalIH.swift; sourceTree = "<group>"; };
 		94E3B280255A5A6A0021FCAA /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		BE388A382612ED4000A3403E /* FilterSelectorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelectorVC.swift; sourceTree = "<group>"; };
 		BE388A4E2613CD3700A3403E /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		BE388A592613D1B900A3403E /* CheckListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListCell.swift; sourceTree = "<group>"; };
+		BE9C6D76261466A900BB30F6 /* FilterSelectorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelectorVC.swift; sourceTree = "<group>"; };
+		BEEDE79226143DB30011BB13 /* FilterIH.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterIH.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				94E3B27E255A551E0021FCAA /* HospitalIH.swift */,
+				BEEDE79226143DB30011BB13 /* FilterIH.swift */,
 			);
 			path = Information_Holders;
 			sourceTree = "<group>";
@@ -232,7 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				BE388A4E2613CD3700A3403E /* Checkbox.swift */,
-				BE388A382612ED4000A3403E /* FilterSelectorVC.swift */,
+				BE9C6D76261466A900BB30F6 /* FilterSelectorVC.swift */,
 				BE388A592613D1B900A3403E /* CheckListCell.swift */,
 			);
 			path = Filter;
@@ -371,9 +374,9 @@
 			files = (
 				94CC6AA525E6BD5C00D4294C /* HospitalsTasker.swift in Sources */,
 				BE388A4F2613CD3700A3403E /* Checkbox.swift in Sources */,
+				BE9C6D77261466A900BB30F6 /* FilterSelectorVC.swift in Sources */,
 				94E3B27F255A551E0021FCAA /* HospitalIH.swift in Sources */,
 				94E3B274255A3DF70021FCAA /* HomeVC.swift in Sources */,
-				BE388A392612ED4000A3403E /* FilterSelectorVC.swift in Sources */,
 				94CC6AA125E6BD4C00D4294C /* BackendURLs.swift in Sources */,
 				94E3B203255A3A200021FCAA /* AppDelegate.swift in Sources */,
 				94E3B281255A5A6A0021FCAA /* Utils.swift in Sources */,
@@ -381,6 +384,7 @@
 				BE388A5A2613D1B900A3403E /* CheckListCell.swift in Sources */,
 				94E3B277255A420F0021FCAA /* HomeTableViewCell.swift in Sources */,
 				94CC6AA625E6BD5C00D4294C /* WebCallTasker.swift in Sources */,
+				BEEDE79326143DB30011BB13 /* FilterIH.swift in Sources */,
 				94E3B205255A3A200021FCAA /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

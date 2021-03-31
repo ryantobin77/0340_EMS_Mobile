@@ -13,6 +13,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
     @IBOutlet var tableView: UITableView!
     var hospitals: Array<HospitalIH>!
     var pinnedList: Array<HospitalIH>!
+    var appliedFilters : Array<FilterIH>!
     var thereIsCellTapped = false
     var selectedRowIndex = -1
     
