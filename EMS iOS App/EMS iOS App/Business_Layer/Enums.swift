@@ -15,7 +15,7 @@ enum NedocsScore: String, Codable {
     case severe = "Severe"
 }
 
-enum HospitalType: String, Codable {
+enum HospitalType: String, Codable, CaseIterable {
     case adultTraumaCenterLevelI = "Adult Trauma Centers-Level I"
     case adultTraumaCenterLevelII = "Adult Trauma Centers-Level II"
     case adultTraumaCenterLevelIII = "Adult Trauma Centers-Level III"
