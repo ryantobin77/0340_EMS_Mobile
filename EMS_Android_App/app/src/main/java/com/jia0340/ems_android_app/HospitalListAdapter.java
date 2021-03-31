@@ -522,9 +522,10 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
      * @param searchTerm the input the user wants to search for
      */
     public void handleSearch(String searchTerm) {
-        for (Hospital h: mHospitalList) {
+        for (int i = 0; i < mHospitalList.size(); i++) {
+            Hospital h = mHospitalList.get(i);
             if (!h.getName().contains(searchTerm)) {
-                mHospitalList.remove(h);
+                mHospitalList.remove(i);
             }
         }
     }
