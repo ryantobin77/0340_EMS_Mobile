@@ -233,6 +233,16 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
                 }
                 return
             }
+            tasker.getHospitalDistances(hospitals: hospitals, finished: { (hospitals) in
+                            guard var hospitals = hospitals else {
+                                self.hospitals = Array<HospitalIH>()
+                                DispatchQueue.main.async {
+                                    self.tableView.reloadData()
+                                    self.tableView.refreshControl?.endRefreshing()
+                                }
+                                return
+                            }
+            })
             
             self.hospitals = hospitals
             self.getInitialPinned()
@@ -382,7 +392,11 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
             }
         }
         
-        cell.distanceLabel.text = "\(String(hospital.distance)) mi"
+        if (hospital.distance == -1.0) {
+                    cell.distanceLabel.text = "-- mi"
+                } else {
+                    cell.distanceLabel.text = "\(String(hospital.distance)) mi"
+        }
         cell.address.attributedText = NSAttributedString(string: hospital.address, attributes:
             [.underlineStyle: NSUnderlineStyle.single.rawValue])
         cell.address.textColor = UIColor.blue
