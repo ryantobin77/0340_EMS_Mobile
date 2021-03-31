@@ -34,7 +34,7 @@ import retrofit2.Response;
  * @author Anna Dingler
  * Created on 1/24/21
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     private SwipeRefreshLayout mSwipeContainer;
     private ArrayList<Hospital> mHospitalList;
@@ -58,28 +58,11 @@ public class MainActivity extends AppCompatActivity {
         // Setting toolbar as the ActionBar with setSupportActionBar() call
         setSupportActionBar(mToolbar);
 
-        // Attaching the layout to the search bar object
+        // Setting up the search bar
         mSearchBar = findViewById(R.id.search_bar);
         mSearchBar.setVisibility(View.GONE);
         mSearchBar.setIconifiedByDefault(true);
-
-        //Called when the text changes in the search bar
-        mSearchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                mHospitalAdapter.handleSearch(query);
-                mHospitalAdapter.notifyDataSetChanged();
-                mSearchBar.setVisibility(View.GONE);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                mHospitalAdapter.handleSearch(newText);
-                mHospitalAdapter.notifyDataSetChanged();
-                return false;
-            }
-        });
+        mSearchBar.setOnQueryTextListener(this);
 
         mSearchBar.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
@@ -99,6 +82,21 @@ public class MainActivity extends AppCompatActivity {
         mSwipeContainer.setOnRefreshListener(() -> updateHospitalData());
     }
 
+    //Handles submit action from search bar
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        mSearchBar.setVisibility(View.GONE);
+        return false;
+    }
+
+    //Handles text changing in search bar
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        System.out.println(newText);
+        mHospitalAdapter.handleSearch(newText);
+        mHospitalAdapter.notifyDataSetChanged();
+        return false;
+    }
 
     /**
      * Instantiates the menu at the top of the screen
