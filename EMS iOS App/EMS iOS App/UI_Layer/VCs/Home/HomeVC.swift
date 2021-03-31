@@ -17,6 +17,9 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
     var searchedList: Array<HospitalIH>!
     var searchActive : Bool = false
     var filterActive : Bool = false
+    var sortActive : Bool = false
+    var appliedFilters : Array<FilterIH>!
+    var appliedSort: SortType!
     var thereIsCellTapped = false
     var selectedRowIndex = -1
     let defaults = UserDefaults.standard
@@ -31,12 +34,17 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         self.searchBar.delegate = self
         self.hospitals = Array<HospitalIH>()
         self.pinnedList = Array<HospitalIH>()
-        
+        //self.searchedList = Array<HospitalIH>()
+        self.filteredList = Array<HospitalIH>()
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
+        self.appliedFilters = Array<FilterIH>()
+        
         // initial load of data
         buildHospitalList()
+        
+        
         
         // swipe to refresh data
         tableView.refreshControl = UIRefreshControl()
@@ -51,71 +59,155 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
             }, completion: nil)
         }
 
-        func hideSearchBar() {
-            self.searchBar.resignFirstResponder()
-            self.searchBarHeight.constant = 0
-            UIView.animate(withDuration: 0.25, animations: {
-                self.view.layoutIfNeeded()
-            }, completion: { _ in
-                self.searchBar.isHidden = true
-            })
-        }
+    func hideSearchBar() {
+        self.searchBar.resignFirstResponder()
+        self.searchBarHeight.constant = 0
+        UIView.animate(withDuration: 0.25, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: { _ in
+            self.searchBar.isHidden = true
+        })
+    }
 
-        @IBAction func searchPressed(_ sender: UIButton) {
-            if self.searchBar.isHidden {
-                self.showSearchBar()
-            } else {
-                self.hideSearchBar()
-            }
-        }
-        func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-            searchActive = true;
-        }
-
-        func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-            searchActive = false;
-        }
-
-        func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-            self.searchBar.text = nil
+    @IBAction func searchPressed(_ sender: UIButton) {
+        if self.searchBar.isHidden {
+            self.showSearchBar()
+        } else {
             self.hideSearchBar()
-            searchActive = false;
-            tableView.reloadData()
         }
+    }
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchActive = true;
+    }
 
-        func searchBarSearchButtonClicked(_ searchBar: UISearchBar)  {
-            self.hideSearchBar()
-            searchActive = false;
-        }
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchActive = false;
+    }
 
-        // TODO: Filter hospitals based on searchText
-        func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-            print(searchText)
-            searchedList = hospitals.filter({ (hos) -> Bool in
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar.text = nil
+        self.hideSearchBar()
+        searchActive = false;
+        tableView.reloadData()
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar)  {
+        self.hideSearchBar()
+        searchActive = false;
+    }
+
+    // TODO: Filter hospitals based on searchText
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if (filterActive) {
+            searchedList = filteredList.filter({ (hos) -> Bool in
                 let tmp: String = hos.name
                 return tmp.range(of: searchText, options: .caseInsensitive) != nil
                 })
-               
-            tableView.reloadData()
+        } else {
+        searchedList = hospitals.filter({ (hos) -> Bool in
+            let tmp: String = hos.name
+            return tmp.range(of: searchText, options: .caseInsensitive) != nil
+            })
         }
+           
+        tableView.reloadData()
+    }
+    
+    
+    func handleFilter() {
+        if (!filterActive) {
+            filteredList = hospitals
+        }
+        for filter in appliedFilters {
+            switch filter.field {
+            case .county:
+                var newHospitals = Array<HospitalIH>()
+                //iterate through values to see if multiple counties were selected
+                for iCounty in filter.values {
+                    newHospitals.append(contentsOf: self.filteredList.filter({ (hos) -> Bool in
+                        let tmp: String = hos.county
+                        return tmp == iCounty
+                        }))
+                }
+                filteredList = newHospitals
+                filterActive = true
+            case .emsRegion:
+                var newHospitals = Array<HospitalIH>()
+                //iterate through values to see if multiple regions were selected
+                for iRegion in filter.values {
+                    newHospitals.append(contentsOf: self.filteredList.filter({ (hos) -> Bool in
+                        let tmp: String = hos.regionNumber
+                        return tmp == iRegion
+                        }))
+                }
+                filteredList = newHospitals
+                filterActive = true
+            case .rch:
+                var newHospitals = Array<HospitalIH>()
+                //iterate through values to see if multiple rch's were selected
+                for iRCH in filter.values {
+                    newHospitals.append(contentsOf: self.filteredList.filter({ (hos) -> Bool in
+                        let tmp: String = hos.rch
+                        return tmp == iRCH
+                        }))
+                }
+                filteredList = newHospitals
+                filterActive = true
+            case .type:
+                var newHospitals = Array<HospitalIH>()
+                for speCenter in filter.values {
+                    let type = HospitalType(rawValue: speCenter)
+                    newHospitals.append(contentsOf: self.filteredList.filter({ (hos) -> Bool in
+                        let tmp: Array<HospitalType> = hos.specialtyCenters
+                        return tmp.contains(type!)
+                        }))
+                }
+                filteredList = newHospitals
+                filterActive = true
+            default:
+                break
+            }
+            
+        }
+    }
+ 
+    
+    func handleSort() {
+        sortActive = true
+        //print(appliedSort)
+        switch appliedSort {
+        case .az:
+            print(appliedSort.rawValue)
+            hospitals.sort{
+                $0.name < $1.name
+            }
+        case .distance:
+            hospitals.sort{
+                $0.distance < $1.distance
+            }
+        case .nedocs:
+            hospitals.sort{
+                $0.nedocsScore < $1.nedocsScore
+            }
+        default:
+            break
+        }
+        tableView.reloadData()
+    }
     
     func getInitialPinned() {
         if let data = UserDefaults.standard.value(forKey:"pinnedHospitals") as? Data {
-            print("WORDS")
             let loadedHospitalList = try! PropertyListDecoder().decode(Array<Hospital>.self, from: data)
-            print(loadedHospitalList.count)
             let range = loadedHospitalList.count
             self.pinnedList = Array<HospitalIH>()
             for num in 0..<range {
-                print(loadedHospitalList[num].name)
                 let hosp = HospitalIH(name: loadedHospitalList[num].name, nedocsScore: loadedHospitalList[num].nedocsScore, specialtyCenters: loadedHospitalList[num].specialtyCenters, distance: loadedHospitalList[num].distance, lat: loadedHospitalList[num].lat ?? 0, long: loadedHospitalList[num].long ?? 0, hasDiversion: loadedHospitalList[num].hasDiversion, diversions:loadedHospitalList[num].diversions, address: loadedHospitalList[num].address, phoneNumber: loadedHospitalList[num].phoneNumber, regionNumber: loadedHospitalList[num].regionNumber, county: loadedHospitalList[num].county, rch: loadedHospitalList[num].rch)
                 if (!self.pinnedList.contains(hosp)) {
-                    print(self.pinnedList.count)
                     self.pinnedList.append(hosp)
                 }
             }
             for pinned in self.pinnedList {
-                print(pinnedList.count)
+                //print(pinnedList.count)
                 if let index = hospitals.index(where: {$0.name == pinned.name}) {
                     hospitals.remove(at: index);
                     hospitals.insert(pinned, at: 0);
@@ -125,7 +217,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
             }
  
         }
- 
+        
     }
 
     // helper method to build Hospital List from data
@@ -153,6 +245,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
                 self.tableView.refreshControl?.endRefreshing()
             }
         })
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -304,7 +397,14 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == selectedRowIndex && thereIsCellTapped {
-            let hospital = self.hospitals[indexPath.row]
+            let hospital:HospitalIH
+            if (searchActive) {
+                hospital = self.searchedList[indexPath.row]
+            } else if (filterActive) {
+                hospital = self.filteredList[indexPath.row]
+            } else {
+                hospital = self.hospitals[indexPath.row]
+            }
             if hospital.hasDiversion {
                 // calculate the height of the expanded cell based on the number of diversions and hospital types
                 return CGFloat(179 + 28 * (hospital.specialtyCenters.count) + (6 * (hospital.diversions.count - 1)))
