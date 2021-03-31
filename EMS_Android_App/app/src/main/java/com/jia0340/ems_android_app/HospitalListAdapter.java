@@ -104,6 +104,7 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
         holder.mHospitalName.setText(hospital.getName());
         holder.mDistanceLabel.setText(mContext.getString(R.string.distance, hospital.getDistance()));
         holder.mPhoneNumber.setText(hospital.getPhoneNumber());
+        //TODO: bug with long street address
         holder.mAddressView.setText(mContext.getString(R.string.address, hospital.getStreetAddress(),
                                             hospital.getCity(), hospital.getState(), hospital.getZipCode()));
         holder.mCountyRegionText.setText(mContext.getString(R.string.county_region, hospital.getCounty(),

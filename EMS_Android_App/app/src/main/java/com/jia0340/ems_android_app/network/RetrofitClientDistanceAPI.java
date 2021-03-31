@@ -9,10 +9,10 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
  * @author Anna Dingler
  * Created on 2/22/21
  */
-public class RetrofitClientInstance {
+public class RetrofitClientDistanceAPI {
 
     private static Retrofit retrofit;
-    private static final String BASE_URL = "http://10.0.2.2:8000/";
+    private static final String BASE_URL = "http://dev.virtualearth.net/REST/v1/Routes/";
 
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {
