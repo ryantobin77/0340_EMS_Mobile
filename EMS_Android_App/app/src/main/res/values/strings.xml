@@ -43,4 +43,8 @@
     <string name="expand_icon">expand</string>
     <string name="collapse_icon">collapse</string>
 
+    <string name="sort_dialog_title">Sort By</string>
+    <string name="sort_a_z">A - Z</string>
+    <string name="sort_distance">Distance</string>
+    <string name="sort_nedocs">Nedocs</string>
 </resources>

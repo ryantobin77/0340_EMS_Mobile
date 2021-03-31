@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.jia0340.ems_android_app.models.Hospital;
+import com.jia0340.ems_android_app.models.SortField;
 import com.jia0340.ems_android_app.network.DataService;
 import com.jia0340.ems_android_app.network.RetrofitClientInstance;
 
@@ -31,12 +32,13 @@ import retrofit2.Response;
  * @author Anna Dingler
  * Created on 1/24/21
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SortSheetDialog.SortDialogListener {
 
     private SwipeRefreshLayout mSwipeContainer;
     private ArrayList<Hospital> mHospitalList;
     private HospitalListAdapter mHospitalAdapter;
     private Toolbar mToolbar;
+    private SortSheetDialog mSortDialog;
 
     /**
      * Create method for application
@@ -90,10 +92,15 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
+        if (id == R.id.action_sort) {
+
+            if (mSortDialog == null) {
+                mSortDialog = new SortSheetDialog();
+            }
+
+            mSortDialog.show(getSupportFragmentManager(), "sortSheet");
+
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -185,5 +192,25 @@ public class MainActivity extends AppCompatActivity {
         mHospitalAdapter = new HospitalListAdapter(mHospitalList, this);
         hospitalRecyclerView.setAdapter(mHospitalAdapter);
         hospitalRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    public void onSortSelected(SortField selectedSort) {
+        Log.d("MainActivity", "LISTENER SORT!");
+
+        switch (selectedSort) {
+            case NAME:
+                Log.d("MainActivity", "Sort A-Z");
+                //TODO: call sort method here!
+                break;
+            case DISTANCE:
+                Log.d("MainActivity", "Sort Distance");
+                //TODO: call sort method here!
+                break;
+            case NEDOCS_SCORE:
+                Log.d("MainActivity", "Sort NEDOCS");
+                //TODO: call sort method here!
+                break;
+        }
     }
 }
