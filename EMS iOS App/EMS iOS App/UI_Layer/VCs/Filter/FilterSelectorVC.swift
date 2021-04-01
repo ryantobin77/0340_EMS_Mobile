@@ -11,110 +11,7 @@ import UIKit
 
 class FilterSelectorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    let counties: [String] = ["Appling",
-                            "Bacon",
-                            "Baldwin",
-                            "Barrow",
-                            "Bartow",
-                            "Ben Hill",
-                            "Berrien",
-                            "Bibb",
-                            "Bleckley",
-                            "Brooks",
-                            "Bulloch",
-                            "Burke",
-                            "Butts",
-                            "Camden",
-                            "Candler",
-                            "Carroll",
-                            "Catoosa",
-                            "Chatham",
-                            "Cherokee",
-                            "Clarke",
-                            "Clayton",
-                            "Clinch",
-                            "Cobb",
-                            "Coffee",
-                            "Colquitt",
-                            "Cook",
-                            "Coweta",
-                            "Crisp",
-                            "DeKalb",
-                            "Decatur",
-                            "Dodge",
-                            "Dougherty",
-                            "Douglas",
-                            "Early",
-                            "Effingham",
-                            "Elbert",
-                            "Emanuel",
-                            "Evans",
-                            "Fannin",
-                            "Fayette",
-                            "Floyd",
-                            "Forsyth",
-                            "Franklin",
-                            "Fulton",
-                            "Glynn",
-                            "Gordon",
-                            "Grady",
-                            "Greene",
-                            "Gwinnett",
-                            "Habersham",
-                            "Hall",
-                            "Haralson",
-                            "Henry",
-                            "Houston",
-                            "Irwin",
-                            "Jasper",
-                            "Jeff Davis",
-                            "Jefferson",
-                            "Jenkins",
-                            "Lanier",
-                            "Laurens",
-                            "Liberty",
-                            "Lowndes",
-                            "Lumpkin",
-                            "Macon",
-                            "McDuffie",
-                            "Meriwether",
-                            "Miller",
-                            "Mitchell",
-                            "Monroe",
-                            "Morgan",
-                            "Murray",
-                            "Muscogee",
-                            "Newton",
-                            "Paulding",
-                            "Peach",
-                            "Pickens",
-                            "Polk",
-                            "Pulaski",
-                            "Putnam",
-                            "Rabun",
-                            "Randolph",
-                            "Richmond",
-                            "Rockdale",
-                            "Screven",
-                            "Seminole",
-                            "Spalding",
-                            "Stephens",
-                            "Sumter",
-                            "Tattnall",
-                            "Thomas",
-                            "Tift",
-                            "Toombs",
-                            "Towns",
-                            "Troup",
-                            "Union",
-                            "Upson",
-                            "Walton",
-                            "Ware",
-                            "Washington",
-                            "Wayne",
-                            "Whitfield",
-                            "Wilkes",
-                            "Worth"]
+    let counties: [String] = ["Appling", "Bacon", "Baldwin", "Barrow", "Bartow", "Ben Hill","Berrien", "Bibb", "Bleckley", "Brooks", "Bulloch", "Burke", "Butts", "Camden","Candler", "Carroll", "Catoosa", "Chatham", "Cherokee", "Clarke", "Clayton", "Clinch","Cobb", "Coffee", "Colquitt", "Cook", "Coweta", "Crisp", "DeKalb", "Decatur", "Dodge","Dougherty", "Douglas", "Early", "Effingham", "Elbert", "Emanuel", "Evans", "Fannin","Fayette", "Floyd", "Forsyth", "Franklin", "Fulton", "Glynn", "Gordon", "Grady","Greene", "Gwinnett", "Habersham", "Hall", "Haralson", "Henry", "Houston", "Irwin","Jasper", "Jeff Davis", "Jefferson", "Jenkins", "Lanier", "Laurens", "Liberty","Lowndes", "Lumpkin", "Macon", "McDuffie", "Meriwether", "Miller", "Mitchell", "Monroe","Morgan", "Murray", "Muscogee", "Newton", "Paulding", "Peach", "Pickens", "Polk","Pulaski", "Putnam", "Rabun", "Randolph", "Richmond", "Rockdale", "Screven", "Seminole","Spalding", "Stephens", "Sumter", "Tattnall", "Thomas", "Tift", "Toombs", "Towns","Troup", "Union", "Upson", "Walton", "Ware", "Washington", "Wayne", "Whitfield","Wilkes", "Worth"]
     
     var appliedFilters: Array<FilterIH>!
     var finalAppliedFilters: Array<FilterIH>!
@@ -220,18 +117,12 @@ class FilterSelectorViewController: UIViewController, UITableViewDataSource, UIT
     
     @objc
     func applyFilter(_ sender: CheckBox) {
-        let filter: FilterIH? = self.appliedFilters.first(where: {$0.field == sender.field})
-        if filter != nil {
-            if sender.isChecked {
-                filter?.values.append(sender.value)
-            } else {
-                filter?.values = filter?.values.filter {$0 != sender.value}
-                if filter?.values.count == 0 {
-                    self.appliedFilters = self.appliedFilters.filter {$0.field != sender.field}
-                }
-            }
+        if sender.isChecked {
+            self.appliedFilters.append(FilterIH(field: sender.field, value: sender.value))
         } else {
-            self.appliedFilters.append(FilterIH(field: sender.field, values: [sender.value]))
+            if let index = self.appliedFilters.firstIndex(where: {$0.field == sender.field && $0.value == sender.value}) {
+                self.appliedFilters.remove(at: index)
+            }
         }
         
     }
@@ -252,28 +143,24 @@ class FilterSelectorViewController: UIViewController, UITableViewDataSource, UIT
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == specialtyCenterValues {
             let cell = specialtyCenterValues.dequeueReusableCell(withIdentifier: "specialtyCenterCheckListCell", for: indexPath) as! CheckListCell
-            let specialtyCenter = HospitalType.allCases[indexPath.row]
+            let specialtyCenter = HospitalType.allCases[indexPath.row].rawValue
             
             cell.checkBox.field = FilterType.type
-            cell.checkBox.value = specialtyCenter.rawValue
+            cell.checkBox.value = specialtyCenter
             cell.checkBox.addTarget(self, action: #selector(self.applyFilter(_:)), for: .touchUpInside)
-            
-            let filter: FilterIH? = self.appliedFilters.first(where: {$0.field == FilterType.type})
-            cell.checkBox.isChecked = filter != nil && filter!.values.contains(specialtyCenter.rawValue)
-            cell.checkListValueLabel.text = specialtyCenter.getHospitalDisplayString()
+            cell.checkBox.isChecked = (self.appliedFilters.firstIndex(where: {$0.field == FilterType.type && $0.value == specialtyCenter}) != nil)
+            cell.checkListValueLabel.text = HospitalType(rawValue: specialtyCenter)!.getHospitalDisplayString()
         
             return cell
         } else if tableView == emsRegionValues {
             let cell = emsRegionValues.dequeueReusableCell(withIdentifier: "emsRegionCheckListCell", for: indexPath) as! CheckListCell
-            let emsRegion = indexPath.row + 1
+            let emsRegion = "\(indexPath.row + 1)"
             
             cell.checkBox.field = FilterType.emsRegion
-            cell.checkBox.value = "\(emsRegion)"
+            cell.checkBox.value = emsRegion
             cell.checkBox.addTarget(self, action: #selector(self.applyFilter(_:)), for: .touchUpInside)
-            
-            let filter: FilterIH? = self.appliedFilters.first(where: {$0.field == FilterType.emsRegion})
-            cell.checkBox.isChecked = filter != nil && filter!.values.contains("\(emsRegion)")
-            cell.checkListValueLabel.text = "Region \(emsRegion)"
+            cell.checkBox.isChecked = (self.appliedFilters.firstIndex(where: {$0.field == FilterType.emsRegion && $0.value == emsRegion}) != nil)
+            cell.checkListValueLabel.text = "Region " + emsRegion
         
             return cell
         } else if tableView == countyValues {
@@ -283,23 +170,18 @@ class FilterSelectorViewController: UIViewController, UITableViewDataSource, UIT
             cell.checkBox.field = FilterType.county
             cell.checkBox.value = county
             cell.checkBox.addTarget(self, action: #selector(self.applyFilter(_:)), for: .touchUpInside)
-            
-            let filter: FilterIH? = self.appliedFilters.first(where: {$0.field == FilterType.county})
-            cell.checkBox.isChecked = filter != nil && filter!.values.contains(county)
+            cell.checkBox.isChecked = (self.appliedFilters.firstIndex(where: {$0.field == FilterType.county && $0.value == county}) != nil)
             cell.checkListValueLabel.text = county
         
             return cell
         } else if tableView == rchValues {
             let cell = rchValues.dequeueReusableCell(withIdentifier: "rchCheckListCell", for: indexPath) as! CheckListCell
-            let rch = Character(UnicodeScalar(indexPath.row + 65)!)
+            let rch = "\(Character(UnicodeScalar(indexPath.row + 65)!))"
             
             cell.checkBox.field = FilterType.rch
-            cell.checkBox.value = "\(rch)"
-            cell.checkBox.addTarget(self, action: #selector(self.applyFilter(_:)), for: .touchUpInside)
-            
-            let filter: FilterIH? = self.appliedFilters.first(where: {$0.field == FilterType.rch})
-            cell.checkBox.isChecked = filter != nil && filter!.values.contains("\(rch)")
-            cell.checkListValueLabel.text = "\(rch)"
+            cell.checkBox.value = rch
+            cell.checkBox.isChecked = (self.appliedFilters.firstIndex(where: {$0.field == FilterType.rch && $0.value == rch}) != nil)
+            cell.checkListValueLabel.text = rch
         
             return cell
         }

@@ -34,18 +34,16 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         tableView.refreshControl?.addTarget(self, action: #selector(buildHospitalList), for: .valueChanged)
         
         // JUST FOR TESTING REMOVE LATER
-        appliedFilters = [FilterIH(field: FilterType.type, values: [HospitalType.adultTraumaCenterLevelI.getHospitalDisplayString()])]
+        appliedFilters = [FilterIH(field: FilterType.type, value: HospitalType.adultTraumaCenterLevelI.getHospitalDisplayString())]
     }
     
     override func viewDidAppear(_ animated: Bool) {
             super.viewDidAppear(animated)
         for filter in self.appliedFilters {
-            for value in filter.values {
-                if let filterCard = Bundle.main.loadNibNamed("FilterCard", owner: nil, options: nil)!.first as? FilterCard {
-                    filterCard.valueLabel.text = value
-                    // filterCard.removeButton.addTarget(self, action: <#T##Selector#>)
-                    appliedFiltersView.addArrangedSubview(filterCard)
-                }
+            if let filterCard = Bundle.main.loadNibNamed("FilterCard", owner: nil, options: nil)!.first as? FilterCard {
+                filterCard.valueLabel.text = filter.value
+                // filterCard.removeButton.addTarget(self, action: <#T##Selector#>)
+                appliedFiltersView.addArrangedSubview(filterCard)
             }
         }
     }

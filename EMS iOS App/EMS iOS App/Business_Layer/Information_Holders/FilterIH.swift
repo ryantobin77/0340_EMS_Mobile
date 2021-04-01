@@ -10,10 +10,10 @@ import UIKit
 
 class FilterIH: NSObject {
     var field: FilterType!
-    var values: [String]!
+    var value: String!
     
-    init(field: FilterType, values: [String]) {
+    init(field: FilterType, value: String) {
         self.field = field
-        self.values = values
+        self.value = value
     }
 }
