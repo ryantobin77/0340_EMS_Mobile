@@ -33,7 +33,18 @@
     <string name="address">%s,\n%s, %s %s</string>
     <string name="county_region">%s - Region %s</string>
     <string name="regional_coordinating_hospital">Regional Coordinating Hospital %s</string>
+
+    <!--filter-->
+    <string name="filter_dialog_title">Filter</string>
+    <string name="done">Done</string>
     <string name="clear">Clear All</string>
+    <string name="exit">Exit</string>
+    <string name="filter_specialty_center">Specialty Center</string>
+    <string name="filter_ems_region">EMS Region</string>
+    <string name="filter_county">County</string>
+    <string name="filter_rch">Regional Coordinating Hospital</string>
+    <string name="filter_ems_region_value">Region %s</string>
+
 
     <!--image accessibility text-->
     <string name="favorite_pin">pin to favorites</string>

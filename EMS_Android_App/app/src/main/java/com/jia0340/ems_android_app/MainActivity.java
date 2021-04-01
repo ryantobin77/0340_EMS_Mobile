@@ -11,9 +11,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.jia0340.ems_android_app.models.Filter;
+import com.jia0340.ems_android_app.models.FilterField;
 import com.jia0340.ems_android_app.models.Hospital;
 import com.jia0340.ems_android_app.network.DataService;
 import com.jia0340.ems_android_app.network.RetrofitClientInstance;
@@ -32,12 +35,14 @@ import retrofit2.Response;
  * @author Anna Dingler
  * Created on 1/24/21
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements FilterSheetDialog.FilterDialogListener {
 
     private SwipeRefreshLayout mSwipeContainer;
     private ArrayList<Hospital> mHospitalList;
     private HospitalListAdapter mHospitalAdapter;
     private Toolbar mToolbar;
+    private FilterSheetDialog mFilterDialog;
+    private Button mClearAllButton;
 
     /**
      * Create method for application
@@ -54,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
         mToolbar = findViewById(R.id.toolbar);
         // Setting toolbar as the ActionBar with setSupportActionBar() call
         setSupportActionBar(mToolbar);
+
+        mClearAllButton = findViewById(R.id.clearAllButton);
 
         //initial load of hospital data
         initializeHospitalData();
@@ -91,10 +98,13 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
+        if (id == R.id.action_filter) {
+            if (mFilterDialog == null) {
+                mFilterDialog = new FilterSheetDialog();
+            }
+
+            mFilterDialog.show(getSupportFragmentManager(), "filterSheet");
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -185,5 +195,15 @@ public class MainActivity extends AppCompatActivity {
         mHospitalAdapter = new HospitalListAdapter(mHospitalList, this);
         hospitalRecyclerView.setAdapter(mHospitalAdapter);
         hospitalRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        mClearAllButton.setOnClickListener(view -> {
+            Log.d("MainActivity", "CLEAR BUTTON PRESSED");
+            mHospitalAdapter.setFilterList(new ArrayList<Filter>());
+        });
+    }
+
+    @Override
+    public void onFilterSelected(FilterField selectedFilter) {
+        Log.d("MainActivity", "LISTENER FILTER!");
     }
 }

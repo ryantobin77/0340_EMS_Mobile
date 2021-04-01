@@ -14,6 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jia0340.ems_android_app.models.Filter;
 import com.jia0340.ems_android_app.models.Hospital;
 import com.jia0340.ems_android_app.models.HospitalType;
 import com.jia0340.ems_android_app.models.NedocsScore;
@@ -32,6 +33,7 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
     private List<Hospital> mHospitalList;
     private List<Hospital> mPinnedList;
     private Context mContext;
+    private ArrayList<Filter> mFilterList;
 
     /**
      * Constructor of the custom adapter
@@ -42,6 +44,7 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
         mHospitalList = hospitalList;
         mPinnedList = new ArrayList<Hospital>();
         mContext = context;
+        mFilterList = new ArrayList<Filter>();
     }
 
     /**
@@ -65,10 +68,19 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
     /**
      * Setter for mPinnedList.
      *
-     * @param mPinnedList
+     * @param mPinnedList the new list of pinned hospitals
      */
     public void setPinnedList(List<Hospital> mPinnedList) {
         this.mPinnedList = mPinnedList;
+    }
+
+    /**
+     * Setter for mFilterList.
+     *
+     * @param mFilterList the new list of applied filters
+     */
+    public void setFilterList(ArrayList<Filter> mFilterList) {
+        this.mFilterList = mFilterList;
     }
 
     /**
