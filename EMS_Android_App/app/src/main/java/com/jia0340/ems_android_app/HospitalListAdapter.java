@@ -34,7 +34,7 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
     private List<Hospital> mHospitalList;
     private List<Hospital> mPinnedList;
     private Context mContext;
-    private ArrayList<Filter> mFilterList;
+    private List<Filter> mFilterList;
 
     /**
      * Constructor of the custom adapter
@@ -76,11 +76,20 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
     }
 
     /**
+     * Getter for mFilterList.
+     *
+     * @return the list of applied Filters
+     */
+    public List<Filter> getFilterList() {
+        return mFilterList;
+    }
+
+    /**
      * Setter for mFilterList.
      *
      * @param mFilterList the new list of applied filters
      */
-    public void setFilterList(ArrayList<Filter> mFilterList) {
+    public void setFilterList(List<Filter> mFilterList) {
         this.mFilterList = mFilterList;
     }
 

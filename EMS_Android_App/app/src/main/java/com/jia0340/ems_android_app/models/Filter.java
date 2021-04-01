@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Created on 3/28/21
  */
 
-public class Filter implements Parcelable {
+public class Filter {
     private FilterField mFilterField;
     private String mFilterValue;
 
@@ -24,29 +24,6 @@ public class Filter implements Parcelable {
     protected Filter(Parcel in) {
         mFilterField = FilterField.valueOf(in.readString());
         mFilterValue = in.readString();
-    }
-
-    public static final Creator<Filter> CREATOR = new Creator<Filter>() {
-        @Override
-        public Filter createFromParcel(Parcel in) {
-            return new Filter(in);
-        }
-
-        @Override
-        public Filter[] newArray(int size) {
-            return new Filter[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(mFilterField.name());
-        dest.writeString(mFilterValue);
     }
 
     /**

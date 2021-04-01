@@ -7,6 +7,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -21,6 +25,7 @@ import com.jia0340.ems_android_app.models.Hospital;
 import com.jia0340.ems_android_app.network.DataService;
 import com.jia0340.ems_android_app.network.RetrofitClientInstance;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements FilterSheetDialog
     private Toolbar mToolbar;
     private FilterSheetDialog mFilterDialog;
     private Button mClearAllButton;
+    private BroadcastReceiver mFilterDialogReceiver;
 
     /**
      * Create method for application
@@ -61,6 +67,12 @@ public class MainActivity extends AppCompatActivity implements FilterSheetDialog
         setSupportActionBar(mToolbar);
 
         mClearAllButton = findViewById(R.id.clearAllButton);
+
+        // Instantiate empty hospital list and attach to Adapter
+        mHospitalList = new ArrayList<Hospital>();
+        mHospitalAdapter = new HospitalListAdapter(mHospitalList, this);
+
+        registerFilterDialogReciever();
 
         //initial load of hospital data
         initializeHospitalData();
@@ -192,7 +204,6 @@ public class MainActivity extends AppCompatActivity implements FilterSheetDialog
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         hospitalRecyclerView.addItemDecoration(itemDecoration);
 
-        mHospitalAdapter = new HospitalListAdapter(mHospitalList, this);
         hospitalRecyclerView.setAdapter(mHospitalAdapter);
         hospitalRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -205,6 +216,23 @@ public class MainActivity extends AppCompatActivity implements FilterSheetDialog
     @Override
     public void onFilterSelected(List<Filter> filterList) {
         Log.d("MainActivity", "LISTENER FILTER!");
+        mHospitalAdapter.setFilterList(new ArrayList<Filter>(filterList));
         // TODO: Call filter method here
+    }
+
+    /**
+     * Listens for filter dialog view to be created and updates with applied filters
+     */
+    private void registerFilterDialogReciever() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("FILTER_DIALOG_VIEW_CREATED");
+
+        mFilterDialogReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                mFilterDialog.updateAppliedFilters(mHospitalAdapter.getFilterList());
+            }
+        };
+        registerReceiver(mFilterDialogReceiver, filter);
     }
 }

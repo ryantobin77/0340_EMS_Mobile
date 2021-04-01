@@ -1,8 +1,10 @@
 package com.jia0340.ems_android_app;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,8 +28,10 @@ import java.util.List;
 
 public class FilterSheetDialog extends BottomSheetDialogFragment {
 
+    View mFilterDialog;
     FilterDialogListener mListener;
     List<Filter> mFilterList;
+    List<Filter> mFinalFilterList;
     static final String[] COUNTIES = {"Appling", "Bacon", "Baldwin", "Barrow", "Bartow", "Ben Hill",
             "Berrien", "Bibb", "Bleckley", "Brooks", "Bulloch", "Burke", "Butts", "Camden",
             "Candler", "Carroll", "Catoosa", "Chatham", "Cherokee", "Clarke", "Clayton", "Clinch",
@@ -46,20 +50,18 @@ public class FilterSheetDialog extends BottomSheetDialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        View view = inflater.inflate(R.layout.filter_dialog_layout, container, false);
-
-        // Get applied filter list from saved state or initialize with empty ArrayList<Filter> if saved state is null
-        mFilterList = savedInstanceState != null ? savedInstanceState.getParcelableArrayList("FILTER_LIST") : new ArrayList<Filter>();
+        super.onCreateView(inflater, container, savedInstanceState);
+        mFilterDialog = inflater.inflate(R.layout.filter_dialog_layout, container, false);
+        mFilterList = new ArrayList<Filter>();
 
         Context context = getContext();
         Drawable expandImg = ResourcesCompat.getDrawable(context.getResources(), R.drawable.expand, null);
         Drawable collapseImg = ResourcesCompat.getDrawable(context.getResources(), R.drawable.collapse, null);
 
         // Handle Specialty Centers
-        Button specialtyCenterButton = view.findViewById(R.id.specialtyCenterButton);
-        ScrollView specialtyCenterScrollView = view.findViewById(R.id.specialtyCenterScrollView);
-        LinearLayout specialtyCenterValues = view.findViewById(R.id.specialtyCenterValues);
+        Button specialtyCenterButton = mFilterDialog.findViewById(R.id.specialtyCenterButton);
+        ScrollView specialtyCenterScrollView = mFilterDialog.findViewById(R.id.specialtyCenterScrollView);
+        LinearLayout specialtyCenterValues = mFilterDialog.findViewById(R.id.specialtyCenterValues);
 
         specialtyCenterButton.setOnClickListener(listener -> {
             if (specialtyCenterScrollView.getVisibility() == View.VISIBLE) {
@@ -82,9 +84,9 @@ public class FilterSheetDialog extends BottomSheetDialogFragment {
         }
 
         // Handle EMS Regions
-        Button emsRegionButton = view.findViewById(R.id.emsRegionButton);
-        ScrollView emsRegionScrollView = view.findViewById(R.id.emsRegionScrollView);
-        LinearLayout emsRegionValues = view.findViewById(R.id.emsRegionValues);
+        Button emsRegionButton = mFilterDialog.findViewById(R.id.emsRegionButton);
+        ScrollView emsRegionScrollView = mFilterDialog.findViewById(R.id.emsRegionScrollView);
+        LinearLayout emsRegionValues = mFilterDialog.findViewById(R.id.emsRegionValues);
 
         emsRegionButton.setOnClickListener(listener -> {
             if (emsRegionScrollView.getVisibility() == View.VISIBLE) {
@@ -99,7 +101,7 @@ public class FilterSheetDialog extends BottomSheetDialogFragment {
         // Make EMS Region check boxes
         for (int i = 1; i <= 10; i++) {
             String emsRegion = String.valueOf(i);
-            CheckBox checkBox = makeCheckBox(FilterField.COUNTY, emsRegion);
+            CheckBox checkBox = makeCheckBox(FilterField.REGION, emsRegion);
             // Add Checkbox to LinearLayout
             if (emsRegionValues != null) {
                 emsRegionValues.addView(checkBox);
@@ -107,9 +109,9 @@ public class FilterSheetDialog extends BottomSheetDialogFragment {
         }
 
         // Handle counties
-        Button countyButton = view.findViewById(R.id.countyButton);
-        ScrollView countyScrollView = view.findViewById(R.id.countyScrollView);
-        LinearLayout countyValues = view.findViewById(R.id.countyValues);
+        Button countyButton = mFilterDialog.findViewById(R.id.countyButton);
+        ScrollView countyScrollView = mFilterDialog.findViewById(R.id.countyScrollView);
+        LinearLayout countyValues = mFilterDialog.findViewById(R.id.countyValues);
 
         countyButton.setOnClickListener(listener -> {
             if (countyScrollView.getVisibility() == View.VISIBLE) {
@@ -132,9 +134,9 @@ public class FilterSheetDialog extends BottomSheetDialogFragment {
         }
 
         // Handle regional coordinating hospital
-        Button rchButton = view.findViewById(R.id.rchButton);
-        ScrollView rchScrollView = view.findViewById(R.id.rchScrollView);
-        LinearLayout rchValues = view.findViewById(R.id.rchValues);
+        Button rchButton = mFilterDialog.findViewById(R.id.rchButton);
+        ScrollView rchScrollView = mFilterDialog.findViewById(R.id.rchScrollView);
+        LinearLayout rchValues = mFilterDialog.findViewById(R.id.rchValues);
 
         rchButton.setOnClickListener(listener -> {
             if (rchScrollView.getVisibility() == View.VISIBLE) {
@@ -157,44 +159,29 @@ public class FilterSheetDialog extends BottomSheetDialogFragment {
         }
 
         // Setup exit button handling
-        view.findViewById(R.id.exitButton).setOnClickListener(listener -> {
+        mFilterDialog.findViewById(R.id.exitButton).setOnClickListener(listener -> {
             dismiss();
         });
 
         // Setup clear all button handling
-        view.findViewById(R.id.clearAllButton).setOnClickListener(listener -> {
-            mFilterList = new ArrayList<Filter>();
-            for (int i = 0; i < specialtyCenterValues.getChildCount(); i++) {
-                CheckBox checkBox = (CheckBox) specialtyCenterValues.getChildAt(i);
-                checkBox.setChecked(false);
-            }
-            for (int i = 0; i < emsRegionValues.getChildCount(); i++) {
-                CheckBox checkBox = (CheckBox) emsRegionValues.getChildAt(i);
-                checkBox.setChecked(false);
-            }
-            for (int i = 0; i < countyValues.getChildCount(); i++) {
-                CheckBox checkBox = (CheckBox) countyValues.getChildAt(i);
-                checkBox.setChecked(false);
-            }
-            for (int i = 0; i < rchValues.getChildCount(); i++) {
-                CheckBox checkBox = (CheckBox) rchValues.getChildAt(i);
-                checkBox.setChecked(false);
-            }
+        mFilterDialog.findViewById(R.id.clearAllButton).setOnClickListener(listener -> {
+            updateAppliedFilters(new ArrayList<Filter>());
         });
 
         // Setup done button handling
-        view.findViewById(R.id.doneButton).setOnClickListener(listener -> {
+        mFilterDialog.findViewById(R.id.doneButton).setOnClickListener(listener -> {
             mListener.onFilterSelected(mFilterList);
             dismiss();
         });
 
-        return view;
+        sendCompleteBroadcast();
+
+        return mFilterDialog;
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList("FILTER_LIST",(ArrayList<Filter>) mFilterList);
     }
 
     public interface FilterDialogListener {
@@ -209,6 +196,37 @@ public class FilterSheetDialog extends BottomSheetDialogFragment {
             mListener = (FilterDialogListener) context;
         } catch (ClassCastException ex) {
             throw new ClassCastException(context.toString() + " need to implement FilterDialogListener");
+        }
+    }
+
+    /**
+     * Takes in a list of applied Filters and updates mFilterList and checked CheckBoxes accordingly.
+     *
+     * @param filterList a list of applied Filter objects
+     */
+    public void updateAppliedFilters(List<Filter> filterList) {
+        mFilterList = new ArrayList<Filter>(filterList);
+
+        LinearLayout specialtyCenterValues = mFilterDialog.findViewById(R.id.specialtyCenterValues);
+        for (int i = 0; i < specialtyCenterValues.getChildCount(); i++) {
+            CheckBox checkBox = (CheckBox) specialtyCenterValues.getChildAt(i);
+            boolean test = (mFilterList.contains(new Filter(FilterField.HOSPITAL_TYPES, (String) checkBox.getText())));
+            checkBox.setChecked(test);
+        }
+        LinearLayout emsRegionValues = mFilterDialog.findViewById(R.id.emsRegionValues);
+        for (int i = 0; i < emsRegionValues.getChildCount(); i++) {
+            CheckBox checkBox = (CheckBox) emsRegionValues.getChildAt(i);
+            checkBox.setChecked(mFilterList.contains(new Filter(FilterField.REGION, (String) checkBox.getText())));
+        }
+        LinearLayout countyValues = mFilterDialog.findViewById(R.id.countyValues);
+        for (int i = 0; i < countyValues.getChildCount(); i++) {
+            CheckBox checkBox = (CheckBox) countyValues.getChildAt(i);
+            checkBox.setChecked(mFilterList.contains(new Filter(FilterField.COUNTY, (String) checkBox.getText())));
+        }
+        LinearLayout rchValues = mFilterDialog.findViewById(R.id.rchValues);
+        for (int i = 0; i < rchValues.getChildCount(); i++) {
+            CheckBox checkBox = (CheckBox) rchValues.getChildAt(i);
+            checkBox.setChecked(mFilterList.contains(new Filter(FilterField.REGIONAL_COORDINATING_HOSPITAL, (String) checkBox.getText())));
         }
     }
 
@@ -240,5 +258,15 @@ public class FilterSheetDialog extends BottomSheetDialogFragment {
         }
 
         return checkBox;
+    }
+
+    /**
+     * Sends a broadcast that the filter dialog view has been created.
+     */
+    private void sendCompleteBroadcast() {
+        Log.d("FilterSheetDialog: ", "Sending broadcast...");
+
+        Intent intent = new Intent("FILTER_DIALOG_VIEW_CREATED");
+        mFilterDialog.getContext().sendBroadcast(intent);
     }
 }
