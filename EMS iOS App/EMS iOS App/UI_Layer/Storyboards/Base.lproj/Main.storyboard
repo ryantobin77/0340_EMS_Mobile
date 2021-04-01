@@ -444,9 +444,7 @@
                             <barButtonItem title="Item" image="SortIcon" id="gCZ-fT-dKn">
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
-                                    <segue destination="ctX-7D-u0U" kind="popoverPresentation" popoverAnchorBarButtonItem="gCZ-fT-dKn" id="KXq-3S-CRX">
-                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                    </segue>
+                                    <action selector="onSortClicked:" destination="JLG-Vg-eHN" id="q2M-lB-8ub"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem title="Item" image="FilterIcon" id="Dxi-bj-uGe">
@@ -850,118 +848,6 @@
             </objects>
             <point key="canvasLocation" x="815.94202898550736" y="112.5"/>
         </scene>
-        <!--Sort Selector-->
-        <scene sceneID="NEH-1b-5S1">
-            <objects>
-                <viewController title="Sort Selector" modalPresentationStyle="formSheet" id="ctX-7D-u0U" customClass="SortSelectorViewController" customModule="EMS_iOS_App" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="2Ou-mS-KfQ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="177"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="bottom" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="HoP-T9-DOx" userLabel="Sort Selector Base">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="177"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="LKR-nD-XiI" userLabel="Top Bar">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="55"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sort By" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aec-D8-ADq" userLabel="Sort Selector Title">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="55"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <color key="backgroundColor" name="MainColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="55" id="2eE-CL-h6t"/>
-                                            <constraint firstItem="Aec-D8-ADq" firstAttribute="centerX" secondItem="LKR-nD-XiI" secondAttribute="centerX" id="Q1Y-ee-g0o"/>
-                                            <constraint firstItem="Aec-D8-ADq" firstAttribute="centerY" secondItem="LKR-nD-XiI" secondAttribute="centerY" id="sdT-e0-S7I"/>
-                                        </constraints>
-                                    </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ZG9-FU-39r" userLabel="Sort Fields">
-                                        <rect key="frame" x="0.0" y="55" width="414" height="92"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zy1-wl-mGW" userLabel="Name">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
-                                                <state key="normal" title="A - Z">
-                                                    <color key="titleColor" systemColor="labelColor"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="onSortClickListener:" destination="ctX-7D-u0U" eventType="touchUpInside" id="l2R-4P-szh"/>
-                                                </connections>
-                                            </button>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="35n-R2-zxJ" userLabel="Horizontal Break">
-                                                <rect key="frame" x="0.0" y="30" width="414" height="1"/>
-                                                <color key="backgroundColor" name="MainColor"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="1" id="LNn-Dr-9pW"/>
-                                                </constraints>
-                                            </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vce-Pj-orf" userLabel="Distance">
-                                                <rect key="frame" x="0.0" y="31" width="414" height="30"/>
-                                                <state key="normal" title="Distance">
-                                                    <color key="titleColor" systemColor="labelColor"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="onSortClickListener:" destination="ctX-7D-u0U" eventType="touchUpInside" id="9wb-1t-XRg"/>
-                                                </connections>
-                                            </button>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D4b-DZ-REv" userLabel="Horizontal Break">
-                                                <rect key="frame" x="0.0" y="61" width="414" height="1"/>
-                                                <color key="backgroundColor" name="MainColor"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="1" id="9ed-75-O2R"/>
-                                                </constraints>
-                                            </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sat-8U-y6s" userLabel="Nedocs">
-                                                <rect key="frame" x="0.0" y="62" width="414" height="30"/>
-                                                <state key="normal" title="Nedocs">
-                                                    <color key="titleColor" systemColor="labelColor"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="onSortClickListener:" destination="ctX-7D-u0U" eventType="touchUpInside" id="gZ5-16-6I1"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CKi-sy-xBm" userLabel="Bottom Bar">
-                                        <rect key="frame" x="0.0" y="147" width="414" height="30"/>
-                                        <color key="backgroundColor" name="MainColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="Kc7-i5-aKe"/>
-                                        </constraints>
-                                    </stackView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="CKi-sy-xBm" firstAttribute="leading" secondItem="HoP-T9-DOx" secondAttribute="leading" id="X27-Lb-Oxw"/>
-                                    <constraint firstAttribute="trailing" secondItem="LKR-nD-XiI" secondAttribute="trailing" id="daC-JF-Gip"/>
-                                    <constraint firstItem="LKR-nD-XiI" firstAttribute="leading" secondItem="HoP-T9-DOx" secondAttribute="leading" id="eSu-TY-rtw"/>
-                                    <constraint firstAttribute="trailing" secondItem="CKi-sy-xBm" secondAttribute="trailing" id="j4k-Q4-Neb"/>
-                                </constraints>
-                            </stackView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="Q4F-Tn-LIo"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="Q4F-Tn-LIo" firstAttribute="bottom" secondItem="HoP-T9-DOx" secondAttribute="bottom" id="RCw-FV-qbJ"/>
-                            <constraint firstItem="HoP-T9-DOx" firstAttribute="leading" secondItem="Q4F-Tn-LIo" secondAttribute="leading" id="uKn-Lw-EjS"/>
-                            <constraint firstItem="HoP-T9-DOx" firstAttribute="trailing" secondItem="Q4F-Tn-LIo" secondAttribute="trailing" id="vav-CS-rYV"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="aLP-mP-PvX"/>
-                    <value key="contentSizeForViewInPopover" type="size" width="414" height="177"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="414" height="177"/>
-                    <connections>
-                        <outlet property="distanceSort" destination="vce-Pj-orf" id="kWG-6X-Qy1"/>
-                        <outlet property="nameSort" destination="Zy1-wl-mGW" id="G9h-kv-07G"/>
-                        <outlet property="nedocsSort" destination="sat-8U-y6s" id="2mi-5e-PTU"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="QwH-KZ-Ol6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="55" y="-560"/>
-        </scene>
     </scenes>
     <color key="tintColor" name="MainColor"/>
     <resources>
@@ -982,9 +868,6 @@
         <namedColor name="MainColor">
             <color red="0.0" green="0.29803921568627451" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

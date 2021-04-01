@@ -18,6 +18,11 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
     
     var appliedSort: SortType!
     
+    var popupHandler = MenuPopupHandler()
+    
+    var sortSelectorView = SortSelectorView()
+    let sortSelectorViewHeight: CGFloat = 177
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.barStyle = UIBarStyle.black
@@ -326,18 +331,16 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         self.tableView.endUpdates()
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        if segue.destination is SortSelectorViewController {
-            let vc = segue.destination as? SortSelectorViewController
-            vc?.delegate = self
-            vc?.currentSort = appliedSort
-        }
-    
+    @IBAction func onSortClicked(_ sender: UIBarButtonItem) {
+        
+        sortSelectorView.delegate = self
+        
+        popupHandler.displayPopup(sortSelectorView, sortSelectorViewHeight)
+        
     }
     
     func onSortSelected(_ sort: SortType?) {
+        popupHandler.handleDismiss()
         //TODO: call sort methods here
-        self.appliedSort = sort
     }
 }
