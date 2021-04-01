@@ -36,3 +36,9 @@ enum HospitalType: String {
     case maternalCenterLevelII = "Maternal Center Designation-Level II Maternal Center"
     case maternalCenterLevelIII = "Maternal Center Designation-Level III Maternal Center"
 }
+
+enum SortType: String {
+    case distance = "Distance"
+    case az = "Alphabetical"
+    case nedocs = "NEDOCS Score"
+}

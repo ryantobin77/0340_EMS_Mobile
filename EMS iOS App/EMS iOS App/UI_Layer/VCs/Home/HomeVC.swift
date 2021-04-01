@@ -8,13 +8,15 @@
 
 import UIKit
 
-class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
+class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, SortSelectorDelegate {
     
     @IBOutlet var tableView: UITableView!
     var hospitals: Array<HospitalIH>!
     var pinnedList: Array<HospitalIH>!
     var thereIsCellTapped = false
     var selectedRowIndex = -1
+    
+    var appliedSort: SortType!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,6 +81,9 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if (hospitals == nil) {
+            return -1
+        }
         return hospitals.count
     }
     
@@ -321,4 +326,18 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         self.tableView.endUpdates()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if segue.destination is SortSelectorViewController {
+            let vc = segue.destination as? SortSelectorViewController
+            vc?.delegate = self
+            vc?.currentSort = appliedSort
+        }
+    
+    }
+    
+    func onSortSelected(_ sort: SortType?) {
+        //TODO: call sort methods here
+        self.appliedSort = sort
+    }
 }
