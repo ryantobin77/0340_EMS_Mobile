@@ -203,7 +203,8 @@ public class MainActivity extends AppCompatActivity implements FilterSheetDialog
     }
 
     @Override
-    public void onFilterSelected(FilterField selectedFilter) {
+    public void onFilterSelected(List<Filter> filterList) {
         Log.d("MainActivity", "LISTENER FILTER!");
+        // TODO: Call filter method here
     }
 }

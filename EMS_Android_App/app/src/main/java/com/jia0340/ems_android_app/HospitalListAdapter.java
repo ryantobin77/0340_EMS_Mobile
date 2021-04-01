@@ -15,6 +15,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jia0340.ems_android_app.models.Filter;
+import com.jia0340.ems_android_app.models.FilterField;
 import com.jia0340.ems_android_app.models.Hospital;
 import com.jia0340.ems_android_app.models.HospitalType;
 import com.jia0340.ems_android_app.models.NedocsScore;
