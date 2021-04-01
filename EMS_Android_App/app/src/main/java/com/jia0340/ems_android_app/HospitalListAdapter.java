@@ -26,6 +26,8 @@ import java.util.List;
 import java.util.Collections;
 import java.util.Comparator;
 
+import android.util.Log;
+
 
 /**
  * Custom adapter used to bind individual items in the recyclerView
@@ -441,6 +443,7 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
      */
     public void handleFilter() {
         mHospitalList = new ArrayList<Hospital>(mAllHospitalList);
+        //Collections.copy(mHospitalList, mAllHospitalList);
         for (Filter filter: mFilterList) {
             switch (filter.getFilterField()) {
                 case COUNTY:
@@ -536,10 +539,14 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
     public void handleSearch(String searchTerm) {
         handleFilter();
         handleSort();
+        List<Hospital> toRemove = new ArrayList<Hospital>();
         for (Hospital h: mHospitalList) {
-            if (!h.getName().contains(searchTerm)) {
-                mHospitalList.remove(h);
+            if (!(h.getName().toLowerCase().contains(searchTerm.toLowerCase()))) {
+                toRemove.add(h);
             }
+        }
+        for (Hospital removedHospital: toRemove) {
+            mHospitalList.remove(removedHospital);
         }
     }
 
