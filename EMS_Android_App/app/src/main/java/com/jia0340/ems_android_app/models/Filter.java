@@ -40,7 +40,7 @@ public class Filter {
      *
      * @return the filter values
      */
-    public String getFilterValues() {
+    public String getFilterValue() {
         return mFilterValue;
     }
 

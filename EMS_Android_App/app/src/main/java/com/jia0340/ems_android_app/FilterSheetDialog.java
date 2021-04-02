@@ -31,7 +31,6 @@ public class FilterSheetDialog extends BottomSheetDialogFragment {
     View mFilterDialog;
     FilterDialogListener mListener;
     List<Filter> mFilterList;
-    List<Filter> mFinalFilterList;
     static final String[] COUNTIES = {"Appling", "Bacon", "Baldwin", "Barrow", "Bartow", "Ben Hill",
             "Berrien", "Bibb", "Bleckley", "Brooks", "Bulloch", "Burke", "Butts", "Camden",
             "Candler", "Carroll", "Catoosa", "Chatham", "Cherokee", "Clarke", "Clayton", "Clinch",
@@ -205,12 +204,10 @@ public class FilterSheetDialog extends BottomSheetDialogFragment {
      * @param filterList a list of applied Filter objects
      */
     public void updateAppliedFilters(List<Filter> filterList) {
-        mFilterList = new ArrayList<Filter>(filterList);
-
         LinearLayout specialtyCenterValues = mFilterDialog.findViewById(R.id.specialtyCenterValues);
         for (int i = 0; i < specialtyCenterValues.getChildCount(); i++) {
             CheckBox checkBox = (CheckBox) specialtyCenterValues.getChildAt(i);
-            boolean test = (mFilterList.contains(new Filter(FilterField.HOSPITAL_TYPES, (String) checkBox.getText())));
+            boolean test = (filterList.contains(new Filter(FilterField.HOSPITAL_TYPES, (String) checkBox.getText())));
             checkBox.setChecked(test);
         }
         LinearLayout emsRegionValues = mFilterDialog.findViewById(R.id.emsRegionValues);
@@ -218,19 +215,19 @@ public class FilterSheetDialog extends BottomSheetDialogFragment {
             CheckBox checkBox = (CheckBox) emsRegionValues.getChildAt(i);
             String displayString = (String) checkBox.getText();
             // Only the last character of the display string is stored as the value
-            checkBox.setChecked(mFilterList.contains(new Filter(FilterField.REGION, displayString.substring(displayString.length() - 1))));
+            checkBox.setChecked(filterList.contains(new Filter(FilterField.REGION, displayString.substring(displayString.length() - 1))));
         }
         LinearLayout countyValues = mFilterDialog.findViewById(R.id.countyValues);
         for (int i = 0; i < countyValues.getChildCount(); i++) {
             CheckBox checkBox = (CheckBox) countyValues.getChildAt(i);
-            checkBox.setChecked(mFilterList.contains(new Filter(FilterField.COUNTY, (String) checkBox.getText())));
+            checkBox.setChecked(filterList.contains(new Filter(FilterField.COUNTY, (String) checkBox.getText())));
         }
         LinearLayout rchValues = mFilterDialog.findViewById(R.id.rchValues);
         for (int i = 0; i < rchValues.getChildCount(); i++) {
             CheckBox checkBox = (CheckBox) rchValues.getChildAt(i);
             String displayString = (String) checkBox.getText();
             // Only the last character of the display string is stored as the value
-            checkBox.setChecked(mFilterList.contains(new Filter(FilterField.REGIONAL_COORDINATING_HOSPITAL, displayString.substring(displayString.length() - 1))));
+            checkBox.setChecked(filterList.contains(new Filter(FilterField.REGIONAL_COORDINATING_HOSPITAL, displayString.substring(displayString.length() - 1))));
         }
     }
 
@@ -255,11 +252,6 @@ public class FilterSheetDialog extends BottomSheetDialogFragment {
                 }
             }
         });
-
-        // checks if a filter is applied on this value
-        if (mFilterList.contains(new Filter(field, value))) {
-            checkBox.isChecked();
-        }
 
         return checkBox;
     }
