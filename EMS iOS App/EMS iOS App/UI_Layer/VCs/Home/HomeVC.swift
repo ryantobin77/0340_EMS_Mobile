@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
+class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, FilterSelectorDelegate {
     
     @IBOutlet var tableView: UITableView!
     @IBOutlet var appliedFiltersView: UIStackView!
@@ -339,4 +339,16 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         self.tableView.endUpdates()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is FilterSelectorViewController {
+            let vc = segue.destination as? FilterSelectorViewController
+            vc?.delegate = self
+            vc?.appliedFilters = appliedFilters
+        }
+    }
+    
+    func onFilterSelected(_ appliedFilters: [FilterIH]?) {
+            //TODO: call filter methods here
+            self.appliedFilters = appliedFilters
+    }
 }

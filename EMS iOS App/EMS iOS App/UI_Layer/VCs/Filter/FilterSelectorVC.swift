@@ -9,12 +9,17 @@
 import Foundation
 import UIKit
 
+protocol FilterSelectorDelegate: class {
+    func onFilterSelected(_ appliedFilters: [FilterIH]?)
+}
+
 class FilterSelectorViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     let counties: [String] = ["Appling", "Bacon", "Baldwin", "Barrow", "Bartow", "Ben Hill","Berrien", "Bibb", "Bleckley", "Brooks", "Bulloch", "Burke", "Butts", "Camden","Candler", "Carroll", "Catoosa", "Chatham", "Cherokee", "Clarke", "Clayton", "Clinch","Cobb", "Coffee", "Colquitt", "Cook", "Coweta", "Crisp", "DeKalb", "Decatur", "Dodge","Dougherty", "Douglas", "Early", "Effingham", "Elbert", "Emanuel", "Evans", "Fannin","Fayette", "Floyd", "Forsyth", "Franklin", "Fulton", "Glynn", "Gordon", "Grady","Greene", "Gwinnett", "Habersham", "Hall", "Haralson", "Henry", "Houston", "Irwin","Jasper", "Jeff Davis", "Jefferson", "Jenkins", "Lanier", "Laurens", "Liberty","Lowndes", "Lumpkin", "Macon", "McDuffie", "Meriwether", "Miller", "Mitchell", "Monroe","Morgan", "Murray", "Muscogee", "Newton", "Paulding", "Peach", "Pickens", "Polk","Pulaski", "Putnam", "Rabun", "Randolph", "Richmond", "Rockdale", "Screven", "Seminole","Spalding", "Stephens", "Sumter", "Tattnall", "Thomas", "Tift", "Toombs", "Towns","Troup", "Union", "Upson", "Walton", "Ware", "Washington", "Wayne", "Whitfield","Wilkes", "Worth"]
     
-    var appliedFilters: Array<FilterIH>!
-    var finalAppliedFilters: Array<FilterIH>!
+    var appliedFilters: Array<FilterIH>! = []
+    var finalAppliedFilters: Array<FilterIH>! = []
+    weak var delegate: FilterSelectorDelegate?
     
     @IBOutlet weak var exitButton: UIButton!
     
@@ -45,7 +50,6 @@ class FilterSelectorViewController: UIViewController, UITableViewDataSource, UIT
         self.rchValues.delegate = self
         self.rchValues.dataSource = self
         
-        appliedFilters = []
         finalAppliedFilters = []
         
         customizeButton(buttonName: self.specialtyCenterButton)
@@ -58,6 +62,11 @@ class FilterSelectorViewController: UIViewController, UITableViewDataSource, UIT
         buttonName.layer.borderWidth = 2
         buttonName.layer.borderColor = UIColor(rgb: 0x1B3CB1).cgColor
         buttonName.imageView?.contentMode = .scaleAspectFit
+        buttonName.contentHorizontalAlignment = .right
+        let availableWidth = buttonName.bounds.inset(by: buttonName.contentEdgeInsets).width - (buttonName.imageView?.frame.width ?? 0) - (buttonName.titleLabel?.frame.width ?? 0)
+        buttonName.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: availableWidth / 2)
+        buttonName.setImage(UIImage(named: "ArrowIcon"), for: .normal)
+        buttonName.setImage(UIImage(named: "ArrowIconUp"), for: .selected)
     }
     
     @IBAction func dismiss(_ sender: UIButton) {
@@ -65,7 +74,7 @@ class FilterSelectorViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     @IBAction func done(_ sender: UIButton) {
-        self.finalAppliedFilters = self.appliedFilters
+        delegate?.onFilterSelected(self.appliedFilters)
     }
     
     @IBAction func clearAll(_ sender: UIButton) {
@@ -76,47 +85,48 @@ class FilterSelectorViewController: UIViewController, UITableViewDataSource, UIT
         self.rchValues.reloadData()
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination is HomeVC {
-            let homeVC = segue.destination as? HomeVC
-            homeVC?.appliedFilters = self.finalAppliedFilters
-        }
-    }
-    
     @IBAction func expandCollapseField(_ sender: UIButton) {
         var selectedField: UITableView!
         var heightConstraint: NSLayoutConstraint!
+        var selectedButton: UIButton!
         
         switch sender {
         case specialtyCenterButton:
              selectedField = specialtyCenterValues
              heightConstraint = specialtyCenterHeight
+             selectedButton = specialtyCenterButton
         case emsRegionButton:
             selectedField = emsRegionValues
             heightConstraint = emsRegionHeight
+            selectedButton = emsRegionButton
         case countyButton:
             selectedField = countyValues
             heightConstraint = countyHeight
+            selectedButton = countyButton
         case rchButton:
             selectedField = rchValues
             heightConstraint = rchHeight
+            selectedButton = rchButton
         default:
             selectedField = nil
             heightConstraint = nil
+            selectedButton = nil
         }
         
         if selectedField?.isHidden == true{
             selectedField?.isHidden = false
             heightConstraint?.constant = 300
+            selectedButton.isSelected = true
         } else if selectedField?.isHidden == false {
             selectedField?.isHidden = true
             heightConstraint?.constant = 50
+            selectedButton.isSelected = false
         }
         
     }
     
     @objc
-    func applyFilter(_ sender: CheckBox) {
+    func applyFilter(_ sender: FilterCheckBox) {
         if sender.isChecked {
             self.appliedFilters.append(FilterIH(field: sender.field, value: sender.value))
         } else {
@@ -180,8 +190,9 @@ class FilterSelectorViewController: UIViewController, UITableViewDataSource, UIT
             
             cell.checkBox.field = FilterType.rch
             cell.checkBox.value = rch
+            cell.checkBox.addTarget(self, action: #selector(self.applyFilter(_:)), for: .touchUpInside)
             cell.checkBox.isChecked = (self.appliedFilters.firstIndex(where: {$0.field == FilterType.rch && $0.value == rch}) != nil)
-            cell.checkListValueLabel.text = rch
+            cell.checkListValueLabel.text = "Regional Coordinating Hospital " + rch
         
             return cell
         }

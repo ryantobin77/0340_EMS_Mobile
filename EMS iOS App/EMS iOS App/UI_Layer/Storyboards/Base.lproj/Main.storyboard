@@ -526,13 +526,15 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="QOv-KE-R21" userLabel="Specialty Center">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleAspectFit" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xbr-oJ-APz" userLabel="Specialty Center Button">
+                                                            <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xbr-oJ-APz" userLabel="Specialty Center Button">
                                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="wiN-EO-4uy"/>
                                                                 </constraints>
-                                                                <state key="normal" title="Specialty Center">
+                                                                <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
+                                                                <state key="normal" title="Specialty Center" image="ArrowIcon">
                                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
                                                                 </state>
                                                                 <connections>
                                                                     <action selector="expandCollapseField:" destination="fFE-x3-Ndo" eventType="touchUpInside" id="9Fj-gz-Ig9"/>
@@ -549,7 +551,7 @@
                                                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                             <subviews>
-                                                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xbJ-fA-Ajq" userLabel="Check Box" customClass="CheckBox" customModule="EMS_iOS_App" customModuleProvider="target">
+                                                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xbJ-fA-Ajq" userLabel="Check Box" customClass="FilterCheckBox" customModule="EMS_iOS_App" customModuleProvider="target">
                                                                                     <rect key="frame" x="64" y="10" width="24" height="24"/>
                                                                                     <state key="normal" image="CheckBoxOutline"/>
                                                                                 </button>
@@ -563,7 +565,7 @@
                                                                             <constraints>
                                                                                 <constraint firstItem="1C7-6A-EYl" firstAttribute="centerY" secondItem="HEO-kW-gp9" secondAttribute="centerY" id="FCT-hY-8Wp"/>
                                                                                 <constraint firstItem="xbJ-fA-Ajq" firstAttribute="centerY" secondItem="HEO-kW-gp9" secondAttribute="centerY" id="XEf-zT-Hjd"/>
-                                                                                <constraint firstItem="xbJ-fA-Ajq" firstAttribute="leading" secondItem="HEO-kW-gp9" secondAttribute="leading" constant="64" id="Y4Z-0U-Fx0"/>
+                                                                                <constraint firstItem="xbJ-fA-Ajq" firstAttribute="leading" secondItem="HEO-kW-gp9" secondAttribute="leading" constant="12" id="Y4Z-0U-Fx0"/>
                                                                                 <constraint firstItem="1C7-6A-EYl" firstAttribute="leading" secondItem="xbJ-fA-Ajq" secondAttribute="trailing" constant="12" id="l9j-QL-UCw"/>
                                                                             </constraints>
                                                                         </tableViewCellContentView>
@@ -587,13 +589,13 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="kUd-5N-OUR" userLabel="EMS Region">
                                                         <rect key="frame" x="0.0" y="50" width="414" height="50"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2xY-hf-gfT" userLabel="EMS Region Button">
+                                                            <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2xY-hf-gfT" userLabel="EMS Region Button">
                                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="JkU-nC-Zsj"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                                <state key="normal" title="EMS Region">
+                                                                <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
+                                                                <state key="normal" title="EMS Region" image="ArrowIcon">
                                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </state>
                                                                 <connections>
@@ -611,7 +613,7 @@
                                                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                             <subviews>
-                                                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vRp-V0-XvI" userLabel="Check Box" customClass="CheckBox" customModule="EMS_iOS_App" customModuleProvider="target">
+                                                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vRp-V0-XvI" userLabel="Check Box" customClass="FilterCheckBox" customModule="EMS_iOS_App" customModuleProvider="target">
                                                                                     <rect key="frame" x="64" y="10" width="24" height="24"/>
                                                                                     <state key="normal" image="CheckBoxOutline"/>
                                                                                 </button>
@@ -626,7 +628,7 @@
                                                                                 <constraint firstItem="lPc-Q5-1cK" firstAttribute="centerY" secondItem="KTd-fK-NSn" secondAttribute="centerY" id="UUy-NS-oQO"/>
                                                                                 <constraint firstItem="vRp-V0-XvI" firstAttribute="centerY" secondItem="KTd-fK-NSn" secondAttribute="centerY" id="hlG-TY-Qg8"/>
                                                                                 <constraint firstItem="lPc-Q5-1cK" firstAttribute="leading" secondItem="vRp-V0-XvI" secondAttribute="trailing" constant="12" id="lWU-AM-6be"/>
-                                                                                <constraint firstItem="vRp-V0-XvI" firstAttribute="leading" secondItem="KTd-fK-NSn" secondAttribute="leading" constant="64" id="ltj-sr-fKq"/>
+                                                                                <constraint firstItem="vRp-V0-XvI" firstAttribute="leading" secondItem="KTd-fK-NSn" secondAttribute="leading" constant="12" id="ltj-sr-fKq"/>
                                                                             </constraints>
                                                                         </tableViewCellContentView>
                                                                         <connections>
@@ -649,13 +651,13 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="MTO-qC-LaH" userLabel="County">
                                                         <rect key="frame" x="0.0" y="100" width="414" height="50"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SEF-CH-Rm4" userLabel="County Button">
+                                                            <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SEF-CH-Rm4" userLabel="County Button">
                                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="8kX-R3-YQz"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                                <state key="normal" title="County">
+                                                                <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
+                                                                <state key="normal" title="County" image="ArrowIcon">
                                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </state>
                                                                 <connections>
@@ -673,7 +675,7 @@
                                                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                             <subviews>
-                                                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nVL-a9-mql" userLabel="Check Box" customClass="CheckBox" customModule="EMS_iOS_App" customModuleProvider="target">
+                                                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nVL-a9-mql" userLabel="Check Box" customClass="FilterCheckBox" customModule="EMS_iOS_App" customModuleProvider="target">
                                                                                     <rect key="frame" x="64" y="10" width="24" height="24"/>
                                                                                     <state key="normal" image="CheckBoxOutline"/>
                                                                                 </button>
@@ -687,7 +689,7 @@
                                                                             <constraints>
                                                                                 <constraint firstItem="0ib-7P-cd6" firstAttribute="leading" secondItem="nVL-a9-mql" secondAttribute="trailing" constant="12" id="7cy-Yd-sJ5"/>
                                                                                 <constraint firstItem="nVL-a9-mql" firstAttribute="centerY" secondItem="ODw-jj-Y2u" secondAttribute="centerY" id="ARc-jL-rhX"/>
-                                                                                <constraint firstItem="nVL-a9-mql" firstAttribute="leading" secondItem="ODw-jj-Y2u" secondAttribute="leading" constant="64" id="c2p-OM-dBY"/>
+                                                                                <constraint firstItem="nVL-a9-mql" firstAttribute="leading" secondItem="ODw-jj-Y2u" secondAttribute="leading" constant="12" id="c2p-OM-dBY"/>
                                                                                 <constraint firstItem="0ib-7P-cd6" firstAttribute="centerY" secondItem="ODw-jj-Y2u" secondAttribute="centerY" id="xnp-os-tPl"/>
                                                                             </constraints>
                                                                         </tableViewCellContentView>
@@ -711,13 +713,13 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="J47-1i-IZi" userLabel="RCH">
                                                         <rect key="frame" x="0.0" y="150" width="414" height="50"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c25-qG-yCo" userLabel="RCH Button">
+                                                            <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c25-qG-yCo" userLabel="RCH Button">
                                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="pjO-Uy-LNz"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                                <state key="normal" title="Regional Coordinating Hospital">
+                                                                <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
+                                                                <state key="normal" title="Regional Coordinating Hospital" image="ArrowIcon">
                                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </state>
                                                                 <connections>
@@ -735,7 +737,7 @@
                                                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                             <subviews>
-                                                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TKN-Rv-GxE" userLabel="Check Box" customClass="CheckBox" customModule="EMS_iOS_App" customModuleProvider="target">
+                                                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TKN-Rv-GxE" userLabel="Check Box" customClass="FilterCheckBox" customModule="EMS_iOS_App" customModuleProvider="target">
                                                                                     <rect key="frame" x="64" y="10" width="24" height="24"/>
                                                                                     <state key="normal" image="CheckBoxOutline"/>
                                                                                 </button>
@@ -750,7 +752,7 @@
                                                                                 <constraint firstItem="5ms-0f-T5b" firstAttribute="leading" secondItem="TKN-Rv-GxE" secondAttribute="trailing" constant="12" id="Dew-Js-4o2"/>
                                                                                 <constraint firstItem="5ms-0f-T5b" firstAttribute="centerY" secondItem="4Qn-tB-c7O" secondAttribute="centerY" id="TCi-Wf-VKL"/>
                                                                                 <constraint firstItem="TKN-Rv-GxE" firstAttribute="centerY" secondItem="4Qn-tB-c7O" secondAttribute="centerY" id="Wgn-Yf-Omf"/>
-                                                                                <constraint firstItem="TKN-Rv-GxE" firstAttribute="leading" secondItem="4Qn-tB-c7O" secondAttribute="leading" constant="64" id="mgc-gS-UhB"/>
+                                                                                <constraint firstItem="TKN-Rv-GxE" firstAttribute="leading" secondItem="4Qn-tB-c7O" secondAttribute="leading" constant="12" id="mgc-gS-UhB"/>
                                                                             </constraints>
                                                                         </tableViewCellContentView>
                                                                         <connections>
@@ -856,8 +858,8 @@
     </scenes>
     <resources>
         <image name="AddressIcon" width="20" height="20"/>
-        <image name="ArrowIcon" width="249" height="256"/>
-        <image name="ArrowIconUp" width="249" height="256"/>
+        <image name="ArrowIcon" width="24" height="24"/>
+        <image name="ArrowIconUp" width="24" height="24"/>
         <image name="BrainIcon" width="512" height="512"/>
         <image name="CheckBoxOutline" width="24" height="24"/>
         <image name="Exit" width="18" height="18"/>

@@ -8,16 +8,7 @@
 
 import UIKit
 
-class CheckBox: UIButton {
-    var field: FilterType!
-    var value: String!
-    
-    convenience init(field: FilterType, value: String) {
-        self.init()
-        self.field = field
-        self.value = value
-    }
-    
+class FilterCheckBox: FilterButton {
     // Images
     let checkedImage = UIImage(named: "CheckBox")! as UIImage
     let uncheckedImage = UIImage(named: "CheckBoxOutline")! as UIImage
