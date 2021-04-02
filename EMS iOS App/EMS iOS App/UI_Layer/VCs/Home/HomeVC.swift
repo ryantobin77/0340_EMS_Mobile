@@ -12,6 +12,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
     
     @IBOutlet var tableView: UITableView!
     @IBOutlet var appliedFiltersView: UIStackView!
+    @IBOutlet var clearAllFiltersButton: UIButton!
     var hospitals: Array<HospitalIH>!
     var pinnedList: Array<HospitalIH>!
     var appliedFilters : Array<FilterIH>!
@@ -23,6 +24,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         self.navigationController?.navigationBar.barStyle = UIBarStyle.black
         self.hospitals = Array<HospitalIH>()
         self.pinnedList = Array<HospitalIH>()
+        self.appliedFilters = Array<FilterIH>()
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
@@ -32,29 +34,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         // swipe to refresh data
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(buildHospitalList), for: .valueChanged)
-        
-        // JUST FOR TESTING REMOVE LATER
-        appliedFilters = [FilterIH(field: FilterType.type, value: HospitalType.adultTraumaCenterLevelI.getHospitalDisplayString())]
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-            super.viewDidAppear(animated)
-        for filter in self.appliedFilters {
-            if let filterCard = Bundle.main.loadNibNamed("FilterCard", owner: nil, options: nil)!.first as? FilterCard {
-                filterCard.valueLabel.text = filter.value
-                // filterCard.removeButton.addTarget(self, action: <#T##Selector#>)
-                appliedFiltersView.addArrangedSubview(filterCard)
-            }
-        }
-    }
-    
-//    func removeFilter(_ sender: UIButton) {
-//        let filter: FilterIH? = self.appliedFilters.first(where: {$0.field == sender.field})
-//        filter?.values = filter?.values.filter {$0 != sender.value}
-//        if filter?.values.count == 0 {
-//            self.appliedFilters = self.appliedFilters.filter {$0.field != sender.field}
-//        }
-//    }
 
     // helper method to build Hospital List from data
     @objc func buildHospitalList() {
@@ -339,6 +319,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         self.tableView.endUpdates()
     }
     
+    // sends data to FilterSelectorViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.destination is FilterSelectorViewController {
             let vc = segue.destination as? FilterSelectorViewController
@@ -347,8 +328,60 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         }
     }
     
+    // callback when new filter is applied
     func onFilterSelected(_ appliedFilters: [FilterIH]?) {
-            //TODO: call filter methods here
-            self.appliedFilters = appliedFilters
+        self.appliedFilters = appliedFilters
+        
+        // Hide Clear All button if there are no filters applied
+        if appliedFilters!.count > 0 {
+            self.clearAllFiltersButton.isHidden = false
+        } else {
+            self.clearAllFiltersButton.isHidden = true
+        }
+        
+        self.appliedFiltersView.subviews.forEach({ $0.removeFromSuperview() })
+        
+        for filter in self.appliedFilters {
+            if let filterCard = Bundle.main.loadNibNamed("FilterCard", owner: nil, options: nil)!.first as? FilterCard {
+                switch filter.field {
+                case .type:
+                    filterCard.valueLabel.text = filter.value
+                case .emsRegion:
+                    filterCard.valueLabel.text = "Region " + filter.value
+                case .county:
+                    filterCard.valueLabel.text = filter.value
+                case .rch:
+                    filterCard.valueLabel.text = "Regional Coordinating Hospital " + filter.value
+                default:
+                    filterCard.valueLabel.text = filter.value
+                }
+                
+                filterCard.removeButton.field = filter.field
+                filterCard.removeButton.value = filter.value
+                filterCard.removeButton.addTarget(self, action: #selector(self.removeFilter(_:)), for: .touchUpInside)
+                self.appliedFiltersView.addArrangedSubview(filterCard)
+            }
+        }
+        
+        //TODO: call filter method here
+    }
+    
+    @objc
+    func removeFilter(_ sender: FilterButton) {
+        if let index = self.appliedFilters.firstIndex(where: {$0.field == sender.field && $0.value == sender.value}) {
+            self.appliedFilters.remove(at: index)
+            self.appliedFiltersView.subviews[index].removeFromSuperview()
+        }
+        
+        if self.appliedFilters.count == 0 {
+            self.clearAllFiltersButton.isHidden = true
+        }
+    }
+    
+    @IBAction func clearAllFilters(_ sender: UIButton) {
+        self.appliedFiltersView.subviews.forEach({ $0.removeFromSuperview() })
+        self.clearAllFiltersButton.isHidden = true
+        self.appliedFilters = Array<FilterIH>()
+        // TODO: call filter method here
     }
 }

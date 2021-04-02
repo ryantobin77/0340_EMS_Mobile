@@ -372,19 +372,17 @@
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="en9-YR-fUn" userLabel="Bottom Bar">
                                 <rect key="frame" x="0.0" y="807" width="414" height="55"/>
                                 <subviews>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wia-QZ-aUR" userLabel="Bottom Bar Scroll View">
-                                        <rect key="frame" x="0.0" y="0.0" width="324" height="55"/>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wia-QZ-aUR" userLabel="Bottom Bar Scroll View">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="55"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="4Lk-Ts-jz0" userLabel="Applied Filters Holder">
-                                                <rect key="frame" x="10" y="0.0" width="304" height="55"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="4Lk-Ts-jz0" userLabel="Applied Filters Holder">
+                                                <rect key="frame" x="10" y="0.0" width="394" height="55"/>
                                             </stackView>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="4Lk-Ts-jz0" firstAttribute="leading" secondItem="Wia-QZ-aUR" secondAttribute="leading" constant="10" id="5cq-xC-Jtm"/>
                                             <constraint firstItem="4Lk-Ts-jz0" firstAttribute="centerY" secondItem="Wia-QZ-aUR" secondAttribute="centerY" id="Kbv-rI-gxT"/>
-                                            <constraint firstAttribute="trailing" secondItem="4Lk-Ts-jz0" secondAttribute="trailing" constant="10" id="MCV-dZ-o99"/>
                                             <constraint firstItem="4Lk-Ts-jz0" firstAttribute="height" secondItem="MQ9-E2-bTQ" secondAttribute="height" id="QLa-lH-sHW"/>
-                                            <constraint firstItem="4Lk-Ts-jz0" firstAttribute="centerY" secondItem="Wia-QZ-aUR" secondAttribute="centerY" id="Y38-P2-u2z"/>
                                             <constraint firstItem="4Lk-Ts-jz0" firstAttribute="top" secondItem="Wia-QZ-aUR" secondAttribute="top" id="ZYb-mP-rXR"/>
                                             <constraint firstAttribute="height" constant="55" id="hKa-eg-bKk"/>
                                             <constraint firstAttribute="bottom" secondItem="4Lk-Ts-jz0" secondAttribute="bottom" id="ub2-Q8-oW7"/>
@@ -393,8 +391,8 @@
                                         <viewLayoutGuide key="contentLayoutGuide" id="MQ9-E2-bTQ"/>
                                         <viewLayoutGuide key="frameLayoutGuide" id="S02-6n-ljR"/>
                                     </scrollView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xjz-1G-sN6" userLabel="Clear All Filters Button">
-                                        <rect key="frame" x="324" y="0.0" width="90" height="55"/>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xjz-1G-sN6" userLabel="Clear All Filters Button">
+                                        <rect key="frame" x="414" y="0.0" width="90" height="55"/>
                                         <color key="backgroundColor" red="0.2182899714" green="0.3369700015" blue="0.64316809180000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="90" id="4vy-iy-hdL"/>
@@ -405,6 +403,9 @@
                                         <state key="normal" title="Clear All">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="clearAllFilters:" destination="JLG-Vg-eHN" eventType="touchUpInside" id="IM3-a0-BGR"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.2182899714" green="0.3369700015" blue="0.64316809180000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -454,6 +455,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="appliedFiltersView" destination="4Lk-Ts-jz0" id="2XE-TC-Dte"/>
+                        <outlet property="clearAllFiltersButton" destination="xjz-1G-sN6" id="4qq-nv-jPt"/>
                         <outlet property="tableView" destination="5Kd-TW-JX4" id="oZC-Uj-MUF"/>
                     </connections>
                 </viewController>

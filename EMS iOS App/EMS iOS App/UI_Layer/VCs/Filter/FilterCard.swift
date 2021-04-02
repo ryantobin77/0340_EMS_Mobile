@@ -10,12 +10,6 @@ import UIKit
 
 class FilterCard: UIView {
     
-    var field: FilterType!
     @IBOutlet weak var valueLabel: UILabel!
-    @IBOutlet weak var removeButton: UIButton!
-    
-    convenience init(field: FilterType) {
-        self.init()
-        self.field = field
-    }
+    @IBOutlet weak var removeButton: FilterButton!
 }
