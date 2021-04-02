@@ -8,13 +8,16 @@
 
 import UIKit
 
-class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, UISearchBarDelegate {
+class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, UISearchBarDelegate, FilterSelectorDelegate, SortSelectorDelegate  {
     
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var appliedFiltersView: UIStackView!
+    @IBOutlet var clearAllFiltersButton: UIButton!
     var hospitals: Array<HospitalIH>!
     var pinnedList: Array<HospitalIH>!
     var filteredList: Array<HospitalIH>!
     var searchedList: Array<HospitalIH>!
+    var sortedList: Array<HospitalIH>!
     var searchActive : Bool = false
     var filterActive : Bool = false
     var sortActive : Bool = false
@@ -25,6 +28,10 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
     let defaults = UserDefaults.standard
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet var searchBarHeight : NSLayoutConstraint!
+    var popupHandler = MenuPopupHandler()
+
+    var sortSelectorView = SortSelectorView()
+    let sortSelectorViewHeight: CGFloat = 177
     
 
     override func viewDidLoad() {
@@ -36,6 +43,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         self.pinnedList = Array<HospitalIH>()
         //self.searchedList = Array<HospitalIH>()
         self.filteredList = Array<HospitalIH>()
+        self.sortedList = Array<HospitalIH>()
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
@@ -109,88 +117,113 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
             return tmp.range(of: searchText, options: .caseInsensitive) != nil
             })
         }
-           
+        for hos in searchedList {
+            print(hos.name)
+        }
         tableView.reloadData()
     }
+    
+    @IBAction func onSortClicked(_ sender: UIBarButtonItem) {
+
+            sortSelectorView.delegate = self
+
+            popupHandler.displayPopup(sortSelectorView, sortSelectorViewHeight)
+
+        }
+
+        func onSortSelected(_ sort: SortType?) {
+            popupHandler.handleDismiss()
+            //TODO: call sort methods here
+            appliedSort = sort
+            handleSort()
+        }
     
     
     func handleFilter() {
         if (!filterActive) {
             filteredList = hospitals
         }
-        for filter in appliedFilters {
-            switch filter.field {
-            case .county:
-                var newHospitals = Array<HospitalIH>()
-                //iterate through values to see if multiple counties were selected
-                for iCounty in filter.values {
+        if appliedFilters.count > 0 {
+            for filter in appliedFilters {
+                print(filter.value)
+                switch filter.field {
+                case .county:
+                    var newHospitals = Array<HospitalIH>()
                     newHospitals.append(contentsOf: self.filteredList.filter({ (hos) -> Bool in
                         let tmp: String = hos.county
-                        return tmp == iCounty
+                        return tmp == filter.value
                         }))
-                }
-                filteredList = newHospitals
-                filterActive = true
-            case .emsRegion:
-                var newHospitals = Array<HospitalIH>()
-                //iterate through values to see if multiple regions were selected
-                for iRegion in filter.values {
+                    filteredList = newHospitals
+                    filterActive = true
+                case .emsRegion:
+                    var newHospitals = Array<HospitalIH>()
                     newHospitals.append(contentsOf: self.filteredList.filter({ (hos) -> Bool in
                         let tmp: String = hos.regionNumber
-                        return tmp == iRegion
+                        return tmp == filter.value
                         }))
-                }
-                filteredList = newHospitals
-                filterActive = true
-            case .rch:
-                var newHospitals = Array<HospitalIH>()
-                //iterate through values to see if multiple rch's were selected
-                for iRCH in filter.values {
+                    filteredList = newHospitals
+                    filterActive = true
+                case .rch:
+                    var newHospitals = Array<HospitalIH>()
                     newHospitals.append(contentsOf: self.filteredList.filter({ (hos) -> Bool in
                         let tmp: String = hos.rch
-                        return tmp == iRCH
+                        return tmp == filter.value
                         }))
-                }
-                filteredList = newHospitals
-                filterActive = true
-            case .type:
-                var newHospitals = Array<HospitalIH>()
-                for speCenter in filter.values {
-                    let type = HospitalType(rawValue: speCenter)
+                    filteredList = newHospitals
+                    filterActive = true
+                case .type:
+                    var newHospitals = Array<HospitalIH>()
+                    let type = HospitalType(rawValue: filter.value)
                     newHospitals.append(contentsOf: self.filteredList.filter({ (hos) -> Bool in
                         let tmp: Array<HospitalType> = hos.specialtyCenters
                         return tmp.contains(type!)
                         }))
+                    filteredList = newHospitals
+                    filterActive = true
+                default:
+                    break
                 }
-                filteredList = newHospitals
-                filterActive = true
-            default:
-                break
+                
             }
-            
+        } else {
+            filteredList = hospitals
+            filterActive = false
         }
+        //print(filteredList[0].name)
+        tableView.reloadData()
     }
  
     
     func handleSort() {
+        //var h = Array<HospitalIH>()
+        if (filterActive) {
+            print("HELLO")
+            sortedList = filteredList
+        } else if (searchActive){
+            sortedList = searchedList
+        } else {
+            sortedList = hospitals
+        }
         sortActive = true
-        //print(appliedSort)
+        print("SORT",appliedSort)
         switch appliedSort {
         case .az:
-            print(appliedSort.rawValue)
-            hospitals.sort{
+            //print(appliedSort.rawValue)
+            sortedList.sort{
                 $0.name < $1.name
             }
         case .distance:
-            hospitals.sort{
+            sortedList.sort{
                 $0.distance < $1.distance
             }
         case .nedocs:
-            hospitals.sort{
+            sortedList.sort{
                 $0.nedocsScore < $1.nedocsScore
             }
         default:
-            break
+            sortedList.sort{
+                $0.name < $1.name
+            }
         }
         tableView.reloadData()
     }
@@ -263,6 +296,8 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
             return searchedList.count
         } else if (filterActive) {
             return filteredList.count
+        } else if (sortActive) {
+            return sortedList.count
         }
         else {
             return hospitals.count
@@ -270,7 +305,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let hospital:HospitalIH
+        var hospital:HospitalIH
         let cell = tableView.dequeueReusableCell(withIdentifier: "hospitalCell", for: indexPath) as! HomeTableViewCell
         if (searchActive) {
             hospital = self.searchedList[indexPath.row]
@@ -279,6 +314,10 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         } else {
             hospital = self.hospitals[indexPath.row]
         }
+        if (sortActive) {
+            hospital = self.sortedList[indexPath.row]
+        }
+        
         
         cell.hospitalName.text = hospital.name
         if (hospital.isFavorite) {
@@ -412,7 +451,9 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == selectedRowIndex && thereIsCellTapped {
             let hospital:HospitalIH
-            if (searchActive) {
+            if (sortActive) {
+                hospital = self.sortedList[indexPath.row]
+            } else if (searchActive) {
                 hospital = self.searchedList[indexPath.row]
             } else if (filterActive) {
                 hospital = self.filteredList[indexPath.row]
@@ -465,6 +506,75 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         self.tableView.beginUpdates()
         self.tableView.endUpdates()
     }
+    
+    // sends data to FilterSelectorViewController
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            if segue.destination is FilterSelectorViewController {
+                let vc = segue.destination as? FilterSelectorViewController
+                vc?.delegate = self
+                vc?.appliedFilters = appliedFilters
+            }
+        }
+
+        // callback when new filter is applied
+        func onFilterSelected(_ appliedFilters: [FilterIH]?) {
+            self.appliedFilters = appliedFilters
+
+            // Hide Clear All button if there are no filters applied
+            if appliedFilters!.count > 0 {
+                self.clearAllFiltersButton.isHidden = false
+            } else {
+                self.clearAllFiltersButton.isHidden = true
+            }
+
+            self.appliedFiltersView.subviews.forEach({ $0.removeFromSuperview() })
+
+            for filter in self.appliedFilters {
+                if let filterCard = Bundle.main.loadNibNamed("FilterCard", owner: nil, options: nil)!.first as? FilterCard {
+                    switch filter.field {
+                    case .type:
+                        filterCard.valueLabel.text = filter.value
+                    case .emsRegion:
+                        filterCard.valueLabel.text = "Region " + filter.value
+                    case .county:
+                        filterCard.valueLabel.text = filter.value
+                    case .rch:
+                        filterCard.valueLabel.text = "Regional Coordinating Hospital " + filter.value
+                    default:
+                        filterCard.valueLabel.text = filter.value
+                    }
+
+                    filterCard.removeButton.field = filter.field
+                    filterCard.removeButton.value = filter.value
+                    filterCard.removeButton.addTarget(self, action: #selector(self.removeFilter(_:)), for: .touchUpInside)
+                    self.appliedFiltersView.addArrangedSubview(filterCard)
+                }
+            }
+
+            //TODO: call filter method here
+            print(appliedFilters?.count)
+            handleFilter()
+        }
+
+        @objc
+        func removeFilter(_ sender: FilterButton) {
+            if let index = self.appliedFilters.firstIndex(where: {$0.field == sender.field && $0.value == sender.value}) {
+                self.appliedFilters.remove(at: index)
+                self.appliedFiltersView.subviews[index].removeFromSuperview()
+            }
+
+            if self.appliedFilters.count == 0 {
+                self.clearAllFiltersButton.isHidden = true
+            }
+        }
+
+        @IBAction func clearAllFilters(_ sender: UIButton) {
+            self.appliedFiltersView.subviews.forEach({ $0.removeFromSuperview() })
+            self.clearAllFiltersButton.isHidden = true
+            self.appliedFilters = Array<FilterIH>()
+            // TODO: call filter method here
+            handleFilter()
+        }
     
     
     @IBAction func favoritePin(_ sender: UIButton) {
