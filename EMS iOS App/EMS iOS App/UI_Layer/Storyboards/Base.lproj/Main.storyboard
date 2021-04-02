@@ -288,7 +288,7 @@
                                                     </subviews>
                                                 </stackView>
                                                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lJd-dL-ZuY">
-                                                    <rect key="frame" x="374" y="189" width="20" height="20"/>
+                                                    <rect key="frame" x="371.5" y="243" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="7lP-PZ-XyH"/>
                                                         <constraint firstAttribute="width" constant="20" id="Rfb-Tj-RYR"/>
@@ -369,6 +369,56 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="en9-YR-fUn" userLabel="Bottom Bar">
+                                <rect key="frame" x="0.0" y="807" width="414" height="55"/>
+                                <subviews>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wia-QZ-aUR" userLabel="Bottom Bar Scroll View">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="55"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="4Lk-Ts-jz0" userLabel="Applied Filters Holder">
+                                                <rect key="frame" x="10" y="0.0" width="394" height="55"/>
+                                            </stackView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="4Lk-Ts-jz0" firstAttribute="leading" secondItem="Wia-QZ-aUR" secondAttribute="leading" constant="10" id="5cq-xC-Jtm"/>
+                                            <constraint firstItem="4Lk-Ts-jz0" firstAttribute="centerY" secondItem="Wia-QZ-aUR" secondAttribute="centerY" id="Kbv-rI-gxT"/>
+                                            <constraint firstItem="4Lk-Ts-jz0" firstAttribute="height" secondItem="MQ9-E2-bTQ" secondAttribute="height" id="QLa-lH-sHW"/>
+                                            <constraint firstItem="4Lk-Ts-jz0" firstAttribute="top" secondItem="Wia-QZ-aUR" secondAttribute="top" id="ZYb-mP-rXR"/>
+                                            <constraint firstAttribute="height" constant="55" id="hKa-eg-bKk"/>
+                                            <constraint firstAttribute="bottom" secondItem="4Lk-Ts-jz0" secondAttribute="bottom" id="ub2-Q8-oW7"/>
+                                            <constraint firstItem="4Lk-Ts-jz0" firstAttribute="centerX" secondItem="Wia-QZ-aUR" secondAttribute="centerX" placeholder="YES" id="vFn-fk-AYn"/>
+                                        </constraints>
+                                        <viewLayoutGuide key="contentLayoutGuide" id="MQ9-E2-bTQ"/>
+                                        <viewLayoutGuide key="frameLayoutGuide" id="S02-6n-ljR"/>
+                                    </scrollView>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xjz-1G-sN6" userLabel="Clear All Filters Button">
+                                        <rect key="frame" x="414" y="0.0" width="90" height="55"/>
+                                        <color key="backgroundColor" red="0.2182899714" green="0.3369700015" blue="0.64316809180000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="90" id="4vy-iy-hdL"/>
+                                            <constraint firstAttribute="height" constant="55" id="m9h-fA-JXI"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <color key="tintColor" red="0.2182899714" green="0.3369700015" blue="0.64316809180000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <state key="normal" title="Clear All">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="clearAllFilters:" destination="JLG-Vg-eHN" eventType="touchUpInside" id="IM3-a0-BGR"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.2182899714" green="0.3369700015" blue="0.64316809180000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="xjz-1G-sN6" secondAttribute="trailing" id="Umf-wn-vuz"/>
+                                    <constraint firstItem="xjz-1G-sN6" firstAttribute="centerY" secondItem="en9-YR-fUn" secondAttribute="centerY" id="bta-UV-aI2"/>
+                                    <constraint firstItem="Wia-QZ-aUR" firstAttribute="centerY" secondItem="en9-YR-fUn" secondAttribute="centerY" id="ogv-43-AoV"/>
+                                    <constraint firstItem="Wia-QZ-aUR" firstAttribute="leading" secondItem="en9-YR-fUn" secondAttribute="leading" id="toD-SH-phr"/>
+                                    <constraint firstAttribute="height" constant="55" id="uuw-uk-6xd"/>
+                                    <constraint firstItem="xjz-1G-sN6" firstAttribute="leading" secondItem="Wia-QZ-aUR" secondAttribute="trailing" id="zpC-jn-xbc"/>
+                                    <constraint firstItem="xjz-1G-sN6" firstAttribute="leading" secondItem="Wia-QZ-aUR" secondAttribute="trailing" id="zxN-2c-ant"/>
+                                </constraints>
+                            </stackView>
                             <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search..." showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jgj-mw-EmI">
                                                             <rect key="frame" x="0.0" y="88" width="414" height="0.0"/>
                                                             <constraints>
@@ -402,13 +452,23 @@
                             </barButtonItem>
                             <barButtonItem title="Item" image="SortIcon" id="gCZ-fT-dKn">
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="onSortClicked:" destination="JLG-Vg-eHN" id="q2M-lB-8ub"/>
+                                </connections>
                             </barButtonItem>
                             <barButtonItem title="Item" image="FilterIcon" id="Dxi-bj-uGe">
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <segue destination="fFE-x3-Ndo" kind="popoverPresentation" popoverAnchorBarButtonItem="Dxi-bj-uGe" id="NCQ-l9-Iyi">
+                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                    </segue>
+                                </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="appliedFiltersView" destination="4Lk-Ts-jz0" id="2XE-TC-Dte"/>
+                        <outlet property="clearAllFiltersButton" destination="xjz-1G-sN6" id="4qq-nv-jPt"/>
                         <outlet property="tableView" destination="5Kd-TW-JX4" id="oZC-Uj-MUF"/>
                         <outlet property="searchBar" destination="Jgj-mw-EmI" id="koa-Xx-XdA"/>
                         <outlet property="searchBarHeight" destination="YIj-FW-SXn" id="RpU-j1-py7"/>
@@ -417,6 +477,400 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="epU-Rl-Ue4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="27.536231884057973" y="112.5"/>
+        </scene>
+<!--Filter Selector-->
+        <scene sceneID="RrN-oV-jrH">
+            <objects>
+                <viewController title="Filter Selector" definesPresentationContext="YES" id="fFE-x3-Ndo" customClass="FilterSelectorViewController" customModule="EMS_iOS_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleAspectFit" id="T8M-nO-opb">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="AKI-jv-388" userLabel="Filter Selector Base">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="DLV-rW-s5m" userLabel="Top Bar">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="55"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="left" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bSB-ue-nAF" userLabel="Exit Button">
+                                                <rect key="frame" x="0.0" y="0.0" width="90" height="55"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="90" id="6Qh-XG-U4g"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                <state key="normal" image="Exit"/>
+                                                <connections>
+                                                    <action selector="dismiss:" destination="fFE-x3-Ndo" eventType="touchUpInside" id="Tym-wN-zcV"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filter" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g69-y7-iIV" userLabel="Filter Selector Title">
+                                                <rect key="frame" x="100" y="0.0" width="214" height="55"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EC2-8D-qTT" userLabel="Clear All Button">
+                                                <rect key="frame" x="324" y="0.0" width="90" height="55"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="U6L-Z8-a6Z"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <state key="normal" title="Clear All">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="clearAll:" destination="fFE-x3-Ndo" eventType="touchUpInside" id="Lwo-IV-OE4"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.18902906780000001" green="0.33192265030000001" blue="0.66669964790000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstItem="bSB-ue-nAF" firstAttribute="leading" secondItem="DLV-rW-s5m" secondAttribute="leading" id="GSs-qk-W5V"/>
+                                            <constraint firstItem="bSB-ue-nAF" firstAttribute="centerY" secondItem="DLV-rW-s5m" secondAttribute="centerY" id="ODc-LS-tSB"/>
+                                            <constraint firstItem="EC2-8D-qTT" firstAttribute="centerY" secondItem="DLV-rW-s5m" secondAttribute="centerY" id="UZr-U5-RQy"/>
+                                            <constraint firstItem="g69-y7-iIV" firstAttribute="centerY" secondItem="DLV-rW-s5m" secondAttribute="centerY" id="VBk-XZ-HfW"/>
+                                            <constraint firstAttribute="trailing" secondItem="EC2-8D-qTT" secondAttribute="trailing" id="ajX-pS-vgO"/>
+                                            <constraint firstAttribute="height" constant="55" id="iYy-da-PMH"/>
+                                            <constraint firstItem="g69-y7-iIV" firstAttribute="centerX" secondItem="DLV-rW-s5m" secondAttribute="centerX" id="k2u-np-hB1"/>
+                                        </constraints>
+                                    </stackView>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qlk-mA-34V" userLabel="Filter Selector Scroll View">
+                                        <rect key="frame" x="0.0" y="55" width="414" height="732"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="GWQ-BW-Fvp" userLabel="Filter Fields">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="QOv-KE-R21" userLabel="Specialty Center">
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xbr-oJ-APz" userLabel="Specialty Center Button">
+                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="50" id="wiN-EO-4uy"/>
+                                                                </constraints>
+                                                                <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
+                                                                <state key="normal" title="Specialty Center" image="ArrowIcon">
+                                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="expandCollapseField:" destination="fFE-x3-Ndo" eventType="touchUpInside" id="9Fj-gz-Ig9"/>
+                                                                </connections>
+                                                            </button>
+                                                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="U8h-hN-kon" userLabel="Specialty Center Values">
+                                                                <rect key="frame" x="0.0" y="50" width="414" height="0.0"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <prototypes>
+                                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="specialtyCenterCheckListCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="specialtyCenterCheckListCell" id="UC7-vo-k02" userLabel="specialtyCenterCheckListCell" customClass="CheckListCell" customModule="EMS_iOS_App" customModuleProvider="target">
+                                                                        <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                                                        <autoresizingMask key="autoresizingMask"/>
+                                                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UC7-vo-k02" id="HEO-kW-gp9">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                                                            <autoresizingMask key="autoresizingMask"/>
+                                                                            <subviews>
+                                                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xbJ-fA-Ajq" userLabel="Check Box" customClass="FilterCheckBox" customModule="EMS_iOS_App" customModuleProvider="target">
+                                                                                    <rect key="frame" x="64" y="10" width="24" height="24"/>
+                                                                                    <state key="normal" image="CheckBoxOutline"/>
+                                                                                </button>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1C7-6A-EYl" userLabel="Value">
+                                                                                    <rect key="frame" x="100" y="13.5" width="35.5" height="17"/>
+                                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                    <nil key="highlightedColor"/>
+                                                                                </label>
+                                                                            </subviews>
+                                                                            <constraints>
+                                                                                <constraint firstItem="1C7-6A-EYl" firstAttribute="centerY" secondItem="HEO-kW-gp9" secondAttribute="centerY" id="FCT-hY-8Wp"/>
+                                                                                <constraint firstItem="xbJ-fA-Ajq" firstAttribute="centerY" secondItem="HEO-kW-gp9" secondAttribute="centerY" id="XEf-zT-Hjd"/>
+                                                                                <constraint firstItem="xbJ-fA-Ajq" firstAttribute="leading" secondItem="HEO-kW-gp9" secondAttribute="leading" constant="12" id="Y4Z-0U-Fx0"/>
+                                                                                <constraint firstItem="1C7-6A-EYl" firstAttribute="leading" secondItem="xbJ-fA-Ajq" secondAttribute="trailing" constant="12" id="l9j-QL-UCw"/>
+                                                                            </constraints>
+                                                                        </tableViewCellContentView>
+                                                                        <connections>
+                                                                            <outlet property="checkBox" destination="xbJ-fA-Ajq" id="Xtq-mh-2D1"/>
+                                                                            <outlet property="checkListValueLabel" destination="1C7-6A-EYl" id="8KC-tP-4kK"/>
+                                                                        </connections>
+                                                                    </tableViewCell>
+                                                                </prototypes>
+                                                            </tableView>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="U8h-hN-kon" secondAttribute="trailing" id="06M-4k-CCy"/>
+                                                            <constraint firstItem="U8h-hN-kon" firstAttribute="top" secondItem="xbr-oJ-APz" secondAttribute="bottom" id="5to-9K-jyT"/>
+                                                            <constraint firstItem="U8h-hN-kon" firstAttribute="leading" secondItem="QOv-KE-R21" secondAttribute="leading" id="AB3-BE-A1W"/>
+                                                            <constraint firstAttribute="trailing" secondItem="xbr-oJ-APz" secondAttribute="trailing" id="CdO-rX-XDN"/>
+                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="Dxo-eW-t8H"/>
+                                                            <constraint firstItem="xbr-oJ-APz" firstAttribute="leading" secondItem="QOv-KE-R21" secondAttribute="leading" id="xI0-sh-gGy"/>
+                                                        </constraints>
+                                                    </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="kUd-5N-OUR" userLabel="EMS Region">
+                                                        <rect key="frame" x="0.0" y="50" width="414" height="50"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2xY-hf-gfT" userLabel="EMS Region Button">
+                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="50" id="JkU-nC-Zsj"/>
+                                                                </constraints>
+                                                                <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
+                                                                <state key="normal" title="EMS Region" image="ArrowIcon">
+                                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="expandCollapseField:" destination="fFE-x3-Ndo" eventType="touchUpInside" id="ysv-aN-7k8"/>
+                                                                </connections>
+                                                            </button>
+                                                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WUY-K5-ZPh" userLabel="EMS Region Values">
+                                                                <rect key="frame" x="0.0" y="50" width="414" height="0.0"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <prototypes>
+                                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="emsRegionCheckListCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="emsRegionCheckListCell" id="fFL-c8-sAR" userLabel="emsRegionCheckListCell" customClass="CheckListCell" customModule="EMS_iOS_App" customModuleProvider="target">
+                                                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                                                        <autoresizingMask key="autoresizingMask"/>
+                                                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fFL-c8-sAR" id="KTd-fK-NSn">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                                                            <autoresizingMask key="autoresizingMask"/>
+                                                                            <subviews>
+                                                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vRp-V0-XvI" userLabel="Check Box" customClass="FilterCheckBox" customModule="EMS_iOS_App" customModuleProvider="target">
+                                                                                    <rect key="frame" x="64" y="10" width="24" height="24"/>
+                                                                                    <state key="normal" image="CheckBoxOutline"/>
+                                                                                </button>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lPc-Q5-1cK" userLabel="Value">
+                                                                                    <rect key="frame" x="100" y="13.5" width="35.5" height="17"/>
+                                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                    <nil key="highlightedColor"/>
+                                                                                </label>
+                                                                            </subviews>
+                                                                            <constraints>
+                                                                                <constraint firstItem="lPc-Q5-1cK" firstAttribute="centerY" secondItem="KTd-fK-NSn" secondAttribute="centerY" id="UUy-NS-oQO"/>
+                                                                                <constraint firstItem="vRp-V0-XvI" firstAttribute="centerY" secondItem="KTd-fK-NSn" secondAttribute="centerY" id="hlG-TY-Qg8"/>
+                                                                                <constraint firstItem="lPc-Q5-1cK" firstAttribute="leading" secondItem="vRp-V0-XvI" secondAttribute="trailing" constant="12" id="lWU-AM-6be"/>
+                                                                                <constraint firstItem="vRp-V0-XvI" firstAttribute="leading" secondItem="KTd-fK-NSn" secondAttribute="leading" constant="12" id="ltj-sr-fKq"/>
+                                                                            </constraints>
+                                                                        </tableViewCellContentView>
+                                                                        <connections>
+                                                                            <outlet property="checkBox" destination="vRp-V0-XvI" id="yLo-4F-sdf"/>
+                                                                            <outlet property="checkListValueLabel" destination="lPc-Q5-1cK" id="tqE-mv-P5Y"/>
+                                                                        </connections>
+                                                                    </tableViewCell>
+                                                                </prototypes>
+                                                            </tableView>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="WUY-K5-ZPh" secondAttribute="trailing" id="LYB-da-NNC"/>
+                                                            <constraint firstItem="2xY-hf-gfT" firstAttribute="leading" secondItem="kUd-5N-OUR" secondAttribute="leading" id="Lg0-8u-GAE"/>
+                                                            <constraint firstItem="WUY-K5-ZPh" firstAttribute="leading" secondItem="kUd-5N-OUR" secondAttribute="leading" id="QWS-hc-E8L"/>
+                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="eWn-Vf-xmH"/>
+                                                            <constraint firstAttribute="trailing" secondItem="2xY-hf-gfT" secondAttribute="trailing" id="iVg-Qq-ap5"/>
+                                                            <constraint firstItem="WUY-K5-ZPh" firstAttribute="top" secondItem="2xY-hf-gfT" secondAttribute="bottom" id="lXG-g2-AEO"/>
+                                                        </constraints>
+                                                    </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="MTO-qC-LaH" userLabel="County">
+                                                        <rect key="frame" x="0.0" y="100" width="414" height="50"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SEF-CH-Rm4" userLabel="County Button">
+                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="50" id="8kX-R3-YQz"/>
+                                                                </constraints>
+                                                                <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
+                                                                <state key="normal" title="County" image="ArrowIcon">
+                                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="expandCollapseField:" destination="fFE-x3-Ndo" eventType="touchUpInside" id="aO9-Qi-O0f"/>
+                                                                </connections>
+                                                            </button>
+                                                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cqV-kG-FRU" userLabel="County Values">
+                                                                <rect key="frame" x="0.0" y="50" width="414" height="0.0"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <prototypes>
+                                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="countyCheckListCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="countyCheckListCell" id="gc5-Vt-0pN" userLabel="countyCheckListCell" customClass="CheckListCell" customModule="EMS_iOS_App" customModuleProvider="target">
+                                                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                                                        <autoresizingMask key="autoresizingMask"/>
+                                                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gc5-Vt-0pN" id="ODw-jj-Y2u">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                                                            <autoresizingMask key="autoresizingMask"/>
+                                                                            <subviews>
+                                                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nVL-a9-mql" userLabel="Check Box" customClass="FilterCheckBox" customModule="EMS_iOS_App" customModuleProvider="target">
+                                                                                    <rect key="frame" x="64" y="10" width="24" height="24"/>
+                                                                                    <state key="normal" image="CheckBoxOutline"/>
+                                                                                </button>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ib-7P-cd6" userLabel="Value">
+                                                                                    <rect key="frame" x="100" y="13.5" width="35.5" height="17"/>
+                                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                    <nil key="highlightedColor"/>
+                                                                                </label>
+                                                                            </subviews>
+                                                                            <constraints>
+                                                                                <constraint firstItem="0ib-7P-cd6" firstAttribute="leading" secondItem="nVL-a9-mql" secondAttribute="trailing" constant="12" id="7cy-Yd-sJ5"/>
+                                                                                <constraint firstItem="nVL-a9-mql" firstAttribute="centerY" secondItem="ODw-jj-Y2u" secondAttribute="centerY" id="ARc-jL-rhX"/>
+                                                                                <constraint firstItem="nVL-a9-mql" firstAttribute="leading" secondItem="ODw-jj-Y2u" secondAttribute="leading" constant="12" id="c2p-OM-dBY"/>
+                                                                                <constraint firstItem="0ib-7P-cd6" firstAttribute="centerY" secondItem="ODw-jj-Y2u" secondAttribute="centerY" id="xnp-os-tPl"/>
+                                                                            </constraints>
+                                                                        </tableViewCellContentView>
+                                                                        <connections>
+                                                                            <outlet property="checkBox" destination="nVL-a9-mql" id="lF8-GS-Jn5"/>
+                                                                            <outlet property="checkListValueLabel" destination="0ib-7P-cd6" id="UD4-xX-Idr"/>
+                                                                        </connections>
+                                                                    </tableViewCell>
+                                                                </prototypes>
+                                                            </tableView>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="SEF-CH-Rm4" firstAttribute="leading" secondItem="MTO-qC-LaH" secondAttribute="leading" id="KTN-ks-Vfn"/>
+                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="Ug5-Xk-712"/>
+                                                            <constraint firstItem="cqV-kG-FRU" firstAttribute="top" secondItem="SEF-CH-Rm4" secondAttribute="bottom" id="e1A-cn-W0h"/>
+                                                            <constraint firstItem="cqV-kG-FRU" firstAttribute="leading" secondItem="MTO-qC-LaH" secondAttribute="leading" id="hFy-xc-D1o"/>
+                                                            <constraint firstAttribute="trailing" secondItem="SEF-CH-Rm4" secondAttribute="trailing" id="r9I-0W-xFf"/>
+                                                            <constraint firstAttribute="trailing" secondItem="cqV-kG-FRU" secondAttribute="trailing" id="yxm-fq-z8J"/>
+                                                        </constraints>
+                                                    </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="J47-1i-IZi" userLabel="RCH">
+                                                        <rect key="frame" x="0.0" y="150" width="414" height="50"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c25-qG-yCo" userLabel="RCH Button">
+                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="50" id="pjO-Uy-LNz"/>
+                                                                </constraints>
+                                                                <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
+                                                                <state key="normal" title="Regional Coordinating Hospital" image="ArrowIcon">
+                                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="expandCollapseField:" destination="fFE-x3-Ndo" eventType="touchUpInside" id="Owi-1M-OCN"/>
+                                                                </connections>
+                                                            </button>
+                                                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="H5Q-XT-dyK" userLabel="RCH Values">
+                                                                <rect key="frame" x="0.0" y="50" width="414" height="0.0"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <prototypes>
+                                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="rchCheckListCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="rchCheckListCell" id="hgf-8y-0GT" customClass="CheckListCell" customModule="EMS_iOS_App" customModuleProvider="target">
+                                                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                                                        <autoresizingMask key="autoresizingMask"/>
+                                                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hgf-8y-0GT" id="4Qn-tB-c7O">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                                                            <autoresizingMask key="autoresizingMask"/>
+                                                                            <subviews>
+                                                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TKN-Rv-GxE" userLabel="Check Box" customClass="FilterCheckBox" customModule="EMS_iOS_App" customModuleProvider="target">
+                                                                                    <rect key="frame" x="64" y="10" width="24" height="24"/>
+                                                                                    <state key="normal" image="CheckBoxOutline"/>
+                                                                                </button>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ms-0f-T5b" userLabel="Value">
+                                                                                    <rect key="frame" x="100" y="13.5" width="35.5" height="17"/>
+                                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                    <nil key="highlightedColor"/>
+                                                                                </label>
+                                                                            </subviews>
+                                                                            <constraints>
+                                                                                <constraint firstItem="5ms-0f-T5b" firstAttribute="leading" secondItem="TKN-Rv-GxE" secondAttribute="trailing" constant="12" id="Dew-Js-4o2"/>
+                                                                                <constraint firstItem="5ms-0f-T5b" firstAttribute="centerY" secondItem="4Qn-tB-c7O" secondAttribute="centerY" id="TCi-Wf-VKL"/>
+                                                                                <constraint firstItem="TKN-Rv-GxE" firstAttribute="centerY" secondItem="4Qn-tB-c7O" secondAttribute="centerY" id="Wgn-Yf-Omf"/>
+                                                                                <constraint firstItem="TKN-Rv-GxE" firstAttribute="leading" secondItem="4Qn-tB-c7O" secondAttribute="leading" constant="12" id="mgc-gS-UhB"/>
+                                                                            </constraints>
+                                                                        </tableViewCellContentView>
+                                                                        <connections>
+                                                                            <outlet property="checkBox" destination="TKN-Rv-GxE" id="tmu-6a-2EK"/>
+                                                                            <outlet property="checkListValueLabel" destination="5ms-0f-T5b" id="RKc-NM-NhP"/>
+                                                                        </connections>
+                                                                    </tableViewCell>
+                                                                </prototypes>
+                                                            </tableView>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="H5Q-XT-dyK" firstAttribute="top" secondItem="c25-qG-yCo" secondAttribute="bottom" id="0p5-8e-7Eq"/>
+                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="Fov-6b-DJQ"/>
+                                                            <constraint firstItem="H5Q-XT-dyK" firstAttribute="leading" secondItem="J47-1i-IZi" secondAttribute="leading" id="byI-0p-kUM"/>
+                                                            <constraint firstItem="c25-qG-yCo" firstAttribute="leading" secondItem="J47-1i-IZi" secondAttribute="leading" id="j0E-8w-X0q"/>
+                                                            <constraint firstAttribute="trailing" secondItem="H5Q-XT-dyK" secondAttribute="trailing" id="oRA-1s-sq2"/>
+                                                            <constraint firstAttribute="trailing" secondItem="c25-qG-yCo" secondAttribute="trailing" id="sne-gk-49d"/>
+                                                        </constraints>
+                                                    </stackView>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="GWQ-BW-Fvp" firstAttribute="centerX" secondItem="Qlk-mA-34V" secondAttribute="centerX" id="8dy-0d-DBu"/>
+                                            <constraint firstItem="GWQ-BW-Fvp" firstAttribute="width" secondItem="Hij-Yk-3xI" secondAttribute="width" id="ITT-QN-QGo"/>
+                                            <constraint firstItem="GWQ-BW-Fvp" firstAttribute="top" secondItem="Hij-Yk-3xI" secondAttribute="top" id="UKO-ch-tFl"/>
+                                            <constraint firstItem="Hij-Yk-3xI" firstAttribute="trailing" secondItem="GWQ-BW-Fvp" secondAttribute="trailing" id="ZEL-eB-DaH"/>
+                                            <constraint firstItem="GWQ-BW-Fvp" firstAttribute="bottom" secondItem="Hij-Yk-3xI" secondAttribute="bottom" id="cVV-vU-IPL"/>
+                                            <constraint firstItem="GWQ-BW-Fvp" firstAttribute="leading" secondItem="Hij-Yk-3xI" secondAttribute="leading" id="oWk-VU-XQp"/>
+                                        </constraints>
+                                        <viewLayoutGuide key="contentLayoutGuide" id="Hij-Yk-3xI"/>
+                                        <viewLayoutGuide key="frameLayoutGuide" id="joc-J0-AvS"/>
+                                    </scrollView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FeY-H7-STp" userLabel="Bottom Bar">
+                                        <rect key="frame" x="0.0" y="787" width="414" height="55"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Az7-d5-REt" userLabel="Done Button">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="55"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="90" id="ztB-YE-a56"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <state key="normal" title="Done">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="dismiss:" destination="fFE-x3-Ndo" eventType="touchUpInside" id="yi8-GQ-VM0"/>
+                                                    <action selector="done:" destination="fFE-x3-Ndo" eventType="touchUpInside" id="tUx-SS-h6j"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.2182899714" green="0.3369700015" blue="0.64316809180000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="55" id="T9P-zz-ieG"/>
+                                            <constraint firstItem="Az7-d5-REt" firstAttribute="centerY" secondItem="FeY-H7-STp" secondAttribute="centerY" id="gba-Gq-Bbk"/>
+                                            <constraint firstAttribute="trailing" secondItem="Az7-d5-REt" secondAttribute="trailing" id="qdJ-qD-SmT"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="FeY-H7-STp" firstAttribute="top" secondItem="Qlk-mA-34V" secondAttribute="bottom" id="0fC-8a-qGI"/>
+                                    <constraint firstItem="Qlk-mA-34V" firstAttribute="top" secondItem="DLV-rW-s5m" secondAttribute="bottom" id="5Ob-rE-uLe"/>
+                                    <constraint firstAttribute="trailing" secondItem="FeY-H7-STp" secondAttribute="trailing" id="Alq-UY-nlK"/>
+                                    <constraint firstItem="DLV-rW-s5m" firstAttribute="leading" secondItem="AKI-jv-388" secondAttribute="leading" id="BmD-P0-bwl"/>
+                                    <constraint firstAttribute="trailing" secondItem="Qlk-mA-34V" secondAttribute="trailing" id="DwK-MF-6hg"/>
+                                    <constraint firstItem="Qlk-mA-34V" firstAttribute="centerX" secondItem="AKI-jv-388" secondAttribute="centerX" id="FZ2-Cp-hST"/>
+                                    <constraint firstAttribute="trailing" secondItem="DLV-rW-s5m" secondAttribute="trailing" id="VgU-Pa-ohx"/>
+                                    <constraint firstItem="DLV-rW-s5m" firstAttribute="top" secondItem="AKI-jv-388" secondAttribute="top" id="cLb-Gt-Dhv"/>
+                                    <constraint firstItem="Qlk-mA-34V" firstAttribute="leading" secondItem="AKI-jv-388" secondAttribute="leading" id="e0K-3f-SO9"/>
+                                    <constraint firstItem="FeY-H7-STp" firstAttribute="leading" secondItem="AKI-jv-388" secondAttribute="leading" id="wWu-pU-1a3"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="eLs-bM-XR0"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="AKI-jv-388" secondAttribute="bottom" id="1dN-dc-W3s"/>
+                            <constraint firstItem="AKI-jv-388" firstAttribute="trailing" secondItem="eLs-bM-XR0" secondAttribute="trailing" id="aNU-Aq-chx"/>
+                            <constraint firstItem="AKI-jv-388" firstAttribute="leading" secondItem="eLs-bM-XR0" secondAttribute="leading" id="gcw-zT-PZ1"/>
+                            <constraint firstItem="AKI-jv-388" firstAttribute="top" secondItem="eLs-bM-XR0" secondAttribute="top" id="zW3-hs-ESQ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="countyButton" destination="SEF-CH-Rm4" id="UIt-q9-4Ke"/>
+                        <outlet property="countyHeight" destination="Ug5-Xk-712" id="LWY-x8-00k"/>
+                        <outlet property="countyValues" destination="cqV-kG-FRU" id="nH9-OV-MDA"/>
+                        <outlet property="emsRegionButton" destination="2xY-hf-gfT" id="tnO-fc-IxW"/>
+                        <outlet property="emsRegionHeight" destination="eWn-Vf-xmH" id="DBG-eL-3ag"/>
+                        <outlet property="emsRegionValues" destination="WUY-K5-ZPh" id="0he-Io-x4x"/>
+                        <outlet property="exitButton" destination="bSB-ue-nAF" id="HM5-Fn-NQL"/>
+                        <outlet property="rchButton" destination="c25-qG-yCo" id="vkY-w1-fd7"/>
+                        <outlet property="rchHeight" destination="Fov-6b-DJQ" id="x4i-SV-5aa"/>
+                        <outlet property="rchValues" destination="H5Q-XT-dyK" id="y2u-R4-0ho"/>
+                        <outlet property="specialtyCenterButton" destination="xbr-oJ-APz" id="RIe-mh-put"/>
+                        <outlet property="specialtyCenterHeight" destination="Dxo-eW-t8H" id="XH7-FX-NLl"/>
+                        <outlet property="specialtyCenterValues" destination="U8h-hN-kon" id="M9e-21-vpJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w0z-xV-eSI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="815.94202898550736" y="112.5"/>
         </scene>
     </scenes>
     <resources>
