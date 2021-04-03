@@ -14,6 +14,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jia0340.ems_android_app.models.Filter;
+import com.jia0340.ems_android_app.models.FilterField;
 import com.jia0340.ems_android_app.models.Hospital;
 import com.jia0340.ems_android_app.models.HospitalType;
 import com.jia0340.ems_android_app.models.NedocsScore;
@@ -40,7 +42,7 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
     private List<Hospital> mHospitalList;   // index [0, mPinnedList.size() - 1] are pinned
     private List<Hospital> mPinnedList;
     private Context mContext;
-    private ArrayList<Filter> mFilterList;
+    private List<Filter> mFilterList;
     private SortField mAppliedSort;
     private List<Hospital> mAllHospitalList;
 
@@ -89,7 +91,7 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
     /**
      * Setter for mPinnedList.
      *
-     * @param mPinnedList
+     * @param mPinnedList the new list of pinned hospitals
      */
     public void setPinnedList(List<Hospital> mPinnedList) {
         this.mPinnedList = mPinnedList;
@@ -102,6 +104,23 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
      */
     public void setAppliedSort(SortField sortField) {
         this.mAppliedSort = sortField;
+    }
+
+    /** Getter for mFilterList.
+     *
+     * @return the list of applied Filters
+     */
+    public List<Filter> getFilterList() {
+        return mFilterList;
+    }
+
+    /**
+     * Setter for mFilterList.
+     *
+     * @param mFilterList the new list of applied filters
+     */
+    public void setFilterList(List<Filter> mFilterList) {
+        this.mFilterList = mFilterList;
     }
 
     /**
@@ -443,50 +462,55 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
      */
     public void handleFilter() {
         mHospitalList = new ArrayList<Hospital>(mAllHospitalList);
-        //Collections.copy(mHospitalList, mAllHospitalList);
+        List<String> counties = new ArrayList<String>();
+        List<String> hospital_types = new ArrayList<String>();
+        List<String> regions = new ArrayList<String>();
+        List<String> reg_coord_hospitals = new ArrayList<String>();
         for (Filter filter: mFilterList) {
             switch (filter.getFilterField()) {
                 case COUNTY:
-                    for (Hospital h: mHospitalList) {
-                        if (!filter.getFilterValues().contains((h.getCounty()))) {
-                            mHospitalList.remove(h);
-                            mPinnedList.remove(h);
-                        }
-                    }
+                    counties.add(filter.getFilterValue());
                     break;
                 case HOSPITAL_TYPES:
-                    for (Hospital h: mHospitalList) {
-                        boolean missingOneCenter = false;
-                        for (String val: filter.getFilterValues()) {
-                            if (!h.getHospitalTypes().contains(val)) {
-                                missingOneCenter = true;
-                            }
-                        }
-                        if (missingOneCenter) {
-                            mHospitalList.remove(h);
-                            mPinnedList.remove(h);
-                        }
-                    }
+                    hospital_types.add(filter.getFilterValue());
                     break;
                 case REGION:
-                    for (Hospital h: mHospitalList) {
-                        if (!filter.getFilterValues().contains((h.getRegion()))) {
-                            mHospitalList.remove(h);
-                            mPinnedList.remove(h);
-                        }
-                    }
+                    regions.add(filter.getFilterValue());
                     break;
                 case REGIONAL_COORDINATING_HOSPITAL:
-                    for (Hospital h: mHospitalList) {
-                        if (!filter.getFilterValues().contains((h.getRegionalCoordinatingHospital()))) {
-                            mHospitalList.remove(h);
-                            mPinnedList.remove(h);
-                        }
-                    }
+                    reg_coord_hospitals.add(filter.getFilterValue());
                     break;
             }
         }
-        //need to notify dataset changed after applying filters and sorts
+        List<Hospital> toRemove = new ArrayList<Hospital>();
+        for (Hospital h: mHospitalList) {
+            if (counties.size() > 0 && !counties.contains(h.getCounty())) {
+                toRemove.add(h);
+            }
+            if (hospital_types.size() > 0) {
+                boolean missingOneCenter = false;
+                for (String val: hospital_types) {
+                    boolean foundVal = false;
+                    for (HospitalType type : h.getHospitalTypes()) {
+                        String typeString = mContext.getString(type.getStringId());
+                        if (typeString.equals(val)) {
+                            foundVal = true;
+                        }
+                    }
+                    if (!foundVal) {
+                        toRemove.add(h);
+                    }
+                }
+            }
+            if (regions.size() > 0 && !regions.contains(h.getRegion())) {
+                toRemove.add(h);
+            }
+            if (reg_coord_hospitals.size() > 0 && !reg_coord_hospitals.contains(h.getRegionalCoordinatingHospital())) {
+                toRemove.add(h);
+            }
+        }
+        mHospitalList.removeAll(toRemove);
+        mPinnedList.removeAll(toRemove);
     }
 
     /**

@@ -7,6 +7,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -14,13 +18,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SearchView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.jia0340.ems_android_app.models.Filter;
+import com.jia0340.ems_android_app.models.FilterField;
 import com.jia0340.ems_android_app.models.Hospital;
 import com.jia0340.ems_android_app.models.SortField;
 import com.jia0340.ems_android_app.network.DataService;
 import com.jia0340.ems_android_app.network.RetrofitClientInstance;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,12 +43,14 @@ import retrofit2.Response;
  * @author Anna Dingler
  * Created on 1/24/21
  */
-public class MainActivity extends AppCompatActivity implements SortSheetDialog.SortDialogListener, SearchView.OnQueryTextListener {
-
+public class MainActivity extends AppCompatActivity implements SortSheetDialog.SortDialogListener, SearchView.OnQueryTextListener, FilterSheetDialog.FilterDialogListener {
     private SwipeRefreshLayout mSwipeContainer;
     private ArrayList<Hospital> mHospitalList;
     private HospitalListAdapter mHospitalAdapter;
     private Toolbar mToolbar;
+    private FilterSheetDialog mFilterDialog;
+    private Button mClearAllButton;
+    private BroadcastReceiver mFilterDialogReceiver;
 
     private SortSheetDialog mSortDialog;
     private SearchView mSearchBar;
@@ -75,6 +85,13 @@ public class MainActivity extends AppCompatActivity implements SortSheetDialog.S
                 return false;
             }
         });
+        mClearAllButton = findViewById(R.id.clearAllButton);
+
+        // Instantiate empty hospital list and attach to Adapter
+        mHospitalList = new ArrayList<Hospital>();
+        mHospitalAdapter = new HospitalListAdapter(mHospitalList, this);
+
+        registerFilterDialogReciever();
 
         //initial load of hospital data
         initializeHospitalData();
@@ -146,6 +163,13 @@ public class MainActivity extends AppCompatActivity implements SortSheetDialog.S
                 mSearchBar.requestFocusFromTouch();
             }
         }
+        if (id == R.id.action_filter) {
+            if (mFilterDialog == null) {
+                mFilterDialog = new FilterSheetDialog();
+            }
+
+            mFilterDialog.show(getSupportFragmentManager(), "filterSheet");
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -164,13 +188,17 @@ public class MainActivity extends AppCompatActivity implements SortSheetDialog.S
                 // Save the returned list
                 mHospitalList = (ArrayList<Hospital>) response.body();
                 // Now we can setup the recyclerView
+                mHospitalAdapter.setAllHospitalList(mHospitalList);
+                mHospitalAdapter.setHospitalList(mHospitalList);
+                mHospitalAdapter.notifyDataSetChanged();
+                String len = String.valueOf(mHospitalList.size());
                 instantiateRecyclerView();
             }
             @Override
             public void onFailure(Call<List<Hospital>> call, Throwable t) {
                 // Failed to collect hospital data
                 // TODO: what do we want to happen when it fails?
-                Log.d("MainActiity", t.getMessage());
+                Log.d("MainActivity", t.getMessage());
                 Toast.makeText(MainActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_LONG).show();
             }
         });
@@ -209,6 +237,8 @@ public class MainActivity extends AppCompatActivity implements SortSheetDialog.S
                 mHospitalAdapter.setPinnedList(pinnedList);
                 // Now we can update the recyclerView
                 mHospitalAdapter.setHospitalList(mHospitalList);
+                mHospitalAdapter.handleFilter();
+                mHospitalAdapter.handleSort();
                 mHospitalAdapter.notifyDataSetChanged();
                 // Notify the swipe refresher that the data is done refreshing
                 mSwipeContainer.setRefreshing(false);
@@ -218,7 +248,7 @@ public class MainActivity extends AppCompatActivity implements SortSheetDialog.S
             public void onFailure(Call<List<Hospital>> call, Throwable t) {
                 // Failed to collect hospital data
                 // TODO: what do we want to happen when it fails?
-                Log.d("MainActiity", t.getMessage());
+                Log.d("MainActivity", t.getMessage());
                 Toast.makeText(MainActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_LONG).show();
             }
         });
@@ -234,9 +264,38 @@ public class MainActivity extends AppCompatActivity implements SortSheetDialog.S
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         hospitalRecyclerView.addItemDecoration(itemDecoration);
 
-        mHospitalAdapter = new HospitalListAdapter(mHospitalList, this);
         hospitalRecyclerView.setAdapter(mHospitalAdapter);
         hospitalRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        mClearAllButton.setOnClickListener(view -> {
+            Log.d("MainActivity", "CLEAR BUTTON PRESSED");
+            mHospitalAdapter.setFilterList(new ArrayList<Filter>());
+        });
+    }
+
+    @Override
+    public void onFilterSelected(List<Filter> filterList) {
+        Log.d("MainActivity", "LISTENER FILTER!");
+        mHospitalAdapter.setFilterList(new ArrayList<Filter>(filterList));
+        // TODO: Call filter method here
+        mHospitalAdapter.handleFilter();
+        mHospitalAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * Listens for filter dialog view to be created and updates with applied filters
+     */
+    private void registerFilterDialogReciever() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("FILTER_DIALOG_VIEW_CREATED");
+
+        mFilterDialogReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                mFilterDialog.updateAppliedFilters(mHospitalAdapter.getFilterList());
+            }
+        };
+        registerReceiver(mFilterDialogReceiver, filter);
     }
 
     @Override

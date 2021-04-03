@@ -1,5 +1,8 @@
 package com.jia0340.ems_android_app.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
 /**
@@ -11,19 +14,47 @@ import java.util.ArrayList;
 
 public class Filter {
     private FilterField mFilterField;
-    private ArrayList<String> mFilterValues;
+    private String mFilterValue;
 
-    public Filter(FilterField filterField, ArrayList<String> filterValues) {
+    public Filter(FilterField filterField, String filterValue) {
         mFilterField = filterField;
-        mFilterValues = filterValues;
+        mFilterValue = filterValue;
     }
 
+    protected Filter(Parcel in) {
+        mFilterField = FilterField.valueOf(in.readString());
+        mFilterValue = in.readString();
+    }
+
+    /**
+     * Getter for mFilterField.
+     *
+     * @return the filter field
+     */
     public FilterField getFilterField() {
         return mFilterField;
     }
 
-    public ArrayList<String> getFilterValues() {
-        return mFilterValues;
+    /**
+     * Getter for mFilterValues.
+     *
+     * @return the filter values
+     */
+    public String getFilterValue() {
+        return mFilterValue;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        } else if (!(o instanceof Filter)) {
+            return false;
+        } else {
+            Filter f = (Filter) o;
+            return this.mFilterField == f.mFilterField && this.mFilterValue.equals(f.mFilterValue);
+        }
+    }
+
 }
 
