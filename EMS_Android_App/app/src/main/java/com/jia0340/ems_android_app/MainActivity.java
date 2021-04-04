@@ -13,12 +13,15 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jia0340.ems_android_app.models.Filter;
@@ -50,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements SortSheetDialog.S
     private Toolbar mToolbar;
     private FilterSheetDialog mFilterDialog;
     private Button mClearAllButton;
+    private LinearLayout mAppliedFiltersHolder;
     private BroadcastReceiver mFilterDialogReceiver;
 
     private SortSheetDialog mSortDialog;
@@ -91,10 +95,22 @@ public class MainActivity extends AppCompatActivity implements SortSheetDialog.S
         mHospitalList = new ArrayList<Hospital>();
         mHospitalAdapter = new HospitalListAdapter(mHospitalList, this);
 
+        // Setup on click handler for clear all filters buton
+        mAppliedFiltersHolder = findViewById(R.id.appliedFiltersHolder);
+        mClearAllButton.setOnClickListener(view -> {
+            mHospitalAdapter.setFilterList(new ArrayList<Filter>());
+            mAppliedFiltersHolder.removeAllViews();
+            mHospitalAdapter.handleFilter();
+            mHospitalAdapter.notifyDataSetChanged();
+            mClearAllButton.setVisibility(View.GONE);
+        });
+
         registerFilterDialogReciever();
 
         //initial load of hospital data
         initializeHospitalData();
+//        mHospitalAdapter.handleSort();
+//        mHospitalAdapter.notifyDataSetChanged();
 
         // Attaching the layout to the swipe container view
         mSwipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
@@ -266,18 +282,62 @@ public class MainActivity extends AppCompatActivity implements SortSheetDialog.S
 
         hospitalRecyclerView.setAdapter(mHospitalAdapter);
         hospitalRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        mClearAllButton.setOnClickListener(view -> {
-            Log.d("MainActivity", "CLEAR BUTTON PRESSED");
-            mHospitalAdapter.setFilterList(new ArrayList<Filter>());
-        });
     }
 
     @Override
     public void onFilterSelected(List<Filter> filterList) {
         Log.d("MainActivity", "LISTENER FILTER!");
         mHospitalAdapter.setFilterList(new ArrayList<Filter>(filterList));
-        // TODO: Call filter method here
+
+        if (mHospitalAdapter.getFilterList().size() > 0) {
+            mClearAllButton.setVisibility(View.VISIBLE);
+        } else {
+            mClearAllButton.setVisibility(View.GONE);
+        }
+
+        LayoutInflater layoutInflater = LayoutInflater.from(mAppliedFiltersHolder.getContext());
+        mAppliedFiltersHolder.removeAllViews();
+
+        for (Filter f : mHospitalAdapter.getFilterList()) {
+            View filterCard = layoutInflater.inflate(R.layout.filter_card, mAppliedFiltersHolder, false);
+            filterCard.setId(f.hashCode());
+            TextView tv = filterCard.findViewById(R.id.filterValueLabel);
+            switch (f.getFilterField()) {
+                case HOSPITAL_TYPES:
+                    tv.setText(f.getFilterValue());
+                    break;
+                case REGION:
+                    tv.setText(mAppliedFiltersHolder.getContext().getString(R.string.filter_ems_region_value, f.getFilterValue()));
+                    break;
+                case COUNTY:
+                    tv.setText(f.getFilterValue());
+                    break;
+                case REGIONAL_COORDINATING_HOSPITAL:
+                    tv.setText(mAppliedFiltersHolder.getContext().getString(R.string.filter_rch_value, f.getFilterValue()));
+                    break;
+            }
+
+            // set up remove button on click handler
+            filterCard.findViewById(R.id.removeButton).setOnClickListener((e) -> {
+                mHospitalAdapter.getFilterList().remove(f);
+                mHospitalAdapter.handleFilter();
+                mHospitalAdapter.notifyDataSetChanged();
+                mAppliedFiltersHolder.removeView(filterCard);
+
+                if (mHospitalAdapter.getFilterList().size() == 0) {
+                    mClearAllButton.setVisibility(View.GONE);
+                }
+            });
+
+            // set spacing between filter cards
+            if (filterCard.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+                ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) filterCard.getLayoutParams();
+                p.setMargins(8,0, 8, 0);
+                filterCard.requestLayout();
+            }
+
+            mAppliedFiltersHolder.addView(filterCard);
+        }
         mHospitalAdapter.handleFilter();
         mHospitalAdapter.notifyDataSetChanged();
     }
@@ -301,21 +361,6 @@ public class MainActivity extends AppCompatActivity implements SortSheetDialog.S
     @Override
     public void onSortSelected(SortField selectedSort) {
         Log.d("MainActivity", "LISTENER SORT!");
-
-//        switch (selectedSort) {
-//            case NAME:
-//                Log.d("MainActivity", "Sort A-Z");
-//                //TODO: call sort method here!
-//                break;
-//            case DISTANCE:
-//                Log.d("MainActivity", "Sort Distance");
-//                //TODO: call sort method here!
-//                break;
-//            case NEDOCS_SCORE:
-//                Log.d("MainActivity", "Sort NEDOCS");
-//                //TODO: call sort method here!
-//                break;
-//        }
         mHospitalAdapter.setAppliedSort(selectedSort);
         mHospitalAdapter.handleSort();
         mHospitalAdapter.notifyDataSetChanged();

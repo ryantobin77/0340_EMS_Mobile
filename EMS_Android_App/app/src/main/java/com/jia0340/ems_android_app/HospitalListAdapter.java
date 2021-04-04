@@ -353,16 +353,22 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
                 mPinnedList.add(hospital);
                 mHospitalList.remove(hospital);
                 mHospitalList.add(0, hospital);
-                notifyItemMoved(pos, 0);
+                handleSort();
+                //notifyItemMoved(pos, 0);
+                notifyDataSetChanged();
                 //swapItem(pos, 0);
+
 
             } else {
                 holder.mFavoriteView.setImageDrawable(ResourcesCompat.getDrawable(mContext.getResources(), R.drawable.outlined_favorite_pin, null));
                 mPinnedList.remove(hospital);
                 mHospitalList.remove(hospital);
                 mHospitalList.add(mPinnedList.size(), hospital);
-                notifyItemMoved(0, mPinnedList.size());
+                handleSort();
+                //notifyItemMoved(0, mPinnedList.size());
+                notifyDataSetChanged();
                 //swapItem(pos, mPinnedList.size()+1);
+
 
             }
         });
