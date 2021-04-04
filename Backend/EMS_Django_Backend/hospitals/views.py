@@ -15,7 +15,7 @@ def home(request):
 
 #currently just updates the data in the database whenever the server is launched
 #could be updated to be inside a method where requests to update the data can be made from the app
-#run_scrape()
+run_scrape()
 Hospital.objects.all().delete()
 for line in open('scrapers/georgiarcc.json', 'r'):
     hosp = json.loads(line)
