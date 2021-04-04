@@ -147,6 +147,9 @@ public class MainActivity extends AppCompatActivity implements FilterSheetDialog
             public void onResponse(Call<List<Hospital>> call, Response<List<Hospital>> response) {
                 // Save the returned list
                 mHospitalList = (ArrayList<Hospital>) response.body();
+                // Now we can update the recyclerView
+                mHospitalAdapter.setHospitalList(mHospitalList);
+                mHospitalAdapter.notifyDataSetChanged();
                 // Now we can setup the recyclerView
                 instantiateRecyclerView();
             }
