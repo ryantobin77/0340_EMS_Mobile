@@ -1,5 +1,7 @@
 package com.jia0340.ems_android_app.models;
 
+import android.util.Log;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -34,7 +36,7 @@ public class Hospital {
     private double mLatitude;
     private double mLongitude;
 
-    private double mDistance;
+    private String mDistance;
     private boolean mExpanded = false;
     private boolean mFavorite = false;
 
@@ -77,7 +79,8 @@ public class Hospital {
         mLatitude = latitude;
         mLongitude = longitude;
 
-        mDistance = 1.11;
+        //TODO: what do we want this value to be while it's loading??
+        mDistance = "-";
 
     }
 
@@ -89,7 +92,7 @@ public class Hospital {
         return mNedocsScore;
     }
 
-    public double getDistance() {
+    public String getDistance() {
         return mDistance;
     }
 
@@ -149,5 +152,17 @@ public class Hospital {
 
     public void setFavorite(boolean favorite) {
         mFavorite = favorite;
+    }
+
+    public void setDistance(String distance) {
+        mDistance = distance;
+    }
+
+    public double getLatitude() {
+        return mLatitude;
+    }
+
+    public double getLongitude() {
+        return mLongitude;
     }
 }
