@@ -5,15 +5,14 @@
 //  Created by Allison Nakazawa on 3/28/21.
 //  Copyright © 2021 JD_0340_EMS. All rights reserved.
 //
-
 import UIKit
 
 class FilterIH: NSObject {
     var field: FilterType!
-    var values: [String]!
+    var value: String!
     
-    init(field: FilterType, values: [String]) {
+    init(field: FilterType, value: String) {
         self.field = field
-        self.values = values
+        self.value = value
     }
 }
