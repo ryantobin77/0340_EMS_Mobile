@@ -13,9 +13,11 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
     @IBOutlet var tableView: UITableView!
     @IBOutlet var appliedFiltersView: UIStackView!
     @IBOutlet var clearAllFiltersButton: UIButton!
+    @IBOutlet var bottomBarScrollView: UIScrollView!
     var hospitals: Array<HospitalIH>!
     var pinnedList: Array<HospitalIH>!
-    var appliedFilters : Array<FilterIH>!
+    var appliedFilters: Array<FilterIH>!
+    var filterCards: NSMutableArray!
     var thereIsCellTapped = false
     var selectedRowIndex = -1
     
@@ -334,34 +336,12 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         
         // Hide Clear All button if there are no filters applied
         if appliedFilters!.count > 0 {
-            self.clearAllFiltersButton.isHidden = false
+            self.clearAllFiltersButton.setTitle("Clear All", for: .normal)
         } else {
-            self.clearAllFiltersButton.isHidden = true
+            self.clearAllFiltersButton.setTitle("", for: .normal)
         }
         
-        self.appliedFiltersView.subviews.forEach({ $0.removeFromSuperview() })
-        
-        for filter in self.appliedFilters {
-            if let filterCard = Bundle.main.loadNibNamed("FilterCard", owner: nil, options: nil)!.first as? FilterCard {
-                switch filter.field {
-                case .type:
-                    filterCard.valueLabel.text = filter.value
-                case .emsRegion:
-                    filterCard.valueLabel.text = "Region " + filter.value
-                case .county:
-                    filterCard.valueLabel.text = filter.value
-                case .rch:
-                    filterCard.valueLabel.text = "Regional Coordinating Hospital " + filter.value
-                default:
-                    filterCard.valueLabel.text = filter.value
-                }
-                
-                filterCard.removeButton.field = filter.field
-                filterCard.removeButton.value = filter.value
-                filterCard.removeButton.addTarget(self, action: #selector(self.removeFilter(_:)), for: .touchUpInside)
-                self.appliedFiltersView.addArrangedSubview(filterCard)
-            }
-        }
+        addFilterCards();
         
         //TODO: call filter method here
     }
@@ -374,14 +354,70 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         }
         
         if self.appliedFilters.count == 0 {
-            self.clearAllFiltersButton.isHidden = true
+            self.clearAllFiltersButton.setTitle("", for: .normal)
         }
+        
+//        // TODO: Update content size of scrollview
+//        self.appliedFiltersView.translatesAutoresizingMaskIntoConstraints = false
+//        let appliedFiltersViewWidth = self.appliedFiltersView.frame.width
+//        // Larger than it should be
+//        let filterCardWidth = sender.superview!.frame.width
+//        self.appliedFiltersView.widthAnchor.constraint(equalToConstant: appliedFiltersViewWidth - filterCardWidth).isActive = true
+//        bottomBarScrollView.contentSize = CGSize(width: Int(bottomBarScrollView.contentSize.width) - Int(filterCardWidth), height: 55)
+        
+        // TODO: call filter method here
     }
     
     @IBAction func clearAllFilters(_ sender: UIButton) {
         self.appliedFiltersView.subviews.forEach({ $0.removeFromSuperview() })
-        self.clearAllFiltersButton.isHidden = true
+        self.clearAllFiltersButton.setTitle("", for: .normal)
         self.appliedFilters = Array<FilterIH>()
+        
+        // update content size of scrollview
+        self.appliedFiltersView.translatesAutoresizingMaskIntoConstraints = false
+        self.appliedFiltersView.widthAnchor.constraint(equalToConstant: 0).isActive = true
+        bottomBarScrollView.contentSize = CGSize(width: 0, height: 55)
+        
         // TODO: call filter method here
+    }
+    
+    func addFilterCards() {
+        // remove all existing filter cards before adding
+        self.appliedFiltersView.subviews.forEach({ $0.removeFromSuperview() })
+        
+        var appliedFiltersViewWidth = 0
+        for i in 0...(self.appliedFilters.count - 1) {
+            let filter: FilterIH = self.appliedFilters[i]
+            if let filterCard = Bundle.main.loadNibNamed("FilterCard", owner: nil, options: nil)!.first as? FilterCard {
+                switch filter.field {
+                case .type:
+                    filterCard.valueLabel.text = HospitalType(rawValue: filter.value)!.getHospitalDisplayString()
+                case .emsRegion:
+                    filterCard.valueLabel.text = "Region " + filter.value
+                case .county:
+                    filterCard.valueLabel.text = filter.value
+                case .rch:
+                    filterCard.valueLabel.text = "Regional Coordinating Hospital " + filter.value
+                default:
+                    filterCard.valueLabel.text = filter.value
+                }
+
+                filterCard.removeButton.field = filter.field
+                filterCard.removeButton.value = filter.value
+                filterCard.removeButton.addTarget(self, action: #selector(self.removeFilter(_:)), for: .touchUpInside)
+                self.appliedFiltersView.addArrangedSubview(filterCard)
+                
+                filterCard.translatesAutoresizingMaskIntoConstraints = false
+                let filterCardWidth = filterCard.removeButton.frame.width + filterCard.valueLabel.intrinsicContentSize.width + 12
+                filterCard.widthAnchor.constraint(equalToConstant: filterCardWidth).isActive = true
+                filterCard.heightAnchor.constraint(equalToConstant: 30).isActive = true
+                
+                appliedFiltersViewWidth += Int(filterCardWidth) + 10
+            }
+        }
+            
+        self.appliedFiltersView.translatesAutoresizingMaskIntoConstraints = false
+        self.appliedFiltersView.widthAnchor.constraint(equalToConstant: CGFloat(appliedFiltersViewWidth)).isActive = true
+        bottomBarScrollView.contentSize = CGSize(width: appliedFiltersViewWidth, height: 55)
     }
 }
