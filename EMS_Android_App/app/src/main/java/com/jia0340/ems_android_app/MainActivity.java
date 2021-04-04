@@ -1,16 +1,22 @@
 package com.jia0340.ems_android_app;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,12 +34,13 @@ import com.jia0340.ems_android_app.models.Filter;
 import com.jia0340.ems_android_app.models.FilterField;
 import com.jia0340.ems_android_app.models.Hospital;
 import com.jia0340.ems_android_app.models.SortField;
-import com.jia0340.ems_android_app.network.DataService;
-import com.jia0340.ems_android_app.network.RetrofitClientInstance;
+import com.jia0340.ems_android_app.network.DatabaseService;
+import com.jia0340.ems_android_app.network.RetrofitClientDatabaseAPI;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -58,6 +65,10 @@ public class MainActivity extends AppCompatActivity implements SortSheetDialog.S
 
     private SortSheetDialog mSortDialog;
     private SearchView mSearchBar;
+    private BroadcastReceiver mDistanceReceiver;
+
+    private DistanceController mDistanceController;
+    private boolean mPermissionsGranted = false;
 
     /**
      * Create method for application
@@ -95,6 +106,13 @@ public class MainActivity extends AppCompatActivity implements SortSheetDialog.S
         mHospitalList = new ArrayList<Hospital>();
         mHospitalAdapter = new HospitalListAdapter(mHospitalList, this);
 
+        // Attach adapter to RecyclerView
+        RecyclerView hospitalRecyclerView = findViewById(R.id.hospital_list);
+        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        hospitalRecyclerView.addItemDecoration(itemDecoration);
+        hospitalRecyclerView.setAdapter(mHospitalAdapter);
+        hospitalRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         // Setup on click handler for clear all filters buton
         mAppliedFiltersHolder = findViewById(R.id.appliedFiltersHolder);
         mClearAllButton.setOnClickListener(view -> {
@@ -106,6 +124,9 @@ public class MainActivity extends AppCompatActivity implements SortSheetDialog.S
         });
 
         registerFilterDialogReciever();
+        registerDistanceReceiver();
+
+        checkPermissions();
 
         //initial load of hospital data
         initializeHospitalData();
@@ -132,6 +153,17 @@ public class MainActivity extends AppCompatActivity implements SortSheetDialog.S
         mHospitalAdapter.handleSearch(newText);
         mHospitalAdapter.notifyDataSetChanged();
         return false;
+    }
+
+    @Override
+    protected void onDestroy() {
+
+        if (mDistanceReceiver != null) {
+            unregisterReceiver(mDistanceReceiver);
+            mDistanceReceiver = null;
+        }
+
+        super.onDestroy();
     }
 
     /**
@@ -196,7 +228,7 @@ public class MainActivity extends AppCompatActivity implements SortSheetDialog.S
      */
     public void initializeHospitalData() {
         /*Create handle for the RetrofitInstance interface*/
-        DataService service = RetrofitClientInstance.getRetrofitInstance().create(DataService.class);
+        DatabaseService service = RetrofitClientDatabaseAPI.getRetrofitInstance().create(DatabaseService.class);
         Call<List<Hospital>> call = service.getHospitals();
         call.enqueue(new Callback<List<Hospital>>() {
             @Override
@@ -208,7 +240,9 @@ public class MainActivity extends AppCompatActivity implements SortSheetDialog.S
                 mHospitalAdapter.setHospitalList(mHospitalList);
                 mHospitalAdapter.notifyDataSetChanged();
                 String len = String.valueOf(mHospitalList.size());
-                instantiateRecyclerView();
+
+                // Now we can finish setting up the app
+                finishInstantiation();
             }
             @Override
             public void onFailure(Call<List<Hospital>> call, Throwable t) {
@@ -226,7 +260,7 @@ public class MainActivity extends AppCompatActivity implements SortSheetDialog.S
      */
     public void updateHospitalData() {
         /*Create handle for the RetrofitInstance interface*/
-        DataService service = RetrofitClientInstance.getRetrofitInstance().create(DataService.class);
+        DatabaseService service = RetrofitClientDatabaseAPI.getRetrofitInstance().create(DatabaseService.class);
         Call<List<Hospital>> call = service.getHospitals();
         call.enqueue(new Callback<List<Hospital>>() {
             @Override
@@ -256,6 +290,11 @@ public class MainActivity extends AppCompatActivity implements SortSheetDialog.S
                 mHospitalAdapter.handleFilter();
                 mHospitalAdapter.handleSort();
                 mHospitalAdapter.notifyDataSetChanged();
+
+                if (mPermissionsGranted) {
+                    new Thread(() -> requestDistances()).start();
+                }
+
                 // Notify the swipe refresher that the data is done refreshing
                 mSwipeContainer.setRefreshing(false);
             }
@@ -271,17 +310,118 @@ public class MainActivity extends AppCompatActivity implements SortSheetDialog.S
     }
 
     /**
-     * Set up the recyclerView and adapter
+     * Finish instantiating objects
      */
-    private void instantiateRecyclerView() {
+    //TODO: remove this method
+    private void finishInstantiation() {
+        mHospitalAdapter.notifyDataSetChanged();
+        Log.d("MainActivity", "dataset updated");
 
-        RecyclerView hospitalRecyclerView = findViewById(R.id.hospital_list);
+        if (mPermissionsGranted) {
+            instantiateDistanceController();
+        }
+    }
 
-        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-        hospitalRecyclerView.addItemDecoration(itemDecoration);
+    public void checkPermissions() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_DENIED) {
 
-        hospitalRecyclerView.setAdapter(mHospitalAdapter);
-        hospitalRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+            // Requesting the permission
+            ActivityCompat.requestPermissions(MainActivity.this,
+                    new String[] { Manifest.permission.ACCESS_FINE_LOCATION },
+                    1);
+        } else {
+            mPermissionsGranted = true;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == 1) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Log.d("MainActivity: ", "First Permission Granted");
+
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_DENIED) {
+                    // Requesting the permission
+                    ActivityCompat.requestPermissions(MainActivity.this,
+                            new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                            2);
+                } else {
+                    mPermissionsGranted = true;
+                }
+
+            }
+        } else if (requestCode == 2) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Log.d("MainActivity: ", "Second Permission Granted");
+
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
+                    // Requesting the permission
+                    ActivityCompat.requestPermissions(MainActivity.this,
+                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                            1);
+                } else {
+                    mPermissionsGranted = true;
+                }
+
+            }
+        }
+    }
+
+    private void instantiateDistanceController() {
+
+        List<String> names = new ArrayList<>();
+        List<Double> latitudes = new ArrayList<>();
+        List<Double> longitudes = new ArrayList<>();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            names = mHospitalList.stream().map(Hospital::getName).collect(Collectors.toList());
+            latitudes = mHospitalList.stream().map(Hospital::getLatitude).collect(Collectors.toList());
+            longitudes = mHospitalList.stream().map(Hospital::getLongitude).collect(Collectors.toList());
+        } else {
+            for (Hospital hospital : mHospitalList) {
+                names.add(hospital.getName());
+                latitudes.add(hospital.getLatitude());
+                longitudes.add(hospital.getLongitude());
+            }
+        }
+
+        mDistanceController = new DistanceController(names, latitudes, longitudes, this);
+
+        new Thread(this::requestDistances).start();
+    }
+
+    private void requestDistances() {
+        if (mDistanceController != null) {
+            mDistanceController.checkForNewLocation(this);
+        }
+    }
+
+    private void updateDistances() {
+        if (mDistanceController != null) {
+
+            for (Hospital hospital : mHospitalList) {
+                hospital.setDistance(mDistanceController.getDistanceToHospital(hospital.getName()));
+            }
+
+            mHospitalAdapter.notifyDataSetChanged();
+
+        }
+    }
+
+    private void registerDistanceReceiver() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("DISTANCE_COMPLETE");
+
+        mDistanceReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                updateDistances();
+            }
+        };
+        registerReceiver(mDistanceReceiver, filter);
     }
 
     @Override

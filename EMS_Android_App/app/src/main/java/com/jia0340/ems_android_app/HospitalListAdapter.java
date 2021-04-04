@@ -15,21 +15,20 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jia0340.ems_android_app.models.Filter;
-import com.jia0340.ems_android_app.models.FilterField;
 import com.jia0340.ems_android_app.models.Hospital;
 import com.jia0340.ems_android_app.models.HospitalType;
 import com.jia0340.ems_android_app.models.NedocsScore;
-import com.jia0340.ems_android_app.models.Filter;
 import com.jia0340.ems_android_app.models.SortField;
-import com.jia0340.ems_android_app.models.FilterField;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+
 import java.util.Collections;
-import java.util.Comparator;
 
-import android.util.Log;
-
+import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * Custom adapter used to bind individual items in the recyclerView
@@ -156,12 +155,16 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
         holder.mHospitalName.setText(hospital.getName());
         holder.mDistanceLabel.setText(mContext.getString(R.string.distance, hospital.getDistance()));
         holder.mPhoneNumber.setText(hospital.getPhoneNumber());
+        //TODO: bug with long street address
         holder.mAddressView.setText(mContext.getString(R.string.address, hospital.getStreetAddress(),
                                             hospital.getCity(), hospital.getState(), hospital.getZipCode()));
         holder.mCountyRegionText.setText(mContext.getString(R.string.county_region, hospital.getCounty(),
                                             hospital.getRegion()));
         holder.mRegionalCoordinatingText.setText(mContext.getString(R.string.regional_coordinating_hospital,
                                             hospital.getRegionalCoordinatingHospital()));
+        DateFormat simpleFormat = new SimpleDateFormat("MM/dd/yyyy h:mm:ss aa", Locale.US);
+        simpleFormat.setTimeZone(TimeZone.getTimeZone("EST"));
+        holder.mLastUpdatedText.setText(mContext.getString(R.string.last_updated, simpleFormat.format(hospital.getLastUpdated())));
 
         handleNedocsValues(holder, hospital.getNedocsScore());
 
@@ -432,6 +435,7 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
         public TextView mTypeThreeView;
         public TextView mCountyRegionText;
         public TextView mRegionalCoordinatingText;
+        public TextView mLastUpdatedText;
         public ImageButton mCollapseButton;
 
         public ViewHolder(@NonNull View itemView) {
@@ -458,6 +462,7 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
             mTypeThreeView = itemView.findViewById(R.id.hospitalType3Description);
             mCountyRegionText = itemView.findViewById(R.id.countyRegionView);
             mRegionalCoordinatingText = itemView.findViewById(R.id.regionalCoordinatingHospitalView);
+            mLastUpdatedText = itemView.findViewById(R.id.lastUpdated);
             mCollapseButton = itemView.findViewById(R.id.collapseButton);
         }
     }
@@ -530,18 +535,19 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
         switch(mAppliedSort) {
             case DISTANCE:
                 Collections.sort(mPinnedList, (h1, h2) -> {
-                    if (h1.getDistance() < h2.getDistance()) {
+                    // TODO: handle NumberFormatException
+                    if (Double.parseDouble(h1.getDistance()) < Double.parseDouble(h2.getDistance())) {
                         return -1;
-                    } else if (h1.getDistance() > h2.getDistance()) {
+                    } else if (Double .parseDouble(h1.getDistance()) > Double.parseDouble(h2.getDistance())) {
                         return 1;
                     } else {
                         return 0;
                     }
                 });
                 Collections.sort(mHospitalList, (h1, h2) -> {
-                    if (h1.getDistance() < h2.getDistance()) {
+                    if (Double.parseDouble(h1.getDistance()) < Double.parseDouble(h2.getDistance())) {
                         return -1;
-                    } else if (h1.getDistance() > h2.getDistance()) {
+                    } else if (Double.parseDouble(h1.getDistance()) > Double.parseDouble(h2.getDistance())) {
                         return 1;
                     } else {
                         return 0;
