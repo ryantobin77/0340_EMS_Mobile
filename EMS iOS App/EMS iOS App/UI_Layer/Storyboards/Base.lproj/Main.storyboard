@@ -146,7 +146,7 @@
                                                     </connections>
                                                 </button>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="wwS-6u-tur">
-                                                    <rect key="frame" x="2" y="91" width="410" height="55"/>
+                                                    <rect key="frame" x="2" y="91" width="410" height="69"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="top" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="JlF-ZX-ZK7">
                                                             <rect key="frame" x="0.0" y="0.0" width="410" height="25"/>
@@ -262,7 +262,7 @@
                                                                 </label>
                                                             </subviews>
                                                         </stackView>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="6d0-5r-NFr">
+                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="6d0-5r-NFr" userLabel="County View">
                                                             <rect key="frame" x="0.0" y="27" width="410" height="13"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Orb-7z-h0T">
@@ -273,13 +273,24 @@
                                                                 </label>
                                                             </subviews>
                                                         </stackView>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="PAc-UA-QM0">
+                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="PAc-UA-QM0" userLabel="RCH View">
                                                             <rect key="frame" x="0.0" y="42" width="410" height="13"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Q0w-yq-6Os">
                                                                     <rect key="frame" x="0.0" y="0.0" width="410" height="13"/>
                                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
                                                                     <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="kNc-4K-hOi" userLabel="Last Updated View">
+                                                            <rect key="frame" x="0.0" y="57" width="410" height="12"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="0jz-bf-D57" userLabel="Last Updated Label">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="410" height="12"/>
+                                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="10"/>
+                                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
@@ -330,6 +341,7 @@
                                         <connections>
                                             <outlet property="address" destination="DpC-V9-IQF" id="Ax4-FD-Tbh"/>
                                             <outlet property="countyLabel" destination="Orb-7z-h0T" id="Y5t-mI-v1U"/>
+                                            <outlet property="countyView" destination="6d0-5r-NFr" id="ag4-J3-vfq"/>
                                             <outlet property="distanceLabel" destination="vvY-Rz-OBQ" id="jy8-Th-Ms4"/>
                                             <outlet property="diversionIcon" destination="3aZ-Nw-Zpl" id="UQC-RY-pL0"/>
                                             <outlet property="diversionIconLeading" destination="obB-C7-ycE" id="5oY-kc-mxW"/>
@@ -343,8 +355,6 @@
                                             <outlet property="expandedHospitalTypeIcon3" destination="ebw-vX-Wi2" id="XYc-Mb-Kpv"/>
                                             <outlet property="favoritePin" destination="lQh-OH-55M" id="nKB-Uc-Hxc"/>
                                             <outlet property="horStackView1" destination="JlF-ZX-ZK7" id="30b-wu-dr6"/>
-                                            <outlet property="horStackView4" destination="6d0-5r-NFr" id="1OF-Ld-VOg"/>
-                                            <outlet property="horStackView5" destination="PAc-UA-QM0" id="2x9-GT-34c"/>
                                             <outlet property="hospitalName" destination="Vby-89-TqH" id="JNp-pN-iwe"/>
                                             <outlet property="hospitalTypeHolder1" destination="aPO-9q-Y3U" id="WJS-6U-jTD"/>
                                             <outlet property="hospitalTypeHolder2" destination="ciJ-i1-ubc" id="ncC-tw-uJL"/>
@@ -355,6 +365,8 @@
                                             <outlet property="hospitalTypeLabel1" destination="oKE-nB-QnM" id="b9O-Uy-24p"/>
                                             <outlet property="hospitalTypeLabel2" destination="6o8-jY-MHg" id="Obq-TD-sN3"/>
                                             <outlet property="hospitalTypeLabel3" destination="UlA-XX-5Bz" id="rw3-yo-qt0"/>
+                                            <outlet property="lastUpdatedLabel" destination="0jz-bf-D57" id="wJp-LX-9fN"/>
+                                            <outlet property="lastUpdatedView" destination="kNc-4K-hOi" id="lUN-Nq-tgY"/>
                                             <outlet property="mapPinView" destination="Xy6-1Y-HKV" id="VTP-BI-Qih"/>
                                             <outlet property="minimizeButton" destination="lJd-dL-ZuY" id="LtX-KZ-3QB"/>
                                             <outlet property="nedocsLabel" destination="ghC-tC-3ji" id="m1H-co-EJL"/>
@@ -362,7 +374,7 @@
                                             <outlet property="phoneIcon" destination="jS8-tw-GnI" id="ly7-S7-QJF"/>
                                             <outlet property="phoneNumber" destination="7yy-id-FlG" id="BVc-7V-gZc"/>
                                             <outlet property="rchLabel" destination="Q0w-yq-6Os" id="Ru5-a8-GaM"/>
-                                            <outlet property="regionLabel" destination="Q0w-yq-6Os" id="Ruf-gz-LmR"/>
+                                            <outlet property="rchView" destination="PAc-UA-QM0" id="hxj-QO-i9g"/>
                                             <outlet property="vertStackView" destination="wwS-6u-tur" id="laN-jt-qTQ"/>
                                         </connections>
                                     </tableViewCell>

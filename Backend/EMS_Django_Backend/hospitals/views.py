@@ -12,10 +12,6 @@ from scrapers.gccscraper import run_scrape
 def home(request):
     return HttpResponse('<h1>Welcome to the EMS Mobile Backend!</h1>')
 
-
-#currently just updates the data in the database whenever the server is launched
-#could be updated to be inside a method where requests to update the data can be made from the app
-
 def get_hospitals(request):
     run_scrape()
     Hospital.objects.all().delete()
