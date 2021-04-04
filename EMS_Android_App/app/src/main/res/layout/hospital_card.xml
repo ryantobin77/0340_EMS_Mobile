@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/hospitalCardHolder"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/hospitalCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/hospitalCardContentHolder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/fixedHospitalCard"
+                android:layout_width="match_parent"
+                android:layout_height="98dp"
+                app:layout_constraintBottom_toTopOf="@+id/expandedHospitalCard"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/nedocsView"
+                    android:layout_width="84dp"
+                    android:layout_height="84dp"
+                    android:background="@color/normal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.03"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/nedocsLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/normal"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textAlignment="center"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/hospitalName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:maxWidth="240dp"
+                    app:layout_constraintBottom_toBottomOf="@id/nedocsView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toEndOf="@id/nedocsView"
+                    app:layout_constraintTop_toTopOf="@id/nedocsView"
+                    app:layout_constraintVertical_bias="0"
+                    app:layout_constraintWidth_default="wrap" />
+
+                <ImageButton
+                    android:id="@+id/favoriteView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:background="@android:color/transparent"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/favorite_pin"
+                    app:layout_constraintBottom_toBottomOf="@id/hospitalName"
+                    app:layout_constraintEnd_toStartOf="@id/mapPinView"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toEndOf="@id/hospitalName"
+                    app:layout_constraintTop_toTopOf="@id/hospitalName"
+                    app:srcCompat="@drawable/outlined_favorite_pin" />
+
+                <ImageView
+                    android:id="@+id/mapPinView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/map_pin"
+                    android:layout_marginEnd="20dp"
+                    android:maxWidth="25dp"
+                    android:maxHeight="25dp"
+                    android:adjustViewBounds="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.35"
+                    app:srcCompat="@drawable/map_pin" />
+
+                <TextView
+                    android:id="@+id/distanceLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@id/mapPinView"
+                    app:layout_constraintStart_toStartOf="@id/mapPinView"
+                    app:layout_constraintTop_toBottomOf="@id/mapPinView" />
+
+                <ImageView
+                    android:id="@+id/diversionView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="4dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/warning_icon"
+                    android:maxWidth="32dp"
+                    android:maxHeight="32dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toStartOf="@id/hospitalName"
+                    app:layout_constraintTop_toBottomOf="@id/hospitalName"
+                    app:layout_constraintVertical_bias="0.05"
+                    app:srcCompat="@drawable/warning" />
+
+                <LinearLayout
+                    android:id="@+id/hospitalTypeIconHolder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintStart_toEndOf="@id/diversionView"
+                    app:layout_constraintTop_toBottomOf="@id/hospitalName"
+                    app:layout_constraintVertical_bias="0.05">
+
+                    <ImageView
+                        android:id="@+id/hospitalType1View"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@string/adult_trauma_center_3"
+                        android:maxWidth="32dp"
+                        android:maxHeight="32dp"
+                        android:visibility="visible"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="parent"
+                        app:srcCompat="@drawable/person_3" />
+
+                    <ImageView
+                        android:id="@+id/hospitalType2View"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@string/eccc_1"
+                        android:maxWidth="32dp"
+                        android:maxHeight="32dp"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintStart_toEndOf="@id/hospitalType1View"
+                        app:layout_constraintTop_toBottomOf="parent"
+                        app:srcCompat="@drawable/heart_1" />
+
+                    <ImageView
+                        android:id="@+id/hospitalType3View"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@string/primary_stroke_center"
+                        android:maxWidth="32dp"
+                        android:maxHeight="32dp"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintStart_toEndOf="@id/hospitalType2View"
+                        app:layout_constraintTop_toBottomOf="parent"
+                        app:srcCompat="@drawable/brain" />
+                </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/expandButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/expand_icon"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/mapPinView"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@id/mapPinView"
+                    app:srcCompat="@drawable/expand" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/expandedHospitalCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fixedHospitalCard">
+
+                <ImageView
+                    android:id="@+id/phoneIconView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/phone_icon"
+                    android:maxWidth="25dp"
+                    android:maxHeight="25dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/phone" />
+
+                <TextView
+                    android:id="@+id/phoneNumberView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/purple_700"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/phoneIconView"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/mapIconView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/map_icon"
+                    android:maxWidth="25dp"
+                    android:maxHeight="25dp"
+                    app:layout_constraintStart_toEndOf="@id/phoneNumberView"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/map" />
+
+                <TextView
+                    android:id="@+id/addressView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/purple_700"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/mapIconView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintHorizontal_bias="0"/>
+
+                <ImageView
+                    android:id="@+id/expandedDiversionView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="4dp"
+                    android:visibility="gone"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/warning_icon"
+                    android:maxWidth="32dp"
+                    android:maxHeight="32dp"
+                    android:layout_marginBottom="4dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/addressView"
+                    app:srcCompat="@drawable/warning" />
+
+                <TextView
+                    android:id="@+id/diversionDescription"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:lineSpacingExtra="10dp"
+                    android:visibility="gone"
+                    android:gravity="center_vertical"
+                    app:layout_constraintStart_toEndOf="@id/expandedDiversionView"
+                    app:layout_constraintTop_toBottomOf="@id/addressView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"/>
+
+                <TextView
+                    android:id="@+id/hospitalType1Description"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    android:drawablePadding="12dp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:gravity="center_vertical"
+                    app:drawableLeftCompat="@drawable/person_3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/diversionDescription"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0"/>
+
+                <TextView
+                    android:id="@+id/hospitalType2Description"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="4dp"
+                    android:drawablePadding="12dp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:gravity="center_vertical"
+                    android:visibility="gone"
+                    app:drawableLeftCompat="@drawable/heart_1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/hospitalType1Description"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0" />
+
+                <TextView
+                    android:id="@+id/hospitalType3Description"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="4dp"
+                    android:drawablePadding="12dp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:gravity="center_vertical"
+                    android:visibility="gone"
+                    app:drawableLeftCompat="@drawable/brain"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/hospitalType2Description"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0" />
+
+                <TextView
+                    android:id="@+id/countyRegionView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/hospitalType3Description" />
+
+                <TextView
+                    android:id="@+id/regionalCoordinatingHospitalView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/countyRegionView"
+                    app:layout_constraintEnd_toStartOf="@id/collapseButton"
+                    app:layout_constraintHorizontal_bias="0" />
+
+                <ImageButton
+                    android:id="@+id/collapseButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/collapse_icon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:srcCompat="@drawable/collapse" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

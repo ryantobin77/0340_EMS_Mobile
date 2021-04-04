@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">EMS</string>
+
+    <!--nedocs score-->
+    <string name="normal">Normal</string>
+    <string name="busy">Busy</string>
+    <string name="overcrowded">Overcrowded</string>
+    <string name="severe">Severe</string>
+
+    <!--hospital types-->
+    <string name="adult_trauma_center_1">Adult Trauma Center - Level 1</string>
+    <string name="adult_trauma_center_2">Adult Trauma Center - Level 2</string>
+    <string name="adult_trauma_center_3">Adult Trauma Center - Level 3</string>
+    <string name="adult_trauma_center_4">Adult Trauma Center - Level 4</string>
+    <string name="pediatric_trauma_center_1">Pediatric Trauma Center - Level 1</string>
+    <string name="pediatric_trauma_center_2">Pediatric Trauma Center - Level 2</string>
+    <string name="comprehensive_stroke_center">Comprehensive Stroke Center</string>
+    <string name="thrombectomy_stroke_center">Thrombectomy Stroke Center</string>
+    <string name="primary_stroke_center">Primary Stroke Center</string>
+    <string name="remote_treatment_stroke_center">Remote Treatment Stroke Center</string>
+    <string name="eccc_1">Emergency Cardiac Care Center - Level 1</string>
+    <string name="eccc_2">Emergency Cardiac Care Center - Level 2</string>
+    <string name="eccc_3">Emergency Cardiac Care Center - Level 3</string>
+    <string name="neonatal_center_1">Neonatal Center - Level 1</string>
+    <string name="neonatal_center_2">Neonatal Center - Level 2</string>
+    <string name="neonatal_center_3">Neonatal Center - Level 3</string>
+    <string name="maternal_center_1">Maternal Center - Level 1</string>
+    <string name="maternal_center_2">Maternal Center - Level 2</string>
+    <string name="maternal_center_3">Maternal Center - Level 3</string>
+
+    <!--misc. labels-->
+    <string name="distance">%.2f mi</string>
+    <string name="address">%s,\n%s, %s %s</string>
+    <string name="county_region">%s - Region %s</string>
+    <string name="regional_coordinating_hospital">Regional Coordinating Hospital %s</string>
+
+    <!--image accessibility text-->
+    <string name="favorite_pin">pin to favorites</string>
+    <string name="map_pin">map pin</string>
+    <string name="warning_icon">diversion</string>
+    <string name="phone_icon">phone</string>
+    <string name="map_icon">address</string>
+    <string name="expand_icon">expand</string>
+    <string name="collapse_icon">collapse</string>
+
+</resources>
