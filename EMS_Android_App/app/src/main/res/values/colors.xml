@@ -3,6 +3,7 @@
     <color name="main_color">#FF004C99</color>
     <color name="main_light">#FF0065CC</color>
     <color name="main_dark">#FF003366</color>
+    <color name="main_highlight">#66004C99</color>
 
     <color name="secondary_color">#FFEF8354</color>
     <color name="secondary_light">#FFF3A583</color>
@@ -15,8 +16,9 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
-    <color name="gray">#FF808080</color>
+    <color name="dark_gray">#FF808080</color>
     <color name="white">#FFFFFFFF</color>
+    <color name='light_gray'>#AAAAAA</color>
 
     <!--nedocs score-->
     <color name="normal">#4CAF50</color>
