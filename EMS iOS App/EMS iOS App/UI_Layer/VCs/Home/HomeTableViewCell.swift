@@ -42,17 +42,18 @@ class HomeTableViewCell: UITableViewCell {
     @IBOutlet weak var expandButton: UIButton!
     @IBOutlet var phoneNumber: UILabel!
     @IBOutlet weak var countyLabel: UILabel!
-    @IBOutlet weak var regionLabel: UILabel!
     @IBOutlet weak var rchLabel: UILabel!
+    @IBOutlet weak var lastUpdatedLabel: UILabel!
     @IBOutlet weak var vertStackView: UIStackView!
     @IBOutlet weak var horStackView1: UIStackView!
     @IBOutlet weak var diversionsHolder: UIStackView!
     @IBOutlet weak var hospitalTypeHolder1: UIStackView!
     @IBOutlet weak var hospitalTypeHolder2: UIStackView!
     @IBOutlet weak var hospitalTypeHolder3: UIStackView!
-    @IBOutlet weak var horStackView4: UIStackView!
+    @IBOutlet weak var countyView: UIStackView!
     @IBOutlet weak var favoritePin: UIButton!
-    @IBOutlet weak var horStackView5: UIStackView!
+    @IBOutlet weak var rchView: UIStackView!
+    @IBOutlet weak var lastUpdatedView: UIStackView!
     @IBOutlet var diversionIconWidth: NSLayoutConstraint!
     @IBOutlet var diversionIconLeading: NSLayoutConstraint!
 }

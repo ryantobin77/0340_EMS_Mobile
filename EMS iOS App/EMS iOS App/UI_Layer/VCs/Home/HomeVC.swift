@@ -34,7 +34,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(buildHospitalList), for: .valueChanged)
     }
-
+    
     // helper method to build Hospital List from data
     @objc func buildHospitalList() {
         let tasker = HospitalsTasker()
@@ -222,7 +222,13 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         cell.phoneNumber.textColor = UIColor.blue
         cell.countyLabel.text = "\(String(hospital.county)) County - EMS Region \(String(hospital.regionNumber))"
         cell.rchLabel.text = "Regional Coordination Hospital \(String(hospital.rch))"
-    
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
+        dateFormatter.dateFormat = "MM/dd/yyyy h:mm:ss aa"
+        let formattedLastUpdated = dateFormatter.string(from: hospital.lastUpdated)
+        cell.lastUpdatedLabel.text = "Updated \(String(formattedLastUpdated))"
+        
         return cell
     }
 
@@ -231,10 +237,10 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
             let hospital = self.hospitals[indexPath.row]
             if hospital.hasDiversion {
                 // calculate the height of the expanded cell based on the number of diversions and hospital types
-                return CGFloat(179 + 28 * (hospital.specialtyCenters.count) + (6 * (hospital.diversions.count - 1)))
+                return CGFloat(192 + (28 * hospital.specialtyCenters.count) + (6 * (hospital.diversions.count - 1)))
             } else {
                 // calculate the height of the expanded cell based on the number of hospital types
-                return CGFloat(154 + 28 * hospital.specialtyCenters.count)
+                return CGFloat(167 + 28 * hospital.specialtyCenters.count)
             }
         }
         return 90
