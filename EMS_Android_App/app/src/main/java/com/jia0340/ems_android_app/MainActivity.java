@@ -149,7 +149,6 @@ public class MainActivity extends AppCompatActivity implements SortSheetDialog.S
     //Handles text changing in search bar
     @Override
     public boolean onQueryTextChange(String newText) {
-        System.out.println(newText);
         mHospitalAdapter.handleSearch(newText);
         mHospitalAdapter.notifyDataSetChanged();
         return false;
