@@ -13,7 +13,7 @@ import retrofit2.http.GET;
  * @author Anna Dingler
  * Created on 2/22/21
  */
-public interface DataService {
+public interface DatabaseService {
 
     @GET("hospitals/")
     Call<List<Hospital>> getHospitals();
