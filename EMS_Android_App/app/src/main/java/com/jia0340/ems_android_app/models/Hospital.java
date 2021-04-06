@@ -3,7 +3,12 @@ package com.jia0340.ems_android_app.models;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Class representing a Hospital object.
@@ -25,7 +30,7 @@ public class Hospital {
     private String mCounty;
     private String mRegion;
     private String mRegionalCoordinatingHospital;
-    private String mLastUpdated;
+    private Date mLastUpdated;
     private double mLatitude;
     private double mLongitude;
 
@@ -63,7 +68,12 @@ public class Hospital {
         mRegion = region;
         mRegionalCoordinatingHospital = regionalCoordinatingHospital;
         mDiversions = diversions;
-        mLastUpdated = lastUpdated;
+        try {
+            DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US);
+            mLastUpdated = dateFormatter.parse(lastUpdated);
+        } catch (ParseException e) {
+            mLastUpdated = new Date();
+        }
         mLatitude = latitude;
         mLongitude = longitude;
 
@@ -114,6 +124,8 @@ public class Hospital {
     public String getRegionalCoordinatingHospital() {
         return mRegionalCoordinatingHospital;
     }
+
+    public Date getLastUpdated() { return mLastUpdated; }
 
     public ArrayList<HospitalType> getHospitalTypes() {
         return mHospitalTypes;

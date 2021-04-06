@@ -21,11 +21,12 @@ class HospitalIH: NSObject {
     var regionNumber: String!
     var county: String!
     var rch: String! //Regional Coordinating Hospital
+    var lastUpdated: Date!
     
     var isFavorite = false
     
 
-    init(name: String, nedocsScore: NedocsScore, specialtyCenters: [HospitalType], distance: Float, hasDiversion: Bool, diversions: [String], address: String, phoneNumber: String, regionNumber: String, county: String, rch: String) {
+    init(name: String, nedocsScore: NedocsScore, specialtyCenters: [HospitalType], distance: Float, hasDiversion: Bool, diversions: [String], address: String, phoneNumber: String, regionNumber: String, county: String, rch: String, lastUpdated: Date) {
         self.name = name
         self.nedocsScore = nedocsScore
         self.specialtyCenters = specialtyCenters
@@ -37,6 +38,7 @@ class HospitalIH: NSObject {
         self.regionNumber = regionNumber
         self.county = county
         self.rch = rch
+        self.lastUpdated = lastUpdated
     }
     
     class func parseJson(jsonData: Data) -> Array<HospitalIH>? {
@@ -73,8 +75,13 @@ class HospitalIH: NSObject {
             }
             let address = street + ", " + city + ", " + state + " " + zip
             
-            // Hardcoded: specialty centers, distance
-            let hosp = HospitalIH(name: name, nedocsScore: NedocsScore(rawValue: nedocsScore)!, specialtyCenters: centers, distance: 1.0, hasDiversion: (diversions.count > 0 && diversions[0] != "Normal"), diversions: diversions, address: address, phoneNumber: phone, regionNumber: emsRegion, county: county_val, rch: rch_value)
+            let dateFormatter = DateFormatter()
+            dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+            let lastUpdated = dateFormatter.date(from: hospital["last_updated"] as! String)!
+            
+            let hosp = HospitalIH(name: name, nedocsScore: NedocsScore(rawValue: nedocsScore)!, specialtyCenters: centers, distance: -1.0, hasDiversion: (diversions.count > 0 && diversions[0] != "Normal"), diversions: diversions, address: address, phoneNumber: phone, regionNumber: emsRegion, county: county_val, rch: rch_value, lastUpdated: lastUpdated)
+            
             result.append(hosp)
         }
         return result
