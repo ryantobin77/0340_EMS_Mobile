@@ -19,13 +19,9 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.barStyle = UIBarStyle.black
-        self.hospitals = Array<HospitalIH>()
-        self.pinnedList = Array<HospitalIH>()
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        
-        // initial load of data
-        buildHospitalList()
+        self.pinnedList = Array<HospitalIH>()
         
         // swipe to refresh data
         tableView.refreshControl = UIRefreshControl()
@@ -38,42 +34,47 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         tasker.getAllHospitals(failure: {
             print("Failure")
         }, success: { (hospitals) in
-            guard var hospitals = hospitals else {
+            guard let hospitals = hospitals else {
                 self.hospitals = Array<HospitalIH>()
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
                 return
             }
-            // Retrieve pinned hospitals in new list
-            var newPinned = [HospitalIH]();
-            for pinned in self.pinnedList {
-                for hospital in hospitals {
-                    if (hospital.name == pinned.name) {
-                        newPinned.append(hospital);
+            
+            tasker.getHospitalDistances(hospitals: hospitals, finished: { (hospitals) in
+                guard var hospitals = hospitals else {
+                    self.hospitals = Array<HospitalIH>()
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                        self.tableView.refreshControl?.endRefreshing()
+                    }
+                    return
+                }
+                // Retrieve pinned hospitals in new list
+                var newPinned = [HospitalIH]()
+                for pinned in self.pinnedList {
+                    for hospital in hospitals {
+                        if (hospital.name == pinned.name) {
+                            newPinned.append(hospital)
+                        }
                     }
                 }
-            }
-            // Repin hospitals
-            for pinned in newPinned {
-                if let index = hospitals.firstIndex(of: pinned) {
-                    hospitals.remove(at: index);
+                // Repin hospitals
+                for pinned in newPinned {
+                    if let index = hospitals.firstIndex(of: pinned) {
+                        hospitals.remove(at: index)
+                    }
+                    hospitals.insert(pinned, at: 0)
+                    pinned.isFavorite = true
                 }
-                hospitals.insert(pinned, at: 0);
-                pinned.isFavorite = true
-            }
-            // Reassign the pinned list
-            self.pinnedList = newPinned
-            
-            self.hospitals = hospitals
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-            
-            // Dismiss the refresh control
-            DispatchQueue.main.async {
-                self.tableView.refreshControl?.endRefreshing()
-            }
+                self.pinnedList = newPinned
+                self.hospitals = hospitals
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                    self.tableView.refreshControl?.endRefreshing()
+                }
+            })
         })
     }
     
@@ -197,7 +198,12 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
             }
         }
         
-        cell.distanceLabel.text = "\(String(hospital.distance)) mi"
+        if (hospital.distance == -1.0) {
+            cell.distanceLabel.text = "-- mi"
+        } else {
+            cell.distanceLabel.text = "\(String(hospital.distance)) mi"
+        }
+        
         cell.address.attributedText = NSAttributedString(string: hospital.address, attributes:
             [.underlineStyle: NSUnderlineStyle.single.rawValue])
         cell.address.textColor = UIColor.blue
