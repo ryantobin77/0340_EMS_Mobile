@@ -186,6 +186,11 @@ public class MainActivity extends AppCompatActivity {
                 // Now we can update the recyclerView
                 mHospitalAdapter.setHospitalList(mHospitalList);
                 mHospitalAdapter.notifyDataSetChanged();
+
+                if (mPermissionsGranted) {
+                    new Thread(() -> requestDistances()).start();
+                }
+
                 // Notify the swipe refresher that the data is done refreshing
                 mSwipeContainer.setRefreshing(false);
             }
