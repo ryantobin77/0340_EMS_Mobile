@@ -14,19 +14,14 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.jia0340.ems_android_app.models.Filter;
 import com.jia0340.ems_android_app.models.Hospital;
 import com.jia0340.ems_android_app.models.HospitalType;
 import com.jia0340.ems_android_app.models.NedocsScore;
-import com.jia0340.ems_android_app.models.SortField;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-
-import java.util.Collections;
-
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -38,12 +33,9 @@ import java.util.TimeZone;
  */
 class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewHolder> {
 
-    private List<Hospital> mHospitalList;   // index [0, mPinnedList.size() - 1] are pinned
+    private List<Hospital> mHospitalList;
     private List<Hospital> mPinnedList;
     private Context mContext;
-    private List<Filter> mFilterList;
-    private SortField mAppliedSort;
-    private List<Hospital> mAllHospitalList;
 
     /**
      * Constructor of the custom adapter
@@ -54,9 +46,6 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
         mHospitalList = hospitalList;
         mPinnedList = new ArrayList<Hospital>();
         mContext = context;
-        mFilterList = new ArrayList<Filter>();
-        mAppliedSort = SortField.DISTANCE;
-        mAllHospitalList = hospitalList;
     }
 
     /**
@@ -78,48 +67,12 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
     }
 
     /**
-     * Setter for mAllHospitalList.
-     *
-     * @param mAllHospitalList the new hospital list
-     */
-    public void setAllHospitalList(List<Hospital> mAllHospitalList) {
-        this.mAllHospitalList = mAllHospitalList;
-    }
-
-
-    /**
      * Setter for mPinnedList.
      *
-     * @param mPinnedList the new list of pinned hospitals
+     * @param mPinnedList
      */
     public void setPinnedList(List<Hospital> mPinnedList) {
         this.mPinnedList = mPinnedList;
-    }
-
-    /**
-     * Setter for mAppliedSort.
-     *
-     * @param sortField
-     */
-    public void setAppliedSort(SortField sortField) {
-        this.mAppliedSort = sortField;
-    }
-
-    /** Getter for mFilterList.
-     *
-     * @return the list of applied Filters
-     */
-    public List<Filter> getFilterList() {
-        return mFilterList;
-    }
-
-    /**
-     * Setter for mFilterList.
-     *
-     * @param mFilterList the new list of applied filters
-     */
-    public void setFilterList(List<Filter> mFilterList) {
-        this.mFilterList = mFilterList;
     }
 
     /**
@@ -184,10 +137,7 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
      */
     @Override
     public int getItemCount() {
-        if (mHospitalList != null) {
-            return mHospitalList.size();
-        }
-        return -1;
+        return mHospitalList.size();
     }
 
     /**
@@ -356,22 +306,16 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
                 mPinnedList.add(hospital);
                 mHospitalList.remove(hospital);
                 mHospitalList.add(0, hospital);
-                handleSort();
-                //notifyItemMoved(pos, 0);
-                notifyDataSetChanged();
+                notifyItemMoved(pos, 0);
                 //swapItem(pos, 0);
-
 
             } else {
                 holder.mFavoriteView.setImageDrawable(ResourcesCompat.getDrawable(mContext.getResources(), R.drawable.outlined_favorite_pin, null));
                 mPinnedList.remove(hospital);
                 mHospitalList.remove(hospital);
                 mHospitalList.add(mPinnedList.size(), hospital);
-                handleSort();
-                //notifyItemMoved(0, mPinnedList.size());
-                notifyDataSetChanged();
+                notifyItemMoved(0, mPinnedList.size());
                 //swapItem(pos, mPinnedList.size()+1);
-
 
             }
         });
@@ -464,125 +408,6 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
             mRegionalCoordinatingText = itemView.findViewById(R.id.regionalCoordinatingHospitalView);
             mLastUpdatedText = itemView.findViewById(R.id.lastUpdated);
             mCollapseButton = itemView.findViewById(R.id.collapseButton);
-        }
-    }
-
-    /**
-     * Handles user-applied filters
-     * Uses the mFilterList instance variable to determine what filters to apply and narrows hospital list based on these filters
-     */
-    public void handleFilter() {
-        mHospitalList = new ArrayList<Hospital>(mAllHospitalList);
-        List<String> counties = new ArrayList<String>();
-        List<String> hospital_types = new ArrayList<String>();
-        List<String> regions = new ArrayList<String>();
-        List<String> reg_coord_hospitals = new ArrayList<String>();
-        for (Filter filter: mFilterList) {
-            switch (filter.getFilterField()) {
-                case COUNTY:
-                    counties.add(filter.getFilterValue());
-                    break;
-                case HOSPITAL_TYPES:
-                    hospital_types.add(filter.getFilterValue());
-                    break;
-                case REGION:
-                    regions.add(filter.getFilterValue());
-                    break;
-                case REGIONAL_COORDINATING_HOSPITAL:
-                    reg_coord_hospitals.add(filter.getFilterValue());
-                    break;
-            }
-        }
-        List<Hospital> toRemove = new ArrayList<Hospital>();
-        for (Hospital h: mHospitalList) {
-            if (counties.size() > 0 && !counties.contains(h.getCounty())) {
-                toRemove.add(h);
-            }
-            if (hospital_types.size() > 0) {
-                boolean missingOneCenter = false;
-                for (String val: hospital_types) {
-                    boolean foundVal = false;
-                    for (HospitalType type : h.getHospitalTypes()) {
-                        String typeString = mContext.getString(type.getStringId());
-                        if (typeString.equals(val)) {
-                            foundVal = true;
-                        }
-                    }
-                    if (!foundVal) {
-                        toRemove.add(h);
-                    }
-                }
-            }
-            if (regions.size() > 0 && !regions.contains(h.getRegion())) {
-                toRemove.add(h);
-            }
-            if (reg_coord_hospitals.size() > 0 && !reg_coord_hospitals.contains(h.getRegionalCoordinatingHospital())) {
-                toRemove.add(h);
-            }
-        }
-        mHospitalList.removeAll(toRemove);
-        mPinnedList.removeAll(toRemove);
-    }
-
-    /**
-     * Handles user-applied sorts
-     * Uses the mAppliedSort instance variable to determine what sort to apply
-     */
-    public void handleSort () {
-        for (Hospital h: mPinnedList) {
-            mHospitalList.remove(h);
-        }
-        switch(mAppliedSort) {
-            case DISTANCE:
-                Collections.sort(mPinnedList, (h1, h2) -> {
-                    // TODO: handle NumberFormatException
-                    if (Double.parseDouble(h1.getDistance()) < Double.parseDouble(h2.getDistance())) {
-                        return -1;
-                    } else if (Double .parseDouble(h1.getDistance()) > Double.parseDouble(h2.getDistance())) {
-                        return 1;
-                    } else {
-                        return 0;
-                    }
-                });
-                Collections.sort(mHospitalList, (h1, h2) -> {
-                    if (Double.parseDouble(h1.getDistance()) < Double.parseDouble(h2.getDistance())) {
-                        return -1;
-                    } else if (Double.parseDouble(h1.getDistance()) > Double.parseDouble(h2.getDistance())) {
-                        return 1;
-                    } else {
-                        return 0;
-                    }
-                });
-                break;
-            case NEDOCS_SCORE:
-                Collections.sort(mPinnedList, (h1, h2) -> h1.getNedocsScore().compareTo(h2.getNedocsScore()));
-                Collections.sort(mHospitalList, (h1, h2) -> h1.getNedocsScore().compareTo(h2.getNedocsScore()));
-                break;
-            case NAME:
-                Collections.sort(mPinnedList, (h1, h2) -> h1.getName().compareTo(h2.getName()));
-                Collections.sort(mHospitalList, (h1, h2) -> h1.getName().compareTo(h2.getName()));
-                break;
-        }
-        for (int i = mPinnedList.size() - 1; i >= 0; i--) {
-            mHospitalList.add(0, mPinnedList.get(i));
-        }
-    }
-
-    /**
-     * Handles user-applied Search
-     * @param searchTerm the input the user wants to search for
-     */
-    public void handleSearch(String searchTerm) {
-        handleFilter();
-        handleSort();
-        List<Hospital> toRemove = new ArrayList<Hospital>();
-        for (Hospital h: mHospitalList) {
-            if (!(h.getName().toLowerCase().contains(searchTerm.toLowerCase()))) {
-                toRemove.add(h);
-            }
-        }
-        for (Hospital removedHospital: toRemove) {
-            mHospitalList.remove(removedHospital);
         }
     }
 
