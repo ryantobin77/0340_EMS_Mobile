@@ -7,6 +7,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.Manifest;
 import android.content.BroadcastReceiver;
@@ -42,6 +43,7 @@ import retrofit2.Response;
  */
 public class MainActivity extends AppCompatActivity {
 
+    private SwipeRefreshLayout mSwipeContainer;
     private ArrayList<Hospital> mHospitalList;
     private HospitalListAdapter mHospitalAdapter;
     private Toolbar mToolbar;
@@ -70,7 +72,13 @@ public class MainActivity extends AppCompatActivity {
 
         checkPermissions();
 
-        getHospitalData();
+        //initial load of hospital data
+        initializeHospitalData();
+
+        // Attaching the layout to the swipe container view
+        mSwipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        // Setup refresh listener which triggers new data loading
+        mSwipeContainer.setOnRefreshListener(() -> updateHospitalData());
     }
 
     @Override
@@ -123,8 +131,7 @@ public class MainActivity extends AppCompatActivity {
      * Gets the hospital data from the database and assigns it to mHospitalList
      * If response was retrieved correctly, set up the recyclerView and populate with data
      */
-    public void getHospitalData() {
-
+    public void initializeHospitalData() {
         /*Create handle for the RetrofitInstance interface*/
         DatabaseService service = RetrofitClientDatabaseAPI.getRetrofitInstance().create(DatabaseService.class);
         Call<List<Hospital>> call = service.getHospitals();
@@ -136,6 +143,52 @@ public class MainActivity extends AppCompatActivity {
                 // Now we can finish setting up the app
                 finishInstantiation();
             }
+            @Override
+            public void onFailure(Call<List<Hospital>> call, Throwable t) {
+                // Failed to collect hospital data
+                // TODO: what do we want to happen when it fails?
+                Log.d("MainActiity", t.getMessage());
+                Toast.makeText(MainActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    /**
+     * Gets the hospital data from the database and assigns it to mHospitalList
+     * If response was retreived corrrectly, update data in recyclerView
+     */
+    public void updateHospitalData() {
+        /*Create handle for the RetrofitInstance interface*/
+        DatabaseService service = RetrofitClientDatabaseAPI.getRetrofitInstance().create(DatabaseService.class);
+        Call<List<Hospital>> call = service.getHospitals();
+        call.enqueue(new Callback<List<Hospital>>() {
+            @Override
+            public void onResponse(Call<List<Hospital>> call, Response<List<Hospital>> response) {
+                // Save the returned list
+                mHospitalList = (ArrayList<Hospital>) response.body();
+                // Retrieve pinned hospitals in new list
+                List<Hospital> pinnedList = new ArrayList<>();
+                for (Hospital pinned : mHospitalAdapter.getPinnedList()) {
+                    for (Hospital h : mHospitalList) {
+                        if (h.getName().equals(pinned.getName())) {
+                            pinnedList.add(h);
+                        }
+                    }
+                }
+                // Repin hospitals
+                for (Hospital pinned : pinnedList) {
+                    mHospitalList.remove(pinned);
+                    pinned.setFavorite(true);
+                    mHospitalList.add(0, pinned);
+                }
+                // Reassign the pinned list
+                mHospitalAdapter.setPinnedList(pinnedList);
+                // Now we can update the recyclerView
+                mHospitalAdapter.setHospitalList(mHospitalList);
+                mHospitalAdapter.notifyDataSetChanged();
+                // Notify the swipe refresher that the data is done refreshing
+                mSwipeContainer.setRefreshing(false);
+            }
 
             @Override
             public void onFailure(Call<List<Hospital>> call, Throwable t) {
@@ -145,7 +198,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_LONG).show();
             }
         });
-
     }
 
     /**
