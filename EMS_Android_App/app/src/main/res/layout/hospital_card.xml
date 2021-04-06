@@ -64,7 +64,7 @@
                     android:textStyle="bold"
                     android:maxLines="2"
                     android:ellipsize="end"
-                    android:maxWidth="240dp"
+                    android:maxWidth="208dp"
                     app:layout_constraintBottom_toBottomOf="@id/nedocsView"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0"
@@ -86,6 +86,7 @@
                     app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintStart_toEndOf="@id/hospitalName"
                     app:layout_constraintTop_toTopOf="@id/hospitalName"
+                    app:layout_constraintVertical_bias="0"
                     app:srcCompat="@drawable/outlined_favorite_pin" />
 
                 <ImageView
@@ -94,8 +95,6 @@
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/map_pin"
                     android:layout_marginEnd="20dp"
-                    android:maxWidth="25dp"
-                    android:maxHeight="25dp"
                     android:adjustViewBounds="true"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -201,14 +200,14 @@
                     android:id="@+id/expandButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="12dp"
+                    android:layout_marginEnd="20dp"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/expand_icon"
                     android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@id/mapPinView"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@id/mapPinView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:srcCompat="@drawable/expand" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -228,13 +227,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
+                    android:layout_marginTop="4dp"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/phone_icon"
-                    android:maxWidth="25dp"
-                    android:maxHeight="25dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/phone" />
+                    app:srcCompat="@drawable/phone_black" />
 
                 <TextView
                     android:id="@+id/phoneNumberView"
@@ -254,8 +252,6 @@
                     android:layout_marginStart="40dp"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/map_icon"
-                    android:maxWidth="25dp"
-                    android:maxHeight="25dp"
                     app:layout_constraintStart_toEndOf="@id/phoneNumberView"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/map" />

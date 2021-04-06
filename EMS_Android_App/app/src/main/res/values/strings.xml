@@ -29,7 +29,7 @@
     <string name="maternal_center_3">Maternal Center - Level 3</string>
 
     <!--misc. labels-->
-    <string name="distance">%.2f mi</string>
+    <string name="distance">%s mi</string>
     <string name="address">%s,\n%s, %s %s</string>
     <string name="county_region">%s - Region %s</string>
     <string name="regional_coordinating_hospital">Regional Coordinating Hospital %s</string>
