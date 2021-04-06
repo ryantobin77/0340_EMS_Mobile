@@ -33,6 +33,7 @@
     <string name="address">%s,\n%s, %s %s</string>
     <string name="county_region">%s - Region %s</string>
     <string name="regional_coordinating_hospital">Regional Coordinating Hospital %s</string>
+    <string name="last_updated">Updated %s</string>
 
     <!--image accessibility text-->
     <string name="favorite_pin">pin to favorites</string>
