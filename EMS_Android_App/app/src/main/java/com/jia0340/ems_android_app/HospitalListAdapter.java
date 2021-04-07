@@ -17,11 +17,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jia0340.ems_android_app.models.Hospital;
 import com.jia0340.ems_android_app.models.HospitalType;
 import com.jia0340.ems_android_app.models.NedocsScore;
+import com.jia0340.ems_android_app.models.Filter;
+import com.jia0340.ems_android_app.models.SortField;
+import com.jia0340.ems_android_app.models.FilterField;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -33,9 +38,12 @@ import java.util.TimeZone;
  */
 class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewHolder> {
 
-    private List<Hospital> mHospitalList;
+    private List<Hospital> mHospitalList;   // index [0, mPinnedList.size() - 1] are pinned
     private List<Hospital> mPinnedList;
     private Context mContext;
+    private ArrayList<Filter> mFilterList;
+    private SortField mAppliedSort;
+    private List<Hospital> mAllHospitalList;
 
     /**
      * Constructor of the custom adapter
@@ -46,6 +54,9 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
         mHospitalList = hospitalList;
         mPinnedList = new ArrayList<Hospital>();
         mContext = context;
+        mFilterList = new ArrayList<Filter>();
+        mAppliedSort = SortField.DISTANCE;
+        mAllHospitalList = hospitalList;
     }
 
     /**
@@ -65,6 +76,16 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
     public void setHospitalList(List<Hospital> mHospitalList) {
         this.mHospitalList = mHospitalList;
     }
+
+    /**
+     * Setter for mAllHospitalList.
+     *
+     * @param mAllHospitalList the new hospital list
+     */
+    public void setAllHospitalList(List<Hospital> mAllHospitalList) {
+        this.mAllHospitalList = mAllHospitalList;
+    }
+
 
     /**
      * Setter for mPinnedList.
@@ -408,6 +429,113 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
             mRegionalCoordinatingText = itemView.findViewById(R.id.regionalCoordinatingHospitalView);
             mLastUpdatedText = itemView.findViewById(R.id.lastUpdated);
             mCollapseButton = itemView.findViewById(R.id.collapseButton);
+        }
+    }
+
+    /**
+     * Handles user-applied filters
+     * Uses the mFilterList instance variable to determine what filters to apply and narrows hospital list based on these filters
+     */
+    public void handleFilter() {
+        mHospitalList = new ArrayList<Hospital>(mAllHospitalList);
+        for (Filter filter: mFilterList) {
+            switch (filter.getFilterField()) {
+                case COUNTY:
+                    for (Hospital h: mHospitalList) {
+                        if (!filter.getFilterValues().contains((h.getCounty()))) {
+                            mHospitalList.remove(h);
+                            mPinnedList.remove(h);
+                        }
+                    }
+                    break;
+                case HOSPITAL_TYPES:
+                    for (Hospital h: mHospitalList) {
+                        boolean missingOneCenter = false;
+                        for (String val: filter.getFilterValues()) {
+                            if (!h.getHospitalTypes().contains(val)) {
+                                missingOneCenter = true;
+                            }
+                        }
+                        if (missingOneCenter) {
+                            mHospitalList.remove(h);
+                            mPinnedList.remove(h);
+                        }
+                    }
+                    break;
+                case REGION:
+                    for (Hospital h: mHospitalList) {
+                        if (!filter.getFilterValues().contains((h.getRegion()))) {
+                            mHospitalList.remove(h);
+                            mPinnedList.remove(h);
+                        }
+                    }
+                    break;
+                case REGIONAL_COORDINATING_HOSPITAL:
+                    for (Hospital h: mHospitalList) {
+                        if (!filter.getFilterValues().contains((h.getRegionalCoordinatingHospital()))) {
+                            mHospitalList.remove(h);
+                            mPinnedList.remove(h);
+                        }
+                    }
+                    break;
+            }
+        }
+        //need to notify dataset changed after applying filters and sorts
+    }
+
+    /**
+     * Handles user-applied sorts
+     * Uses the mAppliedSort instance variable to determine what sort to apply
+     */
+    /* public void handleSort () {
+        for (Hospital h: mPinnedList) {
+            mHospitalList.remove(h);
+        }
+        switch(mAppliedSort) {
+            case DISTANCE:
+                Collections.sort(mPinnedList, (h1, h2) -> {
+                    if (h1.getDistance() < h2.getDistance()) {
+                        return -1;
+                    } else if (h1.getDistance() > h2.getDistance()) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                });
+                Collections.sort(mHospitalList, (h1, h2) -> {
+                    if (h1.getDistance() < h2.getDistance()) {
+                        return -1;
+                    } else if (h1.getDistance() > h2.getDistance()) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                });
+                break;
+            case NEDOCS_SCORE:
+                Collections.sort(mPinnedList, (h1, h2) -> h1.getNedocsScore().compareTo(h2.getNedocsScore()));
+                Collections.sort(mHospitalList, (h1, h2) -> h1.getNedocsScore().compareTo(h2.getNedocsScore()));
+                break;
+            case NAME:
+                Collections.sort(mPinnedList, (h1, h2) -> h1.getName().compareTo(h2.getName()));
+                Collections.sort(mHospitalList, (h1, h2) -> h1.getName().compareTo(h2.getName()));
+                break;
+        }
+        for (int i = mPinnedList.size() - 1; i >= 0; i--) {
+            mHospitalList.add(0, mPinnedList.get(i));
+        }
+    }*/
+
+    /**
+     * Handles user-applied Search
+     * @param searchTerm the input the user wants to search for
+     */
+    public void handleSearch(String searchTerm) {
+        for (int i = 0; i < mHospitalList.size(); i++) {
+            Hospital h = mHospitalList.get(i);
+            if (!h.getName().contains(searchTerm)) {
+                mHospitalList.remove(i);
+            }
         }
     }
 

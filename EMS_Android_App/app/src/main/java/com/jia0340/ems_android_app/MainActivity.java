@@ -20,6 +20,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.jia0340.ems_android_app.models.Hospital;
@@ -41,12 +44,13 @@ import retrofit2.Response;
  * @author Anna Dingler
  * Created on 1/24/21
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     private SwipeRefreshLayout mSwipeContainer;
     private ArrayList<Hospital> mHospitalList;
     private HospitalListAdapter mHospitalAdapter;
     private Toolbar mToolbar;
+    private SearchView mSearchBar;
     private BroadcastReceiver mDistanceReceiver;
 
     private DistanceController mDistanceController;
@@ -68,6 +72,20 @@ public class MainActivity extends AppCompatActivity {
         // Setting toolbar as the ActionBar with setSupportActionBar() call
         setSupportActionBar(mToolbar);
 
+        // Setting up the search bar
+        mSearchBar = findViewById(R.id.search_bar);
+        mSearchBar.setVisibility(View.GONE);
+        mSearchBar.setIconifiedByDefault(true);
+        mSearchBar.setOnQueryTextListener(this);
+
+        mSearchBar.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                mSearchBar.clearFocus();
+                mSearchBar.setVisibility(View.GONE);
+                return false;
+            }
+        });
         registerDistanceReceiver();
 
         checkPermissions();
@@ -79,6 +97,22 @@ public class MainActivity extends AppCompatActivity {
         mSwipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         // Setup refresh listener which triggers new data loading
         mSwipeContainer.setOnRefreshListener(() -> updateHospitalData());
+    }
+
+    //Handles submit action from search bar
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        mSearchBar.setVisibility(View.GONE);
+        return false;
+    }
+
+    //Handles text changing in search bar
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        System.out.println(newText);
+        mHospitalAdapter.handleSearch(newText);
+        mHospitalAdapter.notifyDataSetChanged();
+        return false;
     }
 
     @Override
@@ -112,17 +146,23 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        //TODO: logic for menu
 
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
+        //Search button clicked
+        if (id == R.id.action_search) {
+            if (mSearchBar.getVisibility() == View.VISIBLE) {
+                mSearchBar.setVisibility(View.GONE);
+            } else {
+                mSearchBar.setVisibility(View.VISIBLE);
+                mSearchBar.setFocusable(true);
+                mSearchBar.setIconified(false);
+                mSearchBar.requestFocusFromTouch();
+            }
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -166,6 +206,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<List<Hospital>> call, Response<List<Hospital>> response) {
                 // Save the returned list
                 mHospitalList = (ArrayList<Hospital>) response.body();
+                mHospitalAdapter.setAllHospitalList(mHospitalList);
                 // Retrieve pinned hospitals in new list
                 List<Hospital> pinnedList = new ArrayList<>();
                 for (Hospital pinned : mHospitalAdapter.getPinnedList()) {
