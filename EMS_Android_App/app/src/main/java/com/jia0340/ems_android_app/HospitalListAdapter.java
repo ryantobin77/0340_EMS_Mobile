@@ -487,7 +487,7 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
      * Handles user-applied sorts
      * Uses the mAppliedSort instance variable to determine what sort to apply
      */
-    public void handleSort () {
+    /* public void handleSort () {
         for (Hospital h: mPinnedList) {
             mHospitalList.remove(h);
         }
@@ -524,7 +524,7 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
         for (int i = mPinnedList.size() - 1; i >= 0; i--) {
             mHospitalList.add(0, mPinnedList.get(i));
         }
-    }
+    }*/
 
     /**
      * Handles user-applied Search
