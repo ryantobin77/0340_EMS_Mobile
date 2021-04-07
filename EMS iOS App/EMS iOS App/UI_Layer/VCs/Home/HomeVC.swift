@@ -410,7 +410,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
                 filterCard.translatesAutoresizingMaskIntoConstraints = false
                 let filterCardWidth = filterCard.removeButton.frame.width + filterCard.valueLabel.intrinsicContentSize.width + 12
                 filterCard.widthAnchor.constraint(equalToConstant: filterCardWidth).isActive = true
-                filterCard.heightAnchor.constraint(equalToConstant: 30).isActive = true
+                filterCard.heightAnchor.constraint(equalToConstant: 22).isActive = true
                 
                 appliedFiltersViewWidth += Int(filterCardWidth) + 10
             }

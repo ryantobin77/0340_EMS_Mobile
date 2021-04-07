@@ -22,12 +22,13 @@
 		94E3B277255A420F0021FCAA /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E3B276255A420F0021FCAA /* HomeTableViewCell.swift */; };
 		94E3B27F255A551E0021FCAA /* HospitalIH.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E3B27E255A551E0021FCAA /* HospitalIH.swift */; };
 		94E3B281255A5A6A0021FCAA /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E3B280255A5A6A0021FCAA /* Utils.swift */; };
-		BE388A4F2613CD3700A3403E /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE388A4E2613CD3700A3403E /* Checkbox.swift */; };
 		BE388A5A2613D1B900A3403E /* CheckListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE388A592613D1B900A3403E /* CheckListCell.swift */; };
 		BE9C6D77261466A900BB30F6 /* FilterSelectorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9C6D76261466A900BB30F6 /* FilterSelectorVC.swift */; };
 		BE9C6D8526146F9F00BB30F6 /* FilterCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9C6D8426146F9F00BB30F6 /* FilterCard.swift */; };
-		BE9C6D8A261470F500BB30F6 /* FilterCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE9C6D89261470F500BB30F6 /* FilterCard.xib */; };
 		BEEDE79326143DB30011BB13 /* FilterIH.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEDE79226143DB30011BB13 /* FilterIH.swift */; };
+		BEF8000C261E2E26007A7E02 /* FilterCheckbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF8000B261E2E26007A7E02 /* FilterCheckbox.swift */; };
+		BEF80012261E2E53007A7E02 /* FilterCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEF80011261E2E53007A7E02 /* FilterCard.xib */; };
+		BEF8FFFF261E2DF6007A7E02 /* FilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF8FFFE261E2DF6007A7E02 /* FilterButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,12 +70,13 @@
 		94E3B276255A420F0021FCAA /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		94E3B27E255A551E0021FCAA /* HospitalIH.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalIH.swift; sourceTree = "<group>"; };
 		94E3B280255A5A6A0021FCAA /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		BE388A4E2613CD3700A3403E /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		BE388A592613D1B900A3403E /* CheckListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListCell.swift; sourceTree = "<group>"; };
 		BE9C6D76261466A900BB30F6 /* FilterSelectorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelectorVC.swift; sourceTree = "<group>"; };
 		BE9C6D8426146F9F00BB30F6 /* FilterCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCard.swift; sourceTree = "<group>"; };
-		BE9C6D89261470F500BB30F6 /* FilterCard.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FilterCard.xib; path = "EMS iOS App/UI_Layer/VCs/Filter/FilterCard.xib"; sourceTree = SOURCE_ROOT; };
 		BEEDE79226143DB30011BB13 /* FilterIH.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterIH.swift; sourceTree = "<group>"; };
+		BEF8000B261E2E26007A7E02 /* FilterCheckbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterCheckbox.swift; sourceTree = "<group>"; };
+		BEF80011261E2E53007A7E02 /* FilterCard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterCard.xib; sourceTree = "<group>"; };
+		BEF8FFFE261E2DF6007A7E02 /* FilterButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,7 +224,7 @@
 		94E3B27A255A44D60021FCAA /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				BE9C6D89261470F500BB30F6 /* FilterCard.xib */,
+				BEF80010261E2E53007A7E02 /* Filter */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -239,10 +241,19 @@
 		BE388A372612ED3000A3403E /* Filter */ = {
 			isa = PBXGroup;
 			children = (
-				BE388A4E2613CD3700A3403E /* Checkbox.swift */,
+				BEF8000B261E2E26007A7E02 /* FilterCheckbox.swift */,
+				BEF8FFFE261E2DF6007A7E02 /* FilterButton.swift */,
 				BE9C6D76261466A900BB30F6 /* FilterSelectorVC.swift */,
 				BE388A592613D1B900A3403E /* CheckListCell.swift */,
 				BE9C6D8426146F9F00BB30F6 /* FilterCard.swift */,
+			);
+			path = Filter;
+			sourceTree = "<group>";
+		};
+		BEF80010261E2E53007A7E02 /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				BEF80011261E2E53007A7E02 /* FilterCard.xib */,
 			);
 			path = Filter;
 			sourceTree = "<group>";
@@ -354,7 +365,7 @@
 				94E3B20F255A3A240021FCAA /* LaunchScreen.storyboard in Resources */,
 				94E3B20C255A3A240021FCAA /* Assets.xcassets in Resources */,
 				94E3B20A255A3A200021FCAA /* Main.storyboard in Resources */,
-				BE9C6D8A261470F500BB30F6 /* FilterCard.xib in Resources */,
+				BEF80012261E2E53007A7E02 /* FilterCard.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,7 +392,6 @@
 			files = (
 				BE9C6D8526146F9F00BB30F6 /* FilterCard.swift in Sources */,
 				94CC6AA525E6BD5C00D4294C /* HospitalsTasker.swift in Sources */,
-				BE388A4F2613CD3700A3403E /* Checkbox.swift in Sources */,
 				BE9C6D77261466A900BB30F6 /* FilterSelectorVC.swift in Sources */,
 				94E3B27F255A551E0021FCAA /* HospitalIH.swift in Sources */,
 				94E3B274255A3DF70021FCAA /* HomeVC.swift in Sources */,
@@ -392,8 +402,10 @@
 				BE388A5A2613D1B900A3403E /* CheckListCell.swift in Sources */,
 				94E3B277255A420F0021FCAA /* HomeTableViewCell.swift in Sources */,
 				94CC6AA625E6BD5C00D4294C /* WebCallTasker.swift in Sources */,
+				BEF8000C261E2E26007A7E02 /* FilterCheckbox.swift in Sources */,
 				BEEDE79326143DB30011BB13 /* FilterIH.swift in Sources */,
 				94E3B205255A3A200021FCAA /* SceneDelegate.swift in Sources */,
+				BEF8FFFF261E2DF6007A7E02 /* FilterButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

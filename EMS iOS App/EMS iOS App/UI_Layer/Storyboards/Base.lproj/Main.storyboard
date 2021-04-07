@@ -453,7 +453,7 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="appliedFiltersView" destination="scn-AE-4Ei" id="vQD-ad-elT"/>
+                        <outlet property="appliedFiltersView" destination="scn-AE-4Ei" id="DSX-tH-qZn"/>
                         <outlet property="bottomBarScrollView" destination="6KB-Vs-SCF" id="wiS-JR-KGK"/>
                         <outlet property="clearAllFiltersButton" destination="xjz-1G-sN6" id="4qq-nv-jPt"/>
                         <outlet property="tableView" destination="5Kd-TW-JX4" id="oZC-Uj-MUF"/>
