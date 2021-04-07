@@ -1,9 +1,16 @@
 package com.jia0340.ems_android_app.models;
 
+import android.util.Log;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Class representing a Hospital object.
@@ -25,11 +32,11 @@ public class Hospital {
     private String mCounty;
     private String mRegion;
     private String mRegionalCoordinatingHospital;
-    private String mLastUpdated;
+    private Date mLastUpdated;
     private double mLatitude;
     private double mLongitude;
 
-    private double mDistance;
+    private String mDistance;
     private boolean mExpanded = false;
     private boolean mFavorite = false;
 
@@ -63,11 +70,17 @@ public class Hospital {
         mRegion = region;
         mRegionalCoordinatingHospital = regionalCoordinatingHospital;
         mDiversions = diversions;
-        mLastUpdated = lastUpdated;
+        try {
+            DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US);
+            mLastUpdated = dateFormatter.parse(lastUpdated);
+        } catch (ParseException e) {
+            mLastUpdated = new Date();
+        }
         mLatitude = latitude;
         mLongitude = longitude;
 
-        mDistance = 1.11;
+        //TODO: what do we want this value to be while it's loading??
+        mDistance = "-";
 
     }
 
@@ -79,7 +92,7 @@ public class Hospital {
         return mNedocsScore;
     }
 
-    public double getDistance() {
+    public String getDistance() {
         return mDistance;
     }
 
@@ -115,6 +128,8 @@ public class Hospital {
         return mRegionalCoordinatingHospital;
     }
 
+    public Date getLastUpdated() { return mLastUpdated; }
+
     public ArrayList<HospitalType> getHospitalTypes() {
         return mHospitalTypes;
     }
@@ -137,5 +152,17 @@ public class Hospital {
 
     public void setFavorite(boolean favorite) {
         mFavorite = favorite;
+    }
+
+    public void setDistance(String distance) {
+        mDistance = distance;
+    }
+
+    public double getLatitude() {
+        return mLatitude;
+    }
+
+    public double getLongitude() {
+        return mLongitude;
     }
 }
