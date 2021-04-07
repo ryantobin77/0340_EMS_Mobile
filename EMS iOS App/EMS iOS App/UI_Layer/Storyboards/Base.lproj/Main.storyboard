@@ -380,12 +380,22 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search..." showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jgj-mw-EmI">
+                                <rect key="frame" x="0.0" y="88" width="414" height="0.0"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" id="YIj-FW-SXn"/>
+                                </constraints>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="Jgj-mw-EmI" firstAttribute="leading" secondItem="OyN-Ek-oEJ" secondAttribute="leading" id="594-Fh-L6O"/>
                             <constraint firstAttribute="bottom" secondItem="5Kd-TW-JX4" secondAttribute="bottom" id="5DG-02-2cf"/>
-                            <constraint firstItem="5Kd-TW-JX4" firstAttribute="top" secondItem="OyN-Ek-oEJ" secondAttribute="top" id="Mim-x6-Xrx"/>
+                            <constraint firstItem="Jgj-mw-EmI" firstAttribute="trailing" secondItem="OyN-Ek-oEJ" secondAttribute="trailing" id="Okr-pT-z3z"/>
                             <constraint firstItem="5Kd-TW-JX4" firstAttribute="trailing" secondItem="OyN-Ek-oEJ" secondAttribute="trailing" id="VD9-Sf-XkW"/>
+                            <constraint firstItem="5Kd-TW-JX4" firstAttribute="top" secondItem="Jgj-mw-EmI" secondAttribute="bottom" id="drm-tY-0YZ"/>
+                            <constraint firstItem="Jgj-mw-EmI" firstAttribute="top" secondItem="OyN-Ek-oEJ" secondAttribute="top" id="oeZ-BQ-ys8"/>
                             <constraint firstItem="5Kd-TW-JX4" firstAttribute="leading" secondItem="OyN-Ek-oEJ" secondAttribute="leading" id="xgf-Hd-s6g"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="OyN-Ek-oEJ"/>
@@ -397,6 +407,9 @@
                         <rightBarButtonItems>
                             <barButtonItem title="Item" image="SearchIcon" id="6KB-Dl-i7k">
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="searchPressed:" destination="JLG-Vg-eHN" id="1Tk-65-vhY"/>
+                                </connections>
                             </barButtonItem>
                             <barButtonItem title="Item" image="SortIcon" id="gCZ-fT-dKn">
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -407,6 +420,8 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="searchBar" destination="Jgj-mw-EmI" id="koa-Xx-XdA"/>
+                        <outlet property="searchBarHeight" destination="YIj-FW-SXn" id="RpU-j1-py7"/>
                         <outlet property="tableView" destination="5Kd-TW-JX4" id="oZC-Uj-MUF"/>
                     </connections>
                 </viewController>

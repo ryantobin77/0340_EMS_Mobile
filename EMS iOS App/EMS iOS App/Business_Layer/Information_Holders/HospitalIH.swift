@@ -82,13 +82,13 @@ class HospitalIH: NSObject {
             let lat: Double = (latStr as NSString).doubleValue
             let long: Double = (longStr as NSString).doubleValue
             
+
             let dateFormatter = DateFormatter()
             dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
             let lastUpdated = dateFormatter.date(from: hospital["last_updated"] as! String)!
 
             let hosp = HospitalIH(name: name, nedocsScore: NedocsScore(rawValue: nedocsScore)!, specialtyCenters: centers, distance: -1.0, lat: lat, long: long, hasDiversion: (diversions.count > 0 && diversions[0] != "Normal"), diversions: diversions, address: address, phoneNumber: phone, regionNumber: emsRegion, county: county_val, rch: rch_value, lastUpdated: lastUpdated)
-
             result.append(hosp)
         }
         return result
