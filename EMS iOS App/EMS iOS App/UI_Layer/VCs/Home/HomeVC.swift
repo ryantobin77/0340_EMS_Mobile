@@ -8,9 +8,11 @@
 
 import UIKit
 
-class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
+class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, UISearchBarDelegate {
     
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var searchBar: UISearchBar!
+    @IBOutlet var searchBarHeight : NSLayoutConstraint!
     var hospitals: Array<HospitalIH>!
     var pinnedList: Array<HospitalIH>!
     var thereIsCellTapped = false
@@ -19,17 +21,57 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.barStyle = UIBarStyle.black
-        self.hospitals = Array<HospitalIH>()
-        self.pinnedList = Array<HospitalIH>()
+        self.searchBar.isHidden = true
+        self.searchBar.delegate = self
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        
-        // initial load of data
-        buildHospitalList()
+        self.pinnedList = Array<HospitalIH>()
         
         // swipe to refresh data
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(buildHospitalList), for: .valueChanged)
+    }
+    
+    func showSearchBar() {
+        self.searchBar.isHidden = false
+        self.searchBarHeight.constant = 56
+        self.searchBar.becomeFirstResponder()
+        UIView.animate(withDuration: 0.25, animations: {
+             self.view.layoutIfNeeded()
+        }, completion: nil)
+    }
+    
+    func hideSearchBar() {
+        self.searchBar.resignFirstResponder()
+        self.searchBarHeight.constant = 0
+        UIView.animate(withDuration: 0.25, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: { _ in
+            self.searchBar.isHidden = true
+        })
+    }
+    
+    @IBAction func searchPressed(_ sender: UIButton) {
+        if self.searchBar.isHidden {
+            self.showSearchBar()
+        } else {
+            self.hideSearchBar()
+        }
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar.text = nil
+        self.hideSearchBar()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar)  {
+        self.hideSearchBar()
+    }
+    
+    // TODO: Filter hospitals based on searchText
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print(searchText)
+        // tableView.reloadData()
     }
 
     // helper method to build Hospital List from data
@@ -38,42 +80,47 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         tasker.getAllHospitals(failure: {
             print("Failure")
         }, success: { (hospitals) in
-            guard var hospitals = hospitals else {
+            guard let hospitals = hospitals else {
                 self.hospitals = Array<HospitalIH>()
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
                 return
             }
-            // Retrieve pinned hospitals in new list
-            var newPinned = [HospitalIH]();
-            for pinned in self.pinnedList {
-                for hospital in hospitals {
-                    if (hospital.name == pinned.name) {
-                        newPinned.append(hospital);
+            
+            tasker.getHospitalDistances(hospitals: hospitals, finished: { (hospitals) in
+                guard var hospitals = hospitals else {
+                    self.hospitals = Array<HospitalIH>()
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                        self.tableView.refreshControl?.endRefreshing()
+                    }
+                    return
+                }
+                // Retrieve pinned hospitals in new list
+                var newPinned = [HospitalIH]()
+                for pinned in self.pinnedList {
+                    for hospital in hospitals {
+                        if (hospital.name == pinned.name) {
+                            newPinned.append(hospital)
+                        }
                     }
                 }
-            }
-            // Repin hospitals
-            for pinned in newPinned {
-                if let index = hospitals.firstIndex(of: pinned) {
-                    hospitals.remove(at: index);
+                // Repin hospitals
+                for pinned in newPinned {
+                    if let index = hospitals.firstIndex(of: pinned) {
+                        hospitals.remove(at: index)
+                    }
+                    hospitals.insert(pinned, at: 0)
+                    pinned.isFavorite = true
                 }
-                hospitals.insert(pinned, at: 0);
-                pinned.isFavorite = true
-            }
-            // Reassign the pinned list
-            self.pinnedList = newPinned
-            
-            self.hospitals = hospitals
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-            
-            // Dismiss the refresh control
-            DispatchQueue.main.async {
-                self.tableView.refreshControl?.endRefreshing()
-            }
+                self.pinnedList = newPinned
+                self.hospitals = hospitals
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                    self.tableView.refreshControl?.endRefreshing()
+                }
+            })
         })
     }
     
@@ -197,7 +244,12 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
             }
         }
         
-        cell.distanceLabel.text = "\(String(hospital.distance)) mi"
+        if (hospital.distance == -1.0) {
+            cell.distanceLabel.text = "-- mi"
+        } else {
+            cell.distanceLabel.text = "\(String(hospital.distance)) mi"
+        }
+        
         cell.address.attributedText = NSAttributedString(string: hospital.address, attributes:
             [.underlineStyle: NSUnderlineStyle.single.rawValue])
         cell.address.textColor = UIColor.blue
@@ -206,6 +258,12 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         cell.phoneNumber.textColor = UIColor.blue
         cell.countyLabel.text = "\(String(hospital.county)) County - EMS Region \(String(hospital.regionNumber))"
         cell.rchLabel.text = "Regional Coordination Hospital \(String(hospital.rch))"
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
+        dateFormatter.dateFormat = "MM/dd/yyyy h:mm:ss aa"
+        let formattedLastUpdated = dateFormatter.string(from: hospital.lastUpdated)
+        cell.lastUpdatedLabel.text = "Updated \(String(formattedLastUpdated))"
     
         return cell
     }
@@ -215,10 +273,10 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
             let hospital = self.hospitals[indexPath.row]
             if hospital.hasDiversion {
                 // calculate the height of the expanded cell based on the number of diversions and hospital types
-                return CGFloat(179 + 28 * (hospital.specialtyCenters.count) + (6 * (hospital.diversions.count - 1)))
+                return CGFloat(192 + 28 * (hospital.specialtyCenters.count) + (10 * (hospital.diversions.count - 1)))
             } else {
                 // calculate the height of the expanded cell based on the number of hospital types
-                return CGFloat(154 + 28 * hospital.specialtyCenters.count)
+                return CGFloat(167 + 28 * hospital.specialtyCenters.count)
             }
         }
         return 90
