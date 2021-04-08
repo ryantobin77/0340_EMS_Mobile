@@ -1,10 +1,5 @@
 package com.jia0340.ems_android_app.models;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import java.util.ArrayList;
-
 /**
  * Class representing a Filter object.
  *
@@ -21,11 +16,6 @@ public class Filter {
         mFilterValue = filterValue;
     }
 
-    protected Filter(Parcel in) {
-        mFilterField = FilterField.valueOf(in.readString());
-        mFilterValue = in.readString();
-    }
-
     /**
      * Getter for mFilterField.
      *
@@ -35,10 +25,11 @@ public class Filter {
         return mFilterField;
     }
 
+
     /**
-     * Getter for mFilterValues.
+     * Getter for mFilterValue.
      *
-     * @return the filter values
+     * @return the filter value
      */
     public String getFilterValue() {
         return mFilterValue;

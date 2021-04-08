@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="caA-Sf-2pn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pZC-Rk-Vgf">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -13,6 +11,7 @@
         <scene sceneID="U3C-ut-zfr">
             <objects>
                 <navigationController id="caA-Sf-2pn" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="s49-iB-Qj2"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Ky3-yg-Baa">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -40,7 +39,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="264" estimatedRowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5Kd-TW-JX4">
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="hospitalCell" rowHeight="264" id="ayb-Ta-Od8" customClass="HomeTableViewCell" customModule="EMS_iOS_App" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="264"/>
@@ -62,7 +61,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="systemRedColor"/>
+                                                    <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="bottom" secondItem="ghC-tC-3ji" secondAttribute="bottom" id="8S7-hK-TZa"/>
                                                         <constraint firstItem="ghC-tC-3ji" firstAttribute="top" secondItem="90S-SX-gSq" secondAttribute="top" id="GlY-eG-uy3"/>
@@ -72,7 +71,7 @@
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vby-89-TqH">
-                                                    <rect key="frame" x="92" y="11" width="44" height="25"/>
+                                                    <rect key="frame" x="92" y="11" width="44" height="24"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="200" id="w4K-cN-W5y"/>
                                                     </constraints>
@@ -81,10 +80,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lQh-OH-55M">
-                                                    <rect key="frame" x="146" y="11" width="25" height="25"/>
+                                                    <rect key="frame" x="146" y="11" width="24" height="24"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="25" id="OY0-ub-4uu"/>
-                                                        <constraint firstAttribute="width" constant="25" id="kRW-1V-5af"/>
+                                                        <constraint firstAttribute="height" constant="24" id="OY0-ub-4uu"/>
+                                                        <constraint firstAttribute="width" constant="24" id="kRW-1V-5af"/>
                                                     </constraints>
                                                     <state key="normal" image="OutlineFavoritePin"/>
                                                     <connections>
@@ -108,38 +107,38 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WarningIcon" translatesAutoresizingMaskIntoConstraints="NO" id="3aZ-Nw-Zpl">
-                                                    <rect key="frame" x="92" y="44" width="25" height="25"/>
+                                                    <rect key="frame" x="92" y="43" width="25" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="25" identifier="DiversionIconWidth" id="L2E-9i-riL"/>
                                                         <constraint firstAttribute="height" constant="25" id="h8X-5R-Ibp"/>
                                                     </constraints>
                                                 </imageView>
                                                 <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BrainIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Htg-9b-VcT" userLabel="Hospital Type Icon 1">
-                                                    <rect key="frame" x="127" y="44" width="25" height="25"/>
+                                                    <rect key="frame" x="127" y="43" width="25" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="25" id="P4p-Cm-t6D"/>
                                                         <constraint firstAttribute="height" constant="25" id="dKu-1t-syr"/>
                                                     </constraints>
                                                 </imageView>
                                                 <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BrainIcon" translatesAutoresizingMaskIntoConstraints="NO" id="USX-ZZ-XJt" userLabel="Hospital Type Icon 2">
-                                                    <rect key="frame" x="162" y="44" width="25" height="25"/>
+                                                    <rect key="frame" x="162" y="43" width="25" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="POo-mk-wb7"/>
                                                         <constraint firstAttribute="width" constant="25" id="mSn-yw-1u3"/>
                                                     </constraints>
                                                 </imageView>
                                                 <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BrainIcon" translatesAutoresizingMaskIntoConstraints="NO" id="WPq-k4-tsT" userLabel="Hospital Type Icon 3">
-                                                    <rect key="frame" x="197" y="44" width="25" height="25"/>
+                                                    <rect key="frame" x="197" y="43" width="25" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="ItM-qk-F4S"/>
                                                         <constraint firstAttribute="width" constant="25" id="a3N-1j-bX9"/>
                                                     </constraints>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tbL-O0-31Z">
-                                                    <rect key="frame" x="371.5" y="70" width="20" height="20"/>
+                                                    <rect key="frame" x="373.5" y="74" width="16" height="16"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="20" id="alR-34-7lj"/>
-                                                        <constraint firstAttribute="width" constant="20" id="poW-fd-xME"/>
+                                                        <constraint firstAttribute="height" constant="16" id="alR-34-7lj"/>
+                                                        <constraint firstAttribute="width" constant="16" id="poW-fd-xME"/>
                                                     </constraints>
                                                     <state key="normal" title="Expand Button" image="ArrowIcon"/>
                                                     <connections>
@@ -147,7 +146,7 @@
                                                     </connections>
                                                 </button>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="wwS-6u-tur">
-                                                    <rect key="frame" x="2" y="91" width="410" height="55"/>
+                                                    <rect key="frame" x="2" y="91" width="410" height="69"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="top" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="JlF-ZX-ZK7">
                                                             <rect key="frame" x="0.0" y="0.0" width="410" height="25"/>
@@ -285,13 +284,24 @@
                                                                 </label>
                                                             </subviews>
                                                         </stackView>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="llu-Cp-tiD" userLabel="Last Updated View">
+                                                            <rect key="frame" x="0.0" y="57" width="410" height="12"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="1r0-fD-g9B" userLabel="Last Updated Label">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="410" height="12"/>
+                                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="10"/>
+                                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
                                                     </subviews>
                                                 </stackView>
                                                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lJd-dL-ZuY">
                                                     <rect key="frame" x="374" y="189" width="20" height="20"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="20" id="7lP-PZ-XyH"/>
-                                                        <constraint firstAttribute="width" constant="20" id="Rfb-Tj-RYR"/>
+                                                        <constraint firstAttribute="height" constant="16" id="7lP-PZ-XyH"/>
+                                                        <constraint firstAttribute="width" constant="16" id="Rfb-Tj-RYR"/>
                                                     </constraints>
                                                     <state key="normal" title="Minimize Button" image="ArrowIconUp"/>
                                                     <connections>
@@ -356,6 +366,7 @@
                                             <outlet property="hospitalTypeLabel1" destination="oKE-nB-QnM" id="b9O-Uy-24p"/>
                                             <outlet property="hospitalTypeLabel2" destination="6o8-jY-MHg" id="Obq-TD-sN3"/>
                                             <outlet property="hospitalTypeLabel3" destination="UlA-XX-5Bz" id="rw3-yo-qt0"/>
+                                            <outlet property="lastUpdatedLabel" destination="1r0-fD-g9B" id="Cfc-2w-FQK"/>
                                             <outlet property="mapPinView" destination="Xy6-1Y-HKV" id="VTP-BI-Qih"/>
                                             <outlet property="minimizeButton" destination="lJd-dL-ZuY" id="LtX-KZ-3QB"/>
                                             <outlet property="nedocsLabel" destination="ghC-tC-3ji" id="m1H-co-EJL"/>
@@ -418,18 +429,28 @@
                                     <constraint firstAttribute="height" constant="55" id="uuw-uk-6xd"/>
                                 </constraints>
                             </stackView>
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search..." showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jgj-mw-EmI">
+                                <rect key="frame" x="0.0" y="88" width="414" height="0.0"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" id="YIj-FW-SXn"/>
+                                </constraints>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="OyN-Ek-oEJ"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="OyN-Ek-oEJ" firstAttribute="bottom" secondItem="en9-YR-fUn" secondAttribute="bottom" id="4aS-3b-1d3"/>
                             <constraint firstAttribute="bottom" secondItem="5Kd-TW-JX4" secondAttribute="bottom" id="5DG-02-2cf"/>
                             <constraint firstItem="en9-YR-fUn" firstAttribute="leading" secondItem="OyN-Ek-oEJ" secondAttribute="leading" id="LZg-bb-iEk"/>
-                            <constraint firstItem="5Kd-TW-JX4" firstAttribute="top" secondItem="OyN-Ek-oEJ" secondAttribute="top" id="Mim-x6-Xrx"/>
+                            <constraint firstItem="5Kd-TW-JX4" firstAttribute="top" secondItem="Jgj-mw-EmI" secondAttribute="bottom" id="drm-tY-0YZ"/>
                             <constraint firstItem="5Kd-TW-JX4" firstAttribute="trailing" secondItem="OyN-Ek-oEJ" secondAttribute="trailing" id="VD9-Sf-XkW"/>
                             <constraint firstItem="OyN-Ek-oEJ" firstAttribute="trailing" secondItem="en9-YR-fUn" secondAttribute="trailing" id="ba3-gR-d76"/>
+                            <constraint firstItem="Jgj-mw-EmI" firstAttribute="leading" secondItem="OyN-Ek-oEJ" secondAttribute="leading" id="594-Fh-L6O"/>
+                            <constraint firstItem="Jgj-mw-EmI" firstAttribute="trailing" secondItem="OyN-Ek-oEJ" secondAttribute="trailing" id="Okr-pT-z3z"/>
+                            <constraint firstItem="Jgj-mw-EmI" firstAttribute="top" secondItem="OyN-Ek-oEJ" secondAttribute="top" id="oeZ-BQ-ys8"/>
                             <constraint firstItem="5Kd-TW-JX4" firstAttribute="leading" secondItem="OyN-Ek-oEJ" secondAttribute="leading" id="xgf-Hd-s6g"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="OyN-Ek-oEJ"/>
                     </view>
                     <navigationItem key="navigationItem" title="EMS" id="Rzh-Mw-DlK">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="PhoneIconWhite" id="gsh-ru-Jvb">
@@ -438,6 +459,9 @@
                         <rightBarButtonItems>
                             <barButtonItem title="Item" image="SearchIcon" id="6KB-Dl-i7k">
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="searchPressed:" destination="JLG-Vg-eHN" id="1Tk-65-vhY"/>
+                                </connections>
                             </barButtonItem>
                             <barButtonItem title="Item" image="SortIcon" id="gCZ-fT-dKn">
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -456,6 +480,8 @@
                         <outlet property="appliedFiltersView" destination="scn-AE-4Ei" id="DSX-tH-qZn"/>
                         <outlet property="bottomBarScrollView" destination="6KB-Vs-SCF" id="wiS-JR-KGK"/>
                         <outlet property="clearAllFiltersButton" destination="xjz-1G-sN6" id="4qq-nv-jPt"/>
+                        <outlet property="searchBar" destination="Jgj-mw-EmI" id="koa-Xx-XdA"/>
+                        <outlet property="searchBarHeight" destination="YIj-FW-SXn" id="RpU-j1-py7"/>
                         <outlet property="tableView" destination="5Kd-TW-JX4" id="oZC-Uj-MUF"/>
                     </connections>
                 </viewController>
@@ -857,6 +883,31 @@
             </objects>
             <point key="canvasLocation" x="815.94202898550736" y="112.5"/>
         </scene>
+        <!--LoadingVC-->
+        <scene sceneID="ACA-WT-P7g">
+            <objects>
+                <viewController id="pZC-Rk-Vgf" customClass="LoadingVC" customModule="EMS_iOS_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bRA-YE-zy0">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="ckE-vL-qRJ">
+                                <rect key="frame" x="189" y="430" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.12245027059999999" green="0.2332435055" blue="0.56410612309999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <viewLayoutGuide key="safeArea" id="Bnk-WY-tDd"/>
+                    </view>
+                    <connections>
+                        <outlet property="spinner" destination="ckE-vL-qRJ" id="IW1-JO-MoE"/>
+                        <segue destination="caA-Sf-2pn" kind="presentation" identifier="showHospitals" modalPresentationStyle="fullScreen" id="SK9-fo-VNe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gJK-HO-LhM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1614" y="113"/>
+        </scene>
     </scenes>
     <resources>
         <image name="AddressIcon" width="20" height="20"/>
@@ -866,18 +917,12 @@
         <image name="CheckBoxOutline" width="24" height="24"/>
         <image name="Exit" width="18" height="18"/>
         <image name="FilterIcon" width="24" height="24"/>
-        <image name="MapPin" width="32" height="32"/>
-        <image name="OutlineFavoritePin" width="18" height="18"/>
+        <image name="MapPin" width="36" height="36"/>
+        <image name="OutlineFavoritePin" width="36" height="36"/>
         <image name="PhoneIcon" width="20" height="20"/>
-        <image name="PhoneIconWhite" width="24" height="24"/>
+        <image name="PhoneIconWhite" width="18" height="18"/>
         <image name="SearchIcon" width="24" height="24"/>
         <image name="SortIcon" width="24" height="24"/>
         <image name="WarningIcon" width="512" height="512"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
     </resources>
 </document>

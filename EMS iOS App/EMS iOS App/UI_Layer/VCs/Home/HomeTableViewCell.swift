@@ -44,6 +44,7 @@ class HomeTableViewCell: UITableViewCell {
     @IBOutlet weak var countyLabel: UILabel!
     @IBOutlet weak var regionLabel: UILabel!
     @IBOutlet weak var rchLabel: UILabel!
+    @IBOutlet weak var lastUpdatedLabel: UILabel!
     @IBOutlet weak var vertStackView: UIStackView!
     @IBOutlet weak var horStackView1: UIStackView!
     @IBOutlet weak var diversionsHolder: UIStackView!
