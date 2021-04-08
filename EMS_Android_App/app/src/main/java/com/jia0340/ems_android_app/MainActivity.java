@@ -18,13 +18,18 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.jia0340.ems_android_app.models.Filter;
 import com.jia0340.ems_android_app.models.Hospital;
 import com.jia0340.ems_android_app.network.DatabaseService;
 import com.jia0340.ems_android_app.network.RetrofitClientDatabaseAPI;
@@ -44,15 +49,17 @@ import retrofit2.Response;
  * @author Anna Dingler
  * Created on 1/24/21
  */
-public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
-
+public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, FilterSheetDialog.FilterDialogListener {
     private SwipeRefreshLayout mSwipeContainer;
     private ArrayList<Hospital> mHospitalList;
     private HospitalListAdapter mHospitalAdapter;
     private Toolbar mToolbar;
+    private FilterSheetDialog mFilterDialog;
+    private Button mClearAllButton;
+    private LinearLayout mAppliedFiltersHolder;
+    private BroadcastReceiver mFilterDialogReceiver;
     private SearchView mSearchBar;
     private BroadcastReceiver mDistanceReceiver;
-
     private DistanceController mDistanceController;
     private boolean mPermissionsGranted = false;
 
@@ -72,6 +79,29 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         // Setting toolbar as the ActionBar with setSupportActionBar() call
         setSupportActionBar(mToolbar);
 
+        mClearAllButton = findViewById(R.id.clearAllButton);
+
+        // Instantiate empty hospital list and attach to Adapter
+        mHospitalList = new ArrayList<Hospital>();
+        mHospitalAdapter = new HospitalListAdapter(mHospitalList, this);
+
+        // Set up Recycler view and attach Adapter
+        RecyclerView hospitalRecyclerView = findViewById(R.id.hospital_list);
+        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        hospitalRecyclerView.addItemDecoration(itemDecoration);
+        hospitalRecyclerView.setAdapter(mHospitalAdapter);
+        hospitalRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        // Setup on click handler for clear all filters buton
+        mAppliedFiltersHolder = findViewById(R.id.appliedFiltersHolder);
+        mClearAllButton.setOnClickListener(view -> {
+            mHospitalAdapter.setFilterList(new ArrayList<Filter>());
+            mAppliedFiltersHolder.removeAllViews();
+            mClearAllButton.setVisibility(View.GONE);
+        });
+
+        registerFilterDialogReciever();
+
         // Setting up the search bar
         mSearchBar = findViewById(R.id.search_bar);
         mSearchBar.setVisibility(View.GONE);
@@ -86,9 +116,11 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 return false;
             }
         });
+
         registerDistanceReceiver();
 
         checkPermissions();
+
 
         //initial load of hospital data
         initializeHospitalData();
@@ -110,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     @Override
     public boolean onQueryTextChange(String newText) {
         System.out.println(newText);
-        mHospitalAdapter.handleSearch(newText);
+        // TODO: Call handleSearch()
         mHospitalAdapter.notifyDataSetChanged();
         return false;
     }
@@ -152,7 +184,13 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //Search button clicked
+        if (id == R.id.action_filter) {
+            if (mFilterDialog == null) {
+                mFilterDialog = new FilterSheetDialog();
+            }
+
+            mFilterDialog.show(getSupportFragmentManager(), "filterSheet");
+        }
         if (id == R.id.action_search) {
             if (mSearchBar.getVisibility() == View.VISIBLE) {
                 mSearchBar.setVisibility(View.GONE);
@@ -180,14 +218,21 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             public void onResponse(Call<List<Hospital>> call, Response<List<Hospital>> response) {
                 // Save the returned list
                 mHospitalList = (ArrayList<Hospital>) response.body();
+                // Now we can update the recyclerView
+                mHospitalAdapter.setHospitalList(mHospitalList);
+                mHospitalAdapter.notifyDataSetChanged();
+
                 // Now we can finish setting up the app
-                finishInstantiation();
+                if (mPermissionsGranted) {
+                    instantiateDistanceController();
+                }
+
             }
             @Override
             public void onFailure(Call<List<Hospital>> call, Throwable t) {
                 // Failed to collect hospital data
                 // TODO: what do we want to happen when it fails?
-                Log.d("MainActiity", t.getMessage());
+                Log.d("MainActivity", t.getMessage());
                 Toast.makeText(MainActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_LONG).show();
             }
         });
@@ -240,29 +285,10 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             public void onFailure(Call<List<Hospital>> call, Throwable t) {
                 // Failed to collect hospital data
                 // TODO: what do we want to happen when it fails?
-                Log.d("MainActiity", t.getMessage());
+                Log.d("MainActivity", t.getMessage());
                 Toast.makeText(MainActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    /**
-     * Finish instantiating objects
-     */
-    private void finishInstantiation() {
-
-        RecyclerView hospitalRecyclerView = findViewById(R.id.hospital_list);
-
-        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-        hospitalRecyclerView.addItemDecoration(itemDecoration);
-
-        mHospitalAdapter = new HospitalListAdapter(mHospitalList, this);
-        hospitalRecyclerView.setAdapter(mHospitalAdapter);
-        hospitalRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        if (mPermissionsGranted) {
-            instantiateDistanceController();
-        }
     }
 
     public void checkPermissions() {
@@ -365,5 +391,76 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             }
         };
         registerReceiver(mDistanceReceiver, filter);
+    }
+
+    @Override
+    public void onFilterSelected(List<Filter> filterList) {
+        Log.d("MainActivity", "LISTENER FILTER!");
+        mHospitalAdapter.setFilterList(new ArrayList<Filter>(filterList));
+
+        if (mHospitalAdapter.getFilterList().size() > 0) {
+            mClearAllButton.setVisibility(View.VISIBLE);
+        } else {
+            mClearAllButton.setVisibility(View.GONE);
+        }
+
+        LayoutInflater layoutInflater = LayoutInflater.from(mAppliedFiltersHolder.getContext());
+        mAppliedFiltersHolder.removeAllViews();
+
+        for (Filter f : mHospitalAdapter.getFilterList()) {
+            View filterCard = layoutInflater.inflate(R.layout.filter_card, mAppliedFiltersHolder, false);
+            filterCard.setId(f.hashCode());
+            TextView tv = filterCard.findViewById(R.id.filterValueLabel);
+            switch (f.getFilterField()) {
+                case HOSPITAL_TYPES:
+                    tv.setText(f.getFilterValue());
+                    break;
+                case REGION:
+                    tv.setText(mAppliedFiltersHolder.getContext().getString(R.string.filter_ems_region_value, f.getFilterValue()));
+                    break;
+                case COUNTY:
+                    tv.setText(f.getFilterValue());
+                    break;
+                case REGIONAL_COORDINATING_HOSPITAL:
+                    tv.setText(mAppliedFiltersHolder.getContext().getString(R.string.filter_rch_value, f.getFilterValue()));
+                    break;
+            }
+
+            // set up remove button on click handler
+            filterCard.findViewById(R.id.removeButton).setOnClickListener((e) -> {
+                mHospitalAdapter.getFilterList().remove(f);
+                mAppliedFiltersHolder.removeView(filterCard);
+
+                if (mHospitalAdapter.getFilterList().size() == 0) {
+                    mClearAllButton.setVisibility(View.GONE);
+                }
+            });
+
+            // set spacing between filter cards
+            if (filterCard.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+                ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) filterCard.getLayoutParams();
+                p.setMargins(8,0, 8, 0);
+                filterCard.requestLayout();
+            }
+
+            mAppliedFiltersHolder.addView(filterCard);
+        }
+        // TODO: Call filter method here
+    }
+
+    /**
+     * Listens for filter dialog view to be created and updates with applied filters
+     */
+    private void registerFilterDialogReciever() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("FILTER_DIALOG_VIEW_CREATED");
+
+        mFilterDialogReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                mFilterDialog.updateAppliedFilters(mHospitalAdapter.getFilterList());
+            }
+        };
+        registerReceiver(mFilterDialogReceiver, filter);
     }
 }

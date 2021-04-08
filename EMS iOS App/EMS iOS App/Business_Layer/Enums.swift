@@ -8,14 +8,14 @@
 
 import Foundation
 
-enum NedocsScore: String {
+enum NedocsScore: String, Codable {
     case normal = "Normal"
     case busy = "Busy"
     case overcrowded = "Overcrowded"
     case severe = "Severe"
 }
 
-enum HospitalType: String {
+enum HospitalType: String, Codable, CaseIterable {
     case adultTraumaCenterLevelI = "Adult Trauma Centers-Level I"
     case adultTraumaCenterLevelII = "Adult Trauma Centers-Level II"
     case adultTraumaCenterLevelIII = "Adult Trauma Centers-Level III"
@@ -35,4 +35,34 @@ enum HospitalType: String {
     case maternalCenterLevelI = "Maternal Center Designation-Level I Maternal Center"
     case maternalCenterLevelII = "Maternal Center Designation-Level II Maternal Center"
     case maternalCenterLevelIII = "Maternal Center Designation-Level III Maternal Center"
+}
+
+enum FilterType: String {
+    case county = "County"
+    case emsRegion = "EMS Region"
+    case rch = "Regional Coordinating Hospital"
+    case type = "Type"
+}
+
+enum SortType: String {
+    case distance = "Distance"
+    case az = "Alphabetical"
+    case nedocs = "NEDOCS Score"
+    case county = "County"
+}
+
+struct Hospital: Codable {
+    var name: String!
+    var nedocsScore: NedocsScore!
+    var specialtyCenters: [HospitalType]!
+    var distance: Double!
+    var lat: Double?
+    var long: Double?
+    var hasDiversion: Bool!
+    var diversions: [String]!
+    var address: String!
+    var phoneNumber: String!
+    var regionNumber: String!
+    var county: String!
+    var rch: String! //Regional Coordinating Hospital
 }

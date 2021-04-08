@@ -1,7 +1,5 @@
 package com.jia0340.ems_android_app.models;
 
-import java.util.ArrayList;
-
 /**
  * Class representing a Filter object.
  *
@@ -11,19 +9,41 @@ import java.util.ArrayList;
 
 public class Filter {
     private FilterField mFilterField;
-    private ArrayList<String> mFilterValues;
+    private String mFilterValue;
 
-    public Filter(FilterField filterField, ArrayList<String> filterValues) {
+    public Filter(FilterField filterField, String filterValue) {
         mFilterField = filterField;
-        mFilterValues = filterValues;
+        mFilterValue = filterValue;
     }
 
+    /**
+     * Getter for mFilterField.
+     *
+     * @return the filter field
+     */
     public FilterField getFilterField() {
         return mFilterField;
     }
 
-    public ArrayList<String> getFilterValues() {
-        return mFilterValues;
+
+    /**
+     * Getter for mFilterValue.
+     *
+     * @return the filter value
+     */
+    public String getFilterValue() {
+        return mFilterValue;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        } else if (!(o instanceof Filter)) {
+            return false;
+        } else {
+            Filter f = (Filter) o;
+            return this.mFilterField == f.mFilterField && this.mFilterValue.equals(f.mFilterValue);
+        }
     }
 }
-

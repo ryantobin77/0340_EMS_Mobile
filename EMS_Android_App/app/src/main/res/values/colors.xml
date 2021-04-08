@@ -17,6 +17,7 @@
     <color name="black">#FF000000</color>
     <color name="dark_gray">#FF808080</color>
     <color name="white">#FFFFFFFF</color>
+    <color name='gray'>#AAAAAA</color>
 
     <!--nedocs score-->
     <color name="normal">#4CAF50</color>

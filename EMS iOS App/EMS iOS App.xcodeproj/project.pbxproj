@@ -23,6 +23,13 @@
 		94E3B277255A420F0021FCAA /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E3B276255A420F0021FCAA /* HomeTableViewCell.swift */; };
 		94E3B27F255A551E0021FCAA /* HospitalIH.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E3B27E255A551E0021FCAA /* HospitalIH.swift */; };
 		94E3B281255A5A6A0021FCAA /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E3B280255A5A6A0021FCAA /* Utils.swift */; };
+		BE388A5A2613D1B900A3403E /* CheckListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE388A592613D1B900A3403E /* CheckListCell.swift */; };
+		BE9C6D77261466A900BB30F6 /* FilterSelectorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9C6D76261466A900BB30F6 /* FilterSelectorVC.swift */; };
+		BE9C6D8526146F9F00BB30F6 /* FilterCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9C6D8426146F9F00BB30F6 /* FilterCard.swift */; };
+		BEEDE79326143DB30011BB13 /* FilterIH.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEDE79226143DB30011BB13 /* FilterIH.swift */; };
+		BEF8000C261E2E26007A7E02 /* FilterCheckbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF8000B261E2E26007A7E02 /* FilterCheckbox.swift */; };
+		BEF80012261E2E53007A7E02 /* FilterCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEF80011261E2E53007A7E02 /* FilterCard.xib */; };
+		BEF8FFFF261E2DF6007A7E02 /* FilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF8FFFE261E2DF6007A7E02 /* FilterButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +72,14 @@
 		94E3B276255A420F0021FCAA /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		94E3B27E255A551E0021FCAA /* HospitalIH.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalIH.swift; sourceTree = "<group>"; };
 		94E3B280255A5A6A0021FCAA /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		BE388A592613D1B900A3403E /* CheckListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListCell.swift; sourceTree = "<group>"; };
+		BE9C6D76261466A900BB30F6 /* FilterSelectorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelectorVC.swift; sourceTree = "<group>"; };
+		BE9C6D8426146F9F00BB30F6 /* FilterCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCard.swift; sourceTree = "<group>"; };
+		BEEDE79226143DB30011BB13 /* FilterIH.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterIH.swift; sourceTree = "<group>"; };
+		BEF8000B261E2E26007A7E02 /* FilterCheckbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterCheckbox.swift; sourceTree = "<group>"; };
+		BEF80011261E2E53007A7E02 /* FilterCard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterCard.xib; sourceTree = "<group>"; };
+		BEF8001C261E787A007A7E02 /* gpxgenerator_path.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = gpxgenerator_path.gpx; path = ../../../../../Downloads/gpxgenerator_path.gpx; sourceTree = "<group>"; };
+		BEF8FFFE261E2DF6007A7E02 /* FilterButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +119,7 @@
 		94E3B1F6255A3A200021FCAA = {
 			isa = PBXGroup;
 			children = (
+				BEF8001C261E787A007A7E02 /* gpxgenerator_path.gpx */,
 				94E3B201255A3A200021FCAA /* EMS iOS App */,
 				94E3B218255A3A240021FCAA /* EMS iOS AppTests */,
 				94E3B223255A3A240021FCAA /* EMS iOS AppUITests */,
@@ -166,6 +182,7 @@
 		94E3B233255A3B6A0021FCAA /* VCs */ = {
 			isa = PBXGroup;
 			children = (
+				BE388A372612ED3000A3403E /* Filter */,
 				949E8C3525FA9DC500FF934E /* LoadingVC.swift */,
 				94E3B275255A41EA0021FCAA /* Home */,
 			);
@@ -212,6 +229,7 @@
 		94E3B27A255A44D60021FCAA /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BEF80010261E2E53007A7E02 /* Filter */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -220,8 +238,29 @@
 			isa = PBXGroup;
 			children = (
 				94E3B27E255A551E0021FCAA /* HospitalIH.swift */,
+				BEEDE79226143DB30011BB13 /* FilterIH.swift */,
 			);
 			path = Information_Holders;
+			sourceTree = "<group>";
+		};
+		BE388A372612ED3000A3403E /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				BEF8000B261E2E26007A7E02 /* FilterCheckbox.swift */,
+				BEF8FFFE261E2DF6007A7E02 /* FilterButton.swift */,
+				BE9C6D76261466A900BB30F6 /* FilterSelectorVC.swift */,
+				BE388A592613D1B900A3403E /* CheckListCell.swift */,
+				BE9C6D8426146F9F00BB30F6 /* FilterCard.swift */,
+			);
+			path = Filter;
+			sourceTree = "<group>";
+		};
+		BEF80010261E2E53007A7E02 /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				BEF80011261E2E53007A7E02 /* FilterCard.xib */,
+			);
+			path = Filter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -331,6 +370,7 @@
 				94E3B20F255A3A240021FCAA /* LaunchScreen.storyboard in Resources */,
 				94E3B20C255A3A240021FCAA /* Assets.xcassets in Resources */,
 				94E3B20A255A3A200021FCAA /* Main.storyboard in Resources */,
+				BEF80012261E2E53007A7E02 /* FilterCard.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,16 +395,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE9C6D8526146F9F00BB30F6 /* FilterCard.swift in Sources */,
 				94CC6AA525E6BD5C00D4294C /* HospitalsTasker.swift in Sources */,
+				BE9C6D77261466A900BB30F6 /* FilterSelectorVC.swift in Sources */,
 				94E3B27F255A551E0021FCAA /* HospitalIH.swift in Sources */,
 				94E3B274255A3DF70021FCAA /* HomeVC.swift in Sources */,
 				94CC6AA125E6BD4C00D4294C /* BackendURLs.swift in Sources */,
 				94E3B203255A3A200021FCAA /* AppDelegate.swift in Sources */,
 				94E3B281255A5A6A0021FCAA /* Utils.swift in Sources */,
 				94CC6A9F25E6BD3C00D4294C /* Enums.swift in Sources */,
+				BE388A5A2613D1B900A3403E /* CheckListCell.swift in Sources */,
 				94E3B277255A420F0021FCAA /* HomeTableViewCell.swift in Sources */,
 				94CC6AA625E6BD5C00D4294C /* WebCallTasker.swift in Sources */,
+				BEF8000C261E2E26007A7E02 /* FilterCheckbox.swift in Sources */,
+				BEEDE79326143DB30011BB13 /* FilterIH.swift in Sources */,
 				94E3B205255A3A200021FCAA /* SceneDelegate.swift in Sources */,
+				BEF8FFFF261E2DF6007A7E02 /* FilterButton.swift in Sources */,
 				949E8C3625FA9DC500FF934E /* LoadingVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
