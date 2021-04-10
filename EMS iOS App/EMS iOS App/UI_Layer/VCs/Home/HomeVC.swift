@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, FilterSelectorDelegate, UISearchBarDelegate {
+class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, FilterSelectorDelegate, UISearchBarDelegate, SortSelectorDelegate {
     @IBOutlet var tableView: UITableView!
     @IBOutlet var appliedFiltersView: UIStackView!
     @IBOutlet var clearAllFiltersButton: UIButton!
@@ -17,6 +17,10 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
     @IBOutlet var searchBarHeight : NSLayoutConstraint!
     var hospitals: Array<HospitalIH>!
     var pinnedList: Array<HospitalIH>!
+    var appliedSort: SortType!
+    var popupHandler = MenuPopupHandler()
+    var sortSelectorView = SortSelectorView()
+    let sortSelectorViewHeight: CGFloat = 177
     var appliedFilters: Array<FilterIH>!
     var filterCards: NSMutableArray!
     var thereIsCellTapped = false
@@ -130,6 +134,9 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if (hospitals == nil) {
+            return -1
+        }
         return hospitals.count
     }
     
@@ -477,4 +484,16 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         self.appliedFiltersView.widthAnchor.constraint(equalToConstant: CGFloat(appliedFiltersViewWidth)).isActive = true
         bottomBarScrollView.contentSize = CGSize(width: appliedFiltersViewWidth, height: 55)
     }
+    
+    @IBAction func onSortClicked(_ sender: UIBarButtonItem) {
+
+           sortSelectorView.delegate = self
+
+           popupHandler.displayPopup(sortSelectorView, sortSelectorViewHeight)
+
+       }
+
+   func onSortSelected(_ sort: SortType?) {
+       popupHandler.handleDismiss()
+   }
 }

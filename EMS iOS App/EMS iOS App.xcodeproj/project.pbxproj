@@ -26,6 +26,10 @@
 		BE388A5A2613D1B900A3403E /* CheckListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE388A592613D1B900A3403E /* CheckListCell.swift */; };
 		BE9C6D77261466A900BB30F6 /* FilterSelectorVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9C6D76261466A900BB30F6 /* FilterSelectorVC.swift */; };
 		BE9C6D8526146F9F00BB30F6 /* FilterCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9C6D8426146F9F00BB30F6 /* FilterCard.swift */; };
+		BEA90F9D26217CF800E646BC /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEA90F9C26217CF800E646BC /* Colors.xcassets */; };
+		BEA90FA22621838000E646BC /* MenuPopupHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA90FA12621838000E646BC /* MenuPopupHandler.swift */; };
+		BEA90FA8262183B200E646BC /* SortSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA90FA7262183B200E646BC /* SortSelectorView.swift */; };
+		BEA90FB0262183F000E646BC /* SortSelectorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEA90FAF262183F000E646BC /* SortSelectorView.xib */; };
 		BEEDE79326143DB30011BB13 /* FilterIH.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEEDE79226143DB30011BB13 /* FilterIH.swift */; };
 		BEF8000C261E2E26007A7E02 /* FilterCheckbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF8000B261E2E26007A7E02 /* FilterCheckbox.swift */; };
 		BEF80012261E2E53007A7E02 /* FilterCard.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEF80011261E2E53007A7E02 /* FilterCard.xib */; };
@@ -75,6 +79,10 @@
 		BE388A592613D1B900A3403E /* CheckListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListCell.swift; sourceTree = "<group>"; };
 		BE9C6D76261466A900BB30F6 /* FilterSelectorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelectorVC.swift; sourceTree = "<group>"; };
 		BE9C6D8426146F9F00BB30F6 /* FilterCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCard.swift; sourceTree = "<group>"; };
+		BEA90F9C26217CF800E646BC /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		BEA90FA12621838000E646BC /* MenuPopupHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPopupHandler.swift; sourceTree = "<group>"; };
+		BEA90FA7262183B200E646BC /* SortSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortSelectorView.swift; sourceTree = "<group>"; };
+		BEA90FAF262183F000E646BC /* SortSelectorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SortSelectorView.xib; sourceTree = "<group>"; };
 		BEEDE79226143DB30011BB13 /* FilterIH.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterIH.swift; sourceTree = "<group>"; };
 		BEF8000B261E2E26007A7E02 /* FilterCheckbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterCheckbox.swift; sourceTree = "<group>"; };
 		BEF80011261E2E53007A7E02 /* FilterCard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterCard.xib; sourceTree = "<group>"; };
@@ -175,6 +183,7 @@
 				94E3B234255A3B730021FCAA /* Storyboards */,
 				94E3B235255A3B7E0021FCAA /* Images */,
 				94E3B27A255A44D60021FCAA /* Views */,
+				BEA90F9C26217CF800E646BC /* Colors.xcassets */,
 			);
 			path = UI_Layer;
 			sourceTree = "<group>";
@@ -182,9 +191,11 @@
 		94E3B233255A3B6A0021FCAA /* VCs */ = {
 			isa = PBXGroup;
 			children = (
+				BEA90FA6262183A000E646BC /* Sort */,
 				BE388A372612ED3000A3403E /* Filter */,
 				949E8C3525FA9DC500FF934E /* LoadingVC.swift */,
 				94E3B275255A41EA0021FCAA /* Home */,
+				BEA90FA12621838000E646BC /* MenuPopupHandler.swift */,
 			);
 			path = VCs;
 			sourceTree = "<group>";
@@ -229,6 +240,7 @@
 		94E3B27A255A44D60021FCAA /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BEA90FB42621840A00E646BC /* Sort */,
 				BEF80010261E2E53007A7E02 /* Filter */,
 			);
 			path = Views;
@@ -253,6 +265,22 @@
 				BE9C6D8426146F9F00BB30F6 /* FilterCard.swift */,
 			);
 			path = Filter;
+			sourceTree = "<group>";
+		};
+		BEA90FA6262183A000E646BC /* Sort */ = {
+			isa = PBXGroup;
+			children = (
+				BEA90FA7262183B200E646BC /* SortSelectorView.swift */,
+			);
+			path = Sort;
+			sourceTree = "<group>";
+		};
+		BEA90FB42621840A00E646BC /* Sort */ = {
+			isa = PBXGroup;
+			children = (
+				BEA90FAF262183F000E646BC /* SortSelectorView.xib */,
+			);
+			path = Sort;
 			sourceTree = "<group>";
 		};
 		BEF80010261E2E53007A7E02 /* Filter */ = {
@@ -367,8 +395,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEA90F9D26217CF800E646BC /* Colors.xcassets in Resources */,
 				94E3B20F255A3A240021FCAA /* LaunchScreen.storyboard in Resources */,
 				94E3B20C255A3A240021FCAA /* Assets.xcassets in Resources */,
+				BEA90FB0262183F000E646BC /* SortSelectorView.xib in Resources */,
 				94E3B20A255A3A200021FCAA /* Main.storyboard in Resources */,
 				BEF80012261E2E53007A7E02 /* FilterCard.xib in Resources */,
 			);
@@ -411,6 +441,8 @@
 				BEEDE79326143DB30011BB13 /* FilterIH.swift in Sources */,
 				94E3B205255A3A200021FCAA /* SceneDelegate.swift in Sources */,
 				BEF8FFFF261E2DF6007A7E02 /* FilterButton.swift in Sources */,
+				BEA90FA22621838000E646BC /* MenuPopupHandler.swift in Sources */,
+				BEA90FA8262183B200E646BC /* SortSelectorView.swift in Sources */,
 				949E8C3625FA9DC500FF934E /* LoadingVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
