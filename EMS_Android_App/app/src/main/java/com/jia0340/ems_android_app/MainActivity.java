@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import com.jia0340.ems_android_app.models.Filter;
 import com.jia0340.ems_android_app.models.Hospital;
+import com.jia0340.ems_android_app.models.SortField;
 import com.jia0340.ems_android_app.network.DatabaseService;
 import com.jia0340.ems_android_app.network.RetrofitClientDatabaseAPI;
 
@@ -49,7 +50,7 @@ import retrofit2.Response;
  * @author Anna Dingler
  * Created on 1/24/21
  */
-public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, FilterSheetDialog.FilterDialogListener {
+public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, FilterSheetDialog.FilterDialogListener, SortSheetDialog.SortDialogListener {
     private SwipeRefreshLayout mSwipeContainer;
     private ArrayList<Hospital> mHospitalList;
     private HospitalListAdapter mHospitalAdapter;
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     private BroadcastReceiver mDistanceReceiver;
     private DistanceController mDistanceController;
     private boolean mPermissionsGranted = false;
+    private SortSheetDialog mSortDialog;
 
     /**
      * Create method for application
@@ -190,6 +192,15 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             }
 
             mFilterDialog.show(getSupportFragmentManager(), "filterSheet");
+        }
+        if (id == R.id.action_sort) {
+
+            if (mSortDialog == null) {
+                mSortDialog = new SortSheetDialog();
+            }
+
+            mSortDialog.show(getSupportFragmentManager(), "sortSheet");
+
         }
         if (id == R.id.action_search) {
             if (mSearchBar.getVisibility() == View.VISIBLE) {
@@ -462,5 +473,25 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             }
         };
         registerReceiver(mFilterDialogReceiver, filter);
+    }
+
+    @Override
+    public void onSortSelected(SortField selectedSort) {
+        Log.d("MainActivity", "LISTENER SORT!");
+
+        switch (selectedSort) {
+            case NAME:
+                Log.d("MainActivity", "Sort A-Z");
+                //TODO: call sort method here!
+                break;
+            case DISTANCE:
+                Log.d("MainActivity", "Sort Distance");
+                //TODO: call sort method here!
+                break;
+            case NEDOCS_SCORE:
+                Log.d("MainActivity", "Sort NEDOCS");
+                //TODO: call sort method here!
+                break;
+        }
     }
 }

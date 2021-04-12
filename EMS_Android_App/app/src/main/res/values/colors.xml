@@ -3,6 +3,7 @@
     <color name="main_color">#FF004C99</color>
     <color name="main_light">#FF0065CC</color>
     <color name="main_dark">#FF003366</color>
+    <color name="main_highlight">#66004C99</color>
 
     <color name="secondary_color">#FFEF8354</color>
     <color name="secondary_light">#FFF3A583</color>

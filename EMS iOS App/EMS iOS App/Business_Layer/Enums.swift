@@ -48,7 +48,6 @@ enum SortType: String {
     case distance = "Distance"
     case az = "Alphabetical"
     case nedocs = "NEDOCS Score"
-    case county = "County"
 }
 
 struct Hospital: Codable {

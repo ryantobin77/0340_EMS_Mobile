@@ -47,6 +47,11 @@
     <string name="filter_ems_region_value">Region %s</string>
     <string name="filter_rch_value">Regional Coordinating Hospital %s</string>
 
+    <!--sort-->
+    <string name="sort_dialog_title">Sort By</string>
+    <string name="sort_a_z">A - Z</string>
+    <string name="sort_distance">Distance</string>
+    <string name="sort_nedocs">Nedocs</string>
 
     <!--image accessibility text-->
     <string name="favorite_pin">pin to favorites</string>
