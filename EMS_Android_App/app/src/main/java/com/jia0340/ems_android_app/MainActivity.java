@@ -99,6 +99,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         mClearAllButton.setOnClickListener(view -> {
             mHospitalAdapter.setFilterList(new ArrayList<Filter>());
             mAppliedFiltersHolder.removeAllViews();
+            mHospitalAdapter.handleFilter();
+            mHospitalAdapter.handleSort();
+            mHospitalAdapter.notifyDataSetChanged();
             mClearAllButton.setVisibility(View.GONE);
         });
 
@@ -144,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     @Override
     public boolean onQueryTextChange(String newText) {
         System.out.println(newText);
-        // TODO: Call handleSearch()
+        mHospitalAdapter.handleSearch(newText);
         mHospitalAdapter.notifyDataSetChanged();
         return false;
     }
@@ -230,6 +233,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 // Save the returned list
                 mHospitalList = (ArrayList<Hospital>) response.body();
                 // Now we can update the recyclerView
+                mHospitalAdapter.setAllHospitalList(mHospitalList);
                 mHospitalAdapter.setHospitalList(mHospitalList);
                 mHospitalAdapter.notifyDataSetChanged();
 
@@ -282,7 +286,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 mHospitalAdapter.setPinnedList(pinnedList);
                 // Now we can update the recyclerView
                 mHospitalAdapter.setHospitalList(mHospitalList);
-                mHospitalAdapter.notifyDataSetChanged();
 
                 if (mPermissionsGranted) {
                     new Thread(() -> requestDistances()).start();
@@ -399,6 +402,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             @Override
             public void onReceive(Context context, Intent intent) {
                 updateDistances();
+                mHospitalAdapter.handleFilter();
+                mHospitalAdapter.handleSort();
+                mHospitalAdapter.notifyDataSetChanged();
             }
         };
         registerReceiver(mDistanceReceiver, filter);
@@ -440,6 +446,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             // set up remove button on click handler
             filterCard.findViewById(R.id.removeButton).setOnClickListener((e) -> {
                 mHospitalAdapter.getFilterList().remove(f);
+                mHospitalAdapter.handleFilter();
+                mHospitalAdapter.handleSort();
+                mHospitalAdapter.notifyDataSetChanged();
                 mAppliedFiltersHolder.removeView(filterCard);
 
                 if (mHospitalAdapter.getFilterList().size() == 0) {
@@ -456,7 +465,10 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
             mAppliedFiltersHolder.addView(filterCard);
         }
-        // TODO: Call filter method here
+
+        mHospitalAdapter.handleFilter();
+        mHospitalAdapter.handleSort();
+        mHospitalAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -477,21 +489,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     @Override
     public void onSortSelected(SortField selectedSort) {
-        Log.d("MainActivity", "LISTENER SORT!");
-
-        switch (selectedSort) {
-            case NAME:
-                Log.d("MainActivity", "Sort A-Z");
-                //TODO: call sort method here!
-                break;
-            case DISTANCE:
-                Log.d("MainActivity", "Sort Distance");
-                //TODO: call sort method here!
-                break;
-            case NEDOCS_SCORE:
-                Log.d("MainActivity", "Sort NEDOCS");
-                //TODO: call sort method here!
-                break;
-        }
+        mHospitalAdapter.setAppliedSort(selectedSort);
+        mHospitalAdapter.handleSort();
+        mHospitalAdapter.notifyDataSetChanged();
     }
 }
