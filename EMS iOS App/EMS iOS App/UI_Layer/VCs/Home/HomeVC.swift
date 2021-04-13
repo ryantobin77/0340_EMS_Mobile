@@ -98,22 +98,29 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
     // TODO: Filter hospitals based on searchText
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         print(searchText)
-        if (filterActive) {
-            searchedList = filteredList.filter({ (hos) -> Bool in
+        if searchText == "" {
+            searchActive = false
+            tableView.reloadData()
+        } else {
+            searchActive = true
+            if (filterActive) {
+                searchedList = filteredList.filter({ (hos) -> Bool in
+                    let tmp: String = hos.name
+                    return tmp.range(of: searchText, options: .caseInsensitive) != nil
+                    })
+            } else {
+            searchedList = hospitals.filter({ (hos) -> Bool in
                 let tmp: String = hos.name
                 return tmp.range(of: searchText, options: .caseInsensitive) != nil
                 })
-        } else {
-        searchedList = hospitals.filter({ (hos) -> Bool in
-            let tmp: String = hos.name
-            return tmp.range(of: searchText, options: .caseInsensitive) != nil
-            })
+            }
+            for hos in searchedList {
+                print(hos.name)
+            }
+            tableView.reloadData()
+            // tableView.reloadData()
         }
-        for hos in searchedList {
-            print(hos.name)
-        }
-        tableView.reloadData()
-        // tableView.reloadData()
+        
     }
 
     // helper method to build Hospital List from data
@@ -411,7 +418,9 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         }
             
         var pinnedHospital : HospitalIH
-        if (searchActive) {
+        if (sortActive) {
+            pinnedHospital = self.sortedList[indexPath.row]
+        } else if (searchActive) {
             pinnedHospital = self.searchedList[indexPath.row]
         } else if (filterActive) {
             pinnedHospital = self.filteredList[indexPath.row]
@@ -453,6 +462,22 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         self.tableView.endUpdates()
     }
     
+    func handlePins() {
+        var ind = 0
+        for pinnedHospital in self.pinnedList {
+            guard let pinIndex = pinnedList.firstIndex(of:pinnedHospital) else {
+                return
+            }
+            if (sortActive) {
+                self.sortedList.remove(at:pinIndex)
+                self.sortedList.insert(pinnedHospital, at: ind)
+            } else if (filterActive) {
+                self.filteredList.remove(at:pinIndex)
+                self.filteredList.insert(pinnedHospital, at: ind)
+            }
+            ind += 1
+        }
+    }
     // sends data to FilterSelectorViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.destination is FilterSelectorViewController {
@@ -488,6 +513,9 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         
         if self.appliedFilters.count == 0 {
             self.clearAllFiltersButton.setTitle("", for: .normal)
+            //filterActive = false
+        } else {
+            //filterActive = true
         }
         
 //        // TODO: Update content size of scrollview
@@ -499,6 +527,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
 //        bottomBarScrollView.contentSize = CGSize(width: Int(bottomBarScrollView.contentSize.width) - Int(filterCardWidth), height: 55)
         
         // TODO: call filter method here
+        filterActive = false
         handleFilter()
     }
     
@@ -513,6 +542,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         bottomBarScrollView.contentSize = CGSize(width: 0, height: 55)
         
         // TODO: call filter method here
+        filterActive = false
         handleFilter()
     }
     
@@ -601,6 +631,9 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
                     $0.name < $1.name
                 }
             }
+        if (pinnedList.count > 0) {
+            handlePins()
+        }
             tableView.reloadData()
         }
     
@@ -653,6 +686,9 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
             } else {
                 filteredList = hospitals
                 filterActive = false
+            }
+            if (pinnedList.count > 0) {
+                handlePins()
             }
             //print(filteredList[0].name)
             tableView.reloadData()
