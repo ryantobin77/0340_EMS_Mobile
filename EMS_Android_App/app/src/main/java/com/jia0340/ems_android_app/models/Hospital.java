@@ -61,7 +61,7 @@ public class Hospital {
         mName = name;
         mNedocsScore = nedocsScore;
         mHospitalTypes = hospitalTypes;
-        mPhoneNumber = phoneNumber;
+        mPhoneNumber = String.format("(%s)%s-%s", phoneNumber.substring(0,3), phoneNumber.substring(3,6), phoneNumber.substring(6,10));
         mStreetAddress = street;
         mCity = city;
         mState = state;

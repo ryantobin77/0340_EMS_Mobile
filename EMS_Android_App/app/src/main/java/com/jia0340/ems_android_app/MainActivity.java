@@ -333,6 +333,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                             2);
                 } else {
                     mPermissionsGranted = true;
+                    instantiateDistanceController();
                 }
 
             }
@@ -347,8 +348,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                             1);
                 } else {
                     mPermissionsGranted = true;
+                    instantiateDistanceController();
                 }
-
             }
         }
     }
