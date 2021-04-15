@@ -156,7 +156,6 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
         Hospital hospital = mHospitalList.get(position);
 
         holder.mHospitalName.setText(hospital.getName());
-        holder.mDistanceLabel.setText(mContext.getString(R.string.distance, hospital.getDistance()));
         holder.mPhoneNumber.setText(hospital.getPhoneNumber());
         //TODO: bug with long street address
         holder.mAddressView.setText(mContext.getString(R.string.address, hospital.getStreetAddress(),
@@ -168,6 +167,12 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
         DateFormat simpleFormat = new SimpleDateFormat("MM/dd/yyyy h:mm:ss aa", Locale.US);
         simpleFormat.setTimeZone(TimeZone.getTimeZone("EST"));
         holder.mLastUpdatedText.setText(mContext.getString(R.string.last_updated, simpleFormat.format(hospital.getLastUpdated())));
+
+        if (hospital.getDistance() == -1) {
+            holder.mDistanceLabel.setText(mContext.getString(R.string.distance_not_found));
+        } else {
+            holder.mDistanceLabel.setText(mContext.getString(R.string.distance, hospital.getDistance()));
+        }
 
         handleNedocsValues(holder, hospital.getNedocsScore());
 
@@ -473,18 +478,18 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
             case DISTANCE:
                 Collections.sort(mPinnedList, (h1, h2) -> {
                     // TODO: handle NumberFormatException
-                    if (Double.parseDouble(h1.getDistance()) < Double.parseDouble(h2.getDistance())) {
+                    if (h1.getDistance() < h2.getDistance()) {
                         return -1;
-                    } else if (Double .parseDouble(h1.getDistance()) > Double.parseDouble(h2.getDistance())) {
+                    } else if (h1.getDistance() > h2.getDistance()) {
                         return 1;
                     } else {
                         return 0;
                     }
                 });
                 Collections.sort(mHospitalList, (h1, h2) -> {
-                    if (Double.parseDouble(h1.getDistance()) < Double.parseDouble(h2.getDistance())) {
+                    if (h1.getDistance() < h2.getDistance()) {
                         return -1;
-                    } else if (Double.parseDouble(h1.getDistance()) > Double.parseDouble(h2.getDistance())) {
+                    } else if (h1.getDistance() > h2.getDistance()) {
                         return 1;
                     } else {
                         return 0;
