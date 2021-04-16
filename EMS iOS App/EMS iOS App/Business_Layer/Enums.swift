@@ -8,13 +8,29 @@
 
 import Foundation
 
-enum NedocsScore: String, Codable {
+enum NedocsScore: String, Codable, Comparable {
     case normal = "Normal"
     case busy = "Busy"
     case overcrowded = "Overcrowded"
     case severe = "Severe"
-}
+    
+    private var comparisonValue: Int {
+            switch self {
+            case .normal:
+                return 0
+            case .busy:
+                return 1
+            case .overcrowded:
+                return 2
+            case .severe:
+                return 3
+            }
+        }
 
+        static func < (lhs: Self, rhs: Self) -> Bool {
+            return lhs.comparisonValue < rhs.comparisonValue
+        }
+}
 enum HospitalType: String, Codable, CaseIterable {
     case adultTraumaCenterLevelI = "Adult Trauma Centers-Level I"
     case adultTraumaCenterLevelII = "Adult Trauma Centers-Level II"
