@@ -33,7 +33,7 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
     var thereIsCellTapped = false
     var selectedRowIndex = -1
     
-    let GCC_NUMBER = "6783159794"
+    let GCC_NUMBER = "4046166440"
     
     override func viewDidLoad() {
         super.viewDidLoad()
