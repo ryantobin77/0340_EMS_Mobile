@@ -48,6 +48,9 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         // swipe to refresh data
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(buildHospitalList), for: .valueChanged)
+        
+        // set up listener to reload hospital list when app re-enters foreground
+        NotificationCenter.default.addObserver(self, selector: #selector(buildHospitalList), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     
     func showSearchBar() {
