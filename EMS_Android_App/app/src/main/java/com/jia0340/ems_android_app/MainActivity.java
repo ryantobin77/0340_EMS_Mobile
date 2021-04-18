@@ -247,6 +247,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 // Now we can update the recyclerView
                 mHospitalAdapter.setAllHospitalList(mHospitalList);
                 mHospitalAdapter.setHospitalList(mHospitalList);
+                mHospitalAdapter.handleSort();
                 mHospitalAdapter.notifyDataSetChanged();
 
                 // Now we can finish setting up the app
