@@ -240,7 +240,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="2dp"
-                    android:textColor="@color/purple_700"
+                    android:textColor="@color/main_color"
                     android:textSize="16sp"
                     app:layout_constraintStart_toEndOf="@id/phoneIconView"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -263,8 +263,8 @@
                     android:maxLines="4"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="2dp"
-                    android:textColor="@color/purple_700"
                     android:textSize="16sp"
+                    android:textColor="@color/main_color"
                     android:layout_marginEnd="6dp"
                     app:layout_constraintStart_toEndOf="@id/mapIconView"
                     app:layout_constraintEnd_toEndOf="parent"
