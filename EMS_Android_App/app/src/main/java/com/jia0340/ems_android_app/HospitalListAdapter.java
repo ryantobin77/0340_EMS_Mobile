@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jia0340.ems_android_app.models.Filter;
@@ -46,19 +47,23 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
     private List<Filter> mFilterList;
     private SortField mAppliedSort;
     private List<Hospital> mAllHospitalList;
-
+    private RecyclerView mRecyclerView;
+    private boolean isExpanded;
     /**
      * Constructor of the custom adapter
      *
      * @param hospitalList The dataset that the recyclerView to be populated with
+     * @param hospitalRecyclerView
      */
-    public HospitalListAdapter(List<Hospital> hospitalList, Context context) {
+    public HospitalListAdapter(List<Hospital> hospitalList, Context context, RecyclerView recyclerView) {
         mHospitalList = hospitalList;
         mPinnedList = new ArrayList<Hospital>();
         mContext = context;
         mFilterList = new ArrayList<Filter>();
-        mAppliedSort = SortField.DISTANCE;
+        mAppliedSort = SortField.NAME;
         mAllHospitalList = hospitalList;
+        mRecyclerView = recyclerView;
+        isExpanded = false;
     }
 
     /**
@@ -366,6 +371,7 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
                 mHospitalList.add(0, hospital);
                 handleSort();
                 notifyDataSetChanged();
+                mRecyclerView.smoothScrollToPosition(0);
             } else {
                 holder.mFavoriteView.setImageDrawable(ResourcesCompat.getDrawable(mContext.getResources(), R.drawable.outlined_favorite_pin, null));
                 mPinnedList.remove(hospital);
@@ -389,18 +395,20 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
         holder.mExpandedHospitalCard.setVisibility(hospital.isExpanded() ? View.VISIBLE : View.GONE);
 
         holder.mExpandButton.setOnClickListener(view -> {
+            if (!isExpanded) {
+                isExpanded = true;
+                int pos = mHospitalList.indexOf(hospital);
+                Hospital hos = mHospitalList.get(pos);
+                if (pos != -1) {
+                    hos.setExpanded(true);
+                    notifyItemChanged(pos);
+                }
 
-            int pos = mHospitalList.indexOf(hospital);
-            Hospital hos = mHospitalList.get(pos);
-            if(pos!=-1){
-                hos.setExpanded(true);
-                notifyItemChanged(pos);
             }
-
-
         });
 
         holder.mCollapseButton.setOnClickListener(view -> {
+            isExpanded = false;
             int pos = mHospitalList.indexOf(hospital);
             Hospital hos = mHospitalList.get(pos);
             hos.setExpanded(false);
@@ -501,8 +509,8 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
                 Collections.sort(mHospitalList, (h1, h2) -> h1.getNedocsScore().compareTo(h2.getNedocsScore()));
                 break;
             case NAME:
-                Collections.sort(mPinnedList, (h1, h2) -> h1.getName().compareTo(h2.getName()));
-                Collections.sort(mHospitalList, (h1, h2) -> h1.getName().compareTo(h2.getName()));
+                Collections.sort(mPinnedList, (h1, h2) -> h1.getName().toLowerCase().compareTo(h2.getName().toLowerCase()));
+                Collections.sort(mHospitalList, (h1, h2) -> h1.getName().toLowerCase().compareTo(h2.getName().toLowerCase()));
                 break;
         }
         for (int i = mPinnedList.size() - 1; i >= 0; i--) {

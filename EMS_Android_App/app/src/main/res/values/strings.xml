@@ -35,6 +35,7 @@
     <string name="county_region">%s - Region %s</string>
     <string name="regional_coordinating_hospital">Regional Coordinating Hospital %s</string>
     <string name="last_updated">Updated %s</string>
+    <string name="refresh_failed_error">We were unable to refresh the data. Please try again.</string>
 
     <!--filter-->
     <string name="filter_dialog_title">Filter</string>

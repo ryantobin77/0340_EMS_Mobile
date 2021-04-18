@@ -1,6 +1,7 @@
 package com.jia0340.ems_android_app;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -11,13 +12,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.res.ResourcesCompat;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.jia0340.ems_android_app.models.Filter;
 import com.jia0340.ems_android_app.models.FilterField;
@@ -50,6 +56,18 @@ public class FilterSheetDialog extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+        getDialog().setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                BottomSheetDialog d = (BottomSheetDialog) dialog;
+                FrameLayout bottomSheet = (FrameLayout) d.findViewById(R.id.filter_dialog).getParent();
+                CoordinatorLayout coordinatorLayout = (CoordinatorLayout) bottomSheet.getParent();
+                BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+                bottomSheetBehavior.setPeekHeight(bottomSheet.getHeight());
+                coordinatorLayout.getParent().requestLayout();
+            }
+        });
+
         mFilterDialog = inflater.inflate(R.layout.filter_dialog_layout, container, false);
         mFilterList = new ArrayList<Filter>();
 
@@ -57,11 +75,24 @@ public class FilterSheetDialog extends BottomSheetDialogFragment {
         Drawable expandImg = ResourcesCompat.getDrawable(context.getResources(), R.drawable.expand, null);
         Drawable collapseImg = ResourcesCompat.getDrawable(context.getResources(), R.drawable.collapse, null);
 
-        // Handle Specialty Centers
+        // specialty center layouts
         Button specialtyCenterButton = mFilterDialog.findViewById(R.id.specialtyCenterButton);
         ScrollView specialtyCenterScrollView = mFilterDialog.findViewById(R.id.specialtyCenterScrollView);
         LinearLayout specialtyCenterValues = mFilterDialog.findViewById(R.id.specialtyCenterValues);
+        // ems region layouts
+        Button emsRegionButton = mFilterDialog.findViewById(R.id.emsRegionButton);
+        ScrollView emsRegionScrollView = mFilterDialog.findViewById(R.id.emsRegionScrollView);
+        LinearLayout emsRegionValues = mFilterDialog.findViewById(R.id.emsRegionValues);
+        // county layouts
+        Button countyButton = mFilterDialog.findViewById(R.id.countyButton);
+        ScrollView countyScrollView = mFilterDialog.findViewById(R.id.countyScrollView);
+        LinearLayout countyValues = mFilterDialog.findViewById(R.id.countyValues);
+        // regional coordinating hospital layouts
+        Button rchButton = mFilterDialog.findViewById(R.id.rchButton);
+        ScrollView rchScrollView = mFilterDialog.findViewById(R.id.rchScrollView);
+        LinearLayout rchValues = mFilterDialog.findViewById(R.id.rchValues);
 
+        // Handle Specialty Centers
         specialtyCenterButton.setOnClickListener(listener -> {
             if (specialtyCenterScrollView.getVisibility() == View.VISIBLE) {
                 specialtyCenterScrollView.setVisibility(View.GONE);
@@ -69,6 +100,12 @@ public class FilterSheetDialog extends BottomSheetDialogFragment {
             } else {
                 specialtyCenterScrollView.setVisibility(View.VISIBLE);
                 specialtyCenterButton.setCompoundDrawablesWithIntrinsicBounds(null, null, collapseImg, null);
+                emsRegionScrollView.setVisibility(View.GONE);
+                emsRegionButton.setCompoundDrawablesWithIntrinsicBounds(null, null, expandImg, null);
+                countyScrollView.setVisibility(View.GONE);
+                countyButton.setCompoundDrawablesWithIntrinsicBounds(null, null, expandImg, null);
+                rchScrollView.setVisibility(View.GONE);
+                rchButton.setCompoundDrawablesWithIntrinsicBounds(null, null, expandImg, null);
             }
         });
 
@@ -83,10 +120,6 @@ public class FilterSheetDialog extends BottomSheetDialogFragment {
         }
 
         // Handle EMS Regions
-        Button emsRegionButton = mFilterDialog.findViewById(R.id.emsRegionButton);
-        ScrollView emsRegionScrollView = mFilterDialog.findViewById(R.id.emsRegionScrollView);
-        LinearLayout emsRegionValues = mFilterDialog.findViewById(R.id.emsRegionValues);
-
         emsRegionButton.setOnClickListener(listener -> {
             if (emsRegionScrollView.getVisibility() == View.VISIBLE) {
                 emsRegionScrollView.setVisibility(View.GONE);
@@ -94,6 +127,12 @@ public class FilterSheetDialog extends BottomSheetDialogFragment {
             } else {
                 emsRegionScrollView.setVisibility(View.VISIBLE);
                 emsRegionButton.setCompoundDrawablesWithIntrinsicBounds(null, null, collapseImg, null);
+                specialtyCenterScrollView.setVisibility(View.GONE);
+                specialtyCenterButton.setCompoundDrawablesWithIntrinsicBounds(null, null, expandImg, null);
+                countyScrollView.setVisibility(View.GONE);
+                countyButton.setCompoundDrawablesWithIntrinsicBounds(null, null, expandImg, null);
+                rchScrollView.setVisibility(View.GONE);
+                rchButton.setCompoundDrawablesWithIntrinsicBounds(null, null, expandImg, null);
             }
         });
 
@@ -108,10 +147,6 @@ public class FilterSheetDialog extends BottomSheetDialogFragment {
         }
 
         // Handle counties
-        Button countyButton = mFilterDialog.findViewById(R.id.countyButton);
-        ScrollView countyScrollView = mFilterDialog.findViewById(R.id.countyScrollView);
-        LinearLayout countyValues = mFilterDialog.findViewById(R.id.countyValues);
-
         countyButton.setOnClickListener(listener -> {
             if (countyScrollView.getVisibility() == View.VISIBLE) {
                 countyScrollView.setVisibility(View.GONE);
@@ -119,6 +154,12 @@ public class FilterSheetDialog extends BottomSheetDialogFragment {
             } else {
                 countyScrollView.setVisibility(View.VISIBLE);
                 countyButton.setCompoundDrawablesWithIntrinsicBounds(null, null, collapseImg, null);
+                specialtyCenterScrollView.setVisibility(View.GONE);
+                specialtyCenterButton.setCompoundDrawablesWithIntrinsicBounds(null, null, expandImg, null);
+                emsRegionScrollView.setVisibility(View.GONE);
+                emsRegionButton.setCompoundDrawablesWithIntrinsicBounds(null, null, expandImg, null);
+                rchScrollView.setVisibility(View.GONE);
+                rchButton.setCompoundDrawablesWithIntrinsicBounds(null, null, expandImg, null);
             }
         });
 
@@ -133,10 +174,6 @@ public class FilterSheetDialog extends BottomSheetDialogFragment {
         }
 
         // Handle regional coordinating hospital
-        Button rchButton = mFilterDialog.findViewById(R.id.rchButton);
-        ScrollView rchScrollView = mFilterDialog.findViewById(R.id.rchScrollView);
-        LinearLayout rchValues = mFilterDialog.findViewById(R.id.rchValues);
-
         rchButton.setOnClickListener(listener -> {
             if (rchScrollView.getVisibility() == View.VISIBLE) {
                 rchScrollView.setVisibility(View.GONE);
@@ -144,6 +181,12 @@ public class FilterSheetDialog extends BottomSheetDialogFragment {
             } else {
                 rchScrollView.setVisibility(View.VISIBLE);
                 rchButton.setCompoundDrawablesWithIntrinsicBounds(null, null, collapseImg, null);
+                specialtyCenterScrollView.setVisibility(View.GONE);
+                specialtyCenterButton.setCompoundDrawablesWithIntrinsicBounds(null, null, expandImg, null);
+                emsRegionScrollView.setVisibility(View.GONE);
+                emsRegionButton.setCompoundDrawablesWithIntrinsicBounds(null, null, expandImg, null);
+                countyScrollView.setVisibility(View.GONE);
+                countyButton.setCompoundDrawablesWithIntrinsicBounds(null, null, expandImg, null);
             }
         });
 
