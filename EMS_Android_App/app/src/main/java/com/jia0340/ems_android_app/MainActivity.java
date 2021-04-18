@@ -313,7 +313,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 // Failed to collect hospital data
                 // TODO: what do we want to happen when it fails?
                 Log.d("MainActivity", t.getMessage());
-                Toast.makeText(MainActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, R.string.refresh_failed_error, Toast.LENGTH_LONG).show();
+                // Notify the swipe refresher that the data is done refreshing
+                mSwipeContainer.setRefreshing(false);
             }
         });
     }
