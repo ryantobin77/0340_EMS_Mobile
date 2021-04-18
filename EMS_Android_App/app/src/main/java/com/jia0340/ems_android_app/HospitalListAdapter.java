@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jia0340.ems_android_app.models.Filter;
@@ -46,19 +47,21 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
     private List<Filter> mFilterList;
     private SortField mAppliedSort;
     private List<Hospital> mAllHospitalList;
+    private RecyclerView mRecyclerView;
 
     /**
      * Constructor of the custom adapter
      *
      * @param hospitalList The dataset that the recyclerView to be populated with
      */
-    public HospitalListAdapter(List<Hospital> hospitalList, Context context) {
+    public HospitalListAdapter(List<Hospital> hospitalList, Context context, RecyclerView recyclerView) {
         mHospitalList = hospitalList;
         mPinnedList = new ArrayList<Hospital>();
         mContext = context;
         mFilterList = new ArrayList<Filter>();
         mAppliedSort = SortField.DISTANCE;
         mAllHospitalList = hospitalList;
+        mRecyclerView = recyclerView;
     }
 
     /**
@@ -361,6 +364,7 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
                 mHospitalList.add(0, hospital);
                 handleSort();
                 notifyDataSetChanged();
+                mRecyclerView.smoothScrollToPosition(0);
             } else {
                 holder.mFavoriteView.setImageDrawable(ResourcesCompat.getDrawable(mContext.getResources(), R.drawable.outlined_favorite_pin, null));
                 mPinnedList.remove(hospital);

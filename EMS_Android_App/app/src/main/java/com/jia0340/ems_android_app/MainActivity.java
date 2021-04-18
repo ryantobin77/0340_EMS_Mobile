@@ -83,16 +83,16 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
         mClearAllButton = findViewById(R.id.clearAllButton);
 
-        // Instantiate empty hospital list and attach to Adapter
+        // Instantiate empty hospital list
         mHospitalList = new ArrayList<Hospital>();
-        mHospitalAdapter = new HospitalListAdapter(mHospitalList, this);
 
         // Set up Recycler view and attach Adapter
         RecyclerView hospitalRecyclerView = findViewById(R.id.hospital_list);
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         hospitalRecyclerView.addItemDecoration(itemDecoration);
-        hospitalRecyclerView.setAdapter(mHospitalAdapter);
         hospitalRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mHospitalAdapter = new HospitalListAdapter(mHospitalList, this, hospitalRecyclerView);
+        hospitalRecyclerView.setAdapter(mHospitalAdapter);
 
         // Setup on click handler for clear all filters buton
         mAppliedFiltersHolder = findViewById(R.id.appliedFiltersHolder);
