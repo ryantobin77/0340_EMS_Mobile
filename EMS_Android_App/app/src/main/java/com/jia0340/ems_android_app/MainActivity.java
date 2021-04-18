@@ -1,6 +1,7 @@
 package com.jia0340.ems_android_app;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -16,6 +17,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -226,6 +228,18 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 mSearchBar.requestFocusFromTouch();
                 mBottomBar.setVisibility(View.GONE);
             }
+        }
+        if (id == R.id.action_call) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogCustom);
+            builder.setMessage(R.string.call_gcc)
+                    .setPositiveButton("Yes", (dialogInterface, i) -> {
+
+                        Intent intent = new Intent(Intent.ACTION_DIAL);
+                        intent.setData(Uri.parse("tel:4046166440"));
+                        startActivity(intent);
+
+                    })
+                    .setNegativeButton("No", (dialogInterface, i) -> dialogInterface.dismiss()).show();
         }
 
         return super.onOptionsItemSelected(item);
