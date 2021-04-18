@@ -116,7 +116,12 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
                     let tmp: String = hos.name
                     return tmp.range(of: searchText, options: .caseInsensitive) != nil
                     })
-            } else {
+            } else if(sortActive){
+                searchedList = sortedList.filter({ (hos) -> Bool in
+                    let tmp: String = hos.name
+                    return tmp.range(of: searchText, options: .caseInsensitive) != nil
+                    })
+            }else {
             searchedList = hospitals.filter({ (hos) -> Bool in
                 let tmp: String = hos.name
                 return tmp.range(of: searchText, options: .caseInsensitive) != nil
@@ -181,12 +186,14 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         if (hospitals == nil) {
             return -1
         }
-        if (searchActive) {
+        if ((sortActive && searchActive) || (filterActive && searchActive)) {
+            return searchedList.count
+        } else if (sortActive) {
+            return sortedList.count
+        } else if (searchActive) {
             return searchedList.count
         } else if (filterActive) {
             return filteredList.count
-        } else if (sortActive) {
-            return sortedList.count
         }
         else {
             return hospitals.count
@@ -196,16 +203,18 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var hospital: HospitalIH
         let cell = tableView.dequeueReusableCell(withIdentifier: "hospitalCell", for: indexPath) as! HomeTableViewCell
-        if (searchActive) {
+        if ((sortActive && searchActive) || (filterActive && searchActive)) {
+            hospital = self.searchedList[indexPath.row]
+        } else if (sortActive) {
+            hospital = self.sortedList[indexPath.row]
+        } else if (searchActive) {
             hospital = self.searchedList[indexPath.row]
         } else if (filterActive) {
             hospital = self.filteredList[indexPath.row]
         } else {
             hospital = self.hospitals[indexPath.row]
         }
-        if (sortActive) {
-            hospital = self.sortedList[indexPath.row]
-        }
+        
         
         cell.hospitalName.text = hospital.name
         if (hospital.isFavorite) {
@@ -367,7 +376,9 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == selectedRowIndex && thereIsCellTapped {
             var hospital:HospitalIH
-            if (sortActive) {
+            if ((sortActive && searchActive) || (filterActive && searchActive)) {
+                hospital = self.searchedList[indexPath.row]
+            } else if (sortActive) {
                 hospital = self.sortedList[indexPath.row]
             } else if (searchActive) {
                 hospital = self.searchedList[indexPath.row]

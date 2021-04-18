@@ -48,11 +48,12 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
     private SortField mAppliedSort;
     private List<Hospital> mAllHospitalList;
     private RecyclerView mRecyclerView;
-
+    private boolean isExpanded;
     /**
      * Constructor of the custom adapter
      *
      * @param hospitalList The dataset that the recyclerView to be populated with
+     * @param hospitalRecyclerView
      */
     public HospitalListAdapter(List<Hospital> hospitalList, Context context, RecyclerView recyclerView) {
         mHospitalList = hospitalList;
@@ -62,6 +63,7 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
         mAppliedSort = SortField.NAME;
         mAllHospitalList = hospitalList;
         mRecyclerView = recyclerView;
+        isExpanded = false;
     }
 
     /**
@@ -388,18 +390,20 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
         holder.mExpandedHospitalCard.setVisibility(hospital.isExpanded() ? View.VISIBLE : View.GONE);
 
         holder.mExpandButton.setOnClickListener(view -> {
+            if (!isExpanded) {
+                isExpanded = true;
+                int pos = mHospitalList.indexOf(hospital);
+                Hospital hos = mHospitalList.get(pos);
+                if (pos != -1) {
+                    hos.setExpanded(true);
+                    notifyItemChanged(pos);
+                }
 
-            int pos = mHospitalList.indexOf(hospital);
-            Hospital hos = mHospitalList.get(pos);
-            if(pos!=-1){
-                hos.setExpanded(true);
-                notifyItemChanged(pos);
             }
-
-
         });
 
         holder.mCollapseButton.setOnClickListener(view -> {
+            isExpanded = false;
             int pos = mHospitalList.indexOf(hospital);
             Hospital hos = mHospitalList.get(pos);
             hos.setExpanded(false);
