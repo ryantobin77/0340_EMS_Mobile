@@ -33,6 +33,8 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
     var thereIsCellTapped = false
     var selectedRowIndex = -1
     
+    let GCC_NUMBER = "4046166440"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.barStyle = UIBarStyle.black
@@ -68,10 +70,12 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
     }
     
     @IBAction func searchPressed(_ sender: UIButton) {
-        if self.searchBar.isHidden {
+        if !self.searchBar.isHidden && self.searchBar.searchTextField.text!.isEmpty {
+            self.hideSearchBar()
+        } else if self.searchBar.isHidden {
             self.showSearchBar()
         } else {
-            self.hideSearchBar()
+            self.searchBar.searchTextField.resignFirstResponder()
         }
     }
     
@@ -91,7 +95,11 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar)  {
-        self.hideSearchBar()
+        if self.searchBar.searchTextField.text!.isEmpty {
+            self.hideSearchBar()
+        } else {
+            self.searchBar.searchTextField.resignFirstResponder()
+        }
         searchActive = false
     }
     
@@ -108,17 +116,18 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
                     let tmp: String = hos.name
                     return tmp.range(of: searchText, options: .caseInsensitive) != nil
                     })
-            } else {
+            } else if(sortActive){
+                searchedList = sortedList.filter({ (hos) -> Bool in
+                    let tmp: String = hos.name
+                    return tmp.range(of: searchText, options: .caseInsensitive) != nil
+                    })
+            }else {
             searchedList = hospitals.filter({ (hos) -> Bool in
                 let tmp: String = hos.name
                 return tmp.range(of: searchText, options: .caseInsensitive) != nil
                 })
             }
-            for hos in searchedList {
-                print(hos.name)
-            }
             tableView.reloadData()
-            // tableView.reloadData()
         }
         
     }
@@ -177,12 +186,14 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
         if (hospitals == nil) {
             return -1
         }
-        if (searchActive) {
+        if ((sortActive && searchActive) || (filterActive && searchActive)) {
+            return searchedList.count
+        } else if (sortActive) {
+            return sortedList.count
+        } else if (searchActive) {
             return searchedList.count
         } else if (filterActive) {
             return filteredList.count
-        } else if (sortActive) {
-            return sortedList.count
         }
         else {
             return hospitals.count
@@ -192,16 +203,18 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var hospital: HospitalIH
         let cell = tableView.dequeueReusableCell(withIdentifier: "hospitalCell", for: indexPath) as! HomeTableViewCell
-        if (searchActive) {
+        if ((sortActive && searchActive) || (filterActive && searchActive)) {
+            hospital = self.searchedList[indexPath.row]
+        } else if (sortActive) {
+            hospital = self.sortedList[indexPath.row]
+        } else if (searchActive) {
             hospital = self.searchedList[indexPath.row]
         } else if (filterActive) {
             hospital = self.filteredList[indexPath.row]
         } else {
             hospital = self.hospitals[indexPath.row]
         }
-        if (sortActive) {
-            hospital = self.sortedList[indexPath.row]
-        }
+        
         
         cell.hospitalName.text = hospital.name
         if (hospital.isFavorite) {
@@ -321,12 +334,20 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
             cell.distanceLabel.text = "\(String(hospital.distance)) mi"
         }
         
-        cell.address.attributedText = NSAttributedString(string: hospital.address, attributes:
-            [.underlineStyle: NSUnderlineStyle.single.rawValue])
-        cell.address.textColor = UIColor.blue
-        cell.phoneNumber.attributedText = NSAttributedString(string: hospital.phoneNumber, attributes:
-            [.underlineStyle: NSUnderlineStyle.single.rawValue])
-        cell.phoneNumber.textColor = UIColor.blue
+        cell.address.titleLabel!.numberOfLines = 2
+        cell.address.setTitle(hospital.address, for: .normal)
+        cell.address.setAttributedTitle(NSAttributedString(string: hospital.address, attributes:
+            [.underlineStyle: NSUnderlineStyle.single.rawValue]), for: .normal)
+        cell.address.setTitleColor(.blue, for: .normal)
+        cell.address.addTarget(self, action: #selector(mapToHospital(_:)), for: .touchUpInside)
+        
+        let formattedPhone = self.applyPatternOnNumbers(number: hospital.phoneNumber, pattern: "(###) ###-####", replacementCharacter: "#")
+        cell.phoneNumber.setTitle(formattedPhone, for: .normal)
+        cell.phoneNumber.setAttributedTitle(NSAttributedString(string: formattedPhone, attributes:
+            [.underlineStyle: NSUnderlineStyle.single.rawValue]), for: .normal)
+        cell.phoneNumber.setTitleColor(.blue, for: .normal)
+        cell.phoneNumber.addTarget(self, action: #selector(callHospital(_:)), for: .touchUpInside)
+        cell.phoneIcon.addTarget(self, action: #selector(callHospital(_:)), for: .touchUpInside)
         cell.countyLabel.text = "\(String(hospital.county)) County - EMS Region \(String(hospital.regionNumber))"
         cell.rchLabel.text = "Regional Coordination Hospital \(String(hospital.rch))"
         
@@ -338,11 +359,26 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
     
         return cell
     }
+    
+    func applyPatternOnNumbers(number: String, pattern: String, replacementCharacter: Character) -> String {
+        var pureNumber = number.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
+        for index in 0 ..< pattern.count {
+            guard index < pureNumber.count else { return pureNumber }
+            let stringIndex = String.Index(utf16Offset: index, in: pattern)
+            let patternCharacter = pattern[stringIndex]
+            guard patternCharacter != replacementCharacter else { continue }
+            pureNumber.insert(patternCharacter, at: stringIndex)
+        }
+        return pureNumber
+    }
+
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == selectedRowIndex && thereIsCellTapped {
             var hospital:HospitalIH
-            if (sortActive) {
+            if ((sortActive && searchActive) || (filterActive && searchActive)) {
+                hospital = self.searchedList[indexPath.row]
+            } else if (sortActive) {
                 hospital = self.sortedList[indexPath.row]
             } else if (searchActive) {
                 hospital = self.searchedList[indexPath.row]
@@ -360,6 +396,48 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
             }
         }
         return 90
+    }
+    
+    func callPhoneNumber(number: String) {
+        if let url = URL(string: "tel://\(number)"), UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
+    
+    @IBAction func callGCC(_ sender: UIButton) {
+        self.callPhoneNumber(number: self.GCC_NUMBER)
+    }
+    
+    @objc func callHospital(_ sender: UIButton) {
+        guard let cell = sender.superview?.superview?.superview?.superview?.superview as? HomeTableViewCell else {
+            return
+        }
+        guard let indexPath = tableView.indexPath(for: cell) else {
+            return
+        }
+        guard let number = self.hospitals[indexPath.row].phoneNumber else {
+            return
+        }
+        self.callPhoneNumber(number: number)
+    }
+    
+    @objc func mapToHospital(_ sender: UIButton) {
+        guard let cell = sender.superview?.superview?.superview?.superview as? HomeTableViewCell else {
+            return
+        }
+        guard let indexPath = tableView.indexPath(for: cell) else {
+            return
+        }
+        guard var address = self.hospitals[indexPath.row].address else {
+            return
+        }
+        address = address.lowercased().replacingOccurrences(of: " ", with: "+")
+        let urlStr = "http://maps.apple.com/?address=\(address)"
+        guard let url =  URL(string: urlStr) else {
+            print(urlStr)
+            return
+        }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
     
     @IBAction func expandButton(_ sender: UIButton) {
@@ -603,7 +681,6 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
     func handleSort() {
             //var h = Array<HospitalIH>()
             if (filterActive) {
-                print("HELLO")
                 sortedList = filteredList
             } else if (searchActive){
                 sortedList = searchedList

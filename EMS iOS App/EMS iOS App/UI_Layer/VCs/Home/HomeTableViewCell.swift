@@ -19,7 +19,7 @@ class HomeTableViewCell: UITableViewCell {
     @IBOutlet var hospitalTypeIcon2: UIImageView!
     @IBOutlet var hospitalTypeIcon3: UIImageView!
     @IBOutlet var diversionIcon: UIImageView?
-    @IBOutlet weak var phoneIcon: UIImageView!
+    @IBOutlet weak var phoneIcon: UIButton!
     @IBOutlet var expandedDiversionIcon: UIImageView?
     @IBOutlet var expandedDiversionIconLabel: UILabel!
     @IBOutlet var expandedHospitalTypeIcon1: UIImageView!
@@ -28,19 +28,10 @@ class HomeTableViewCell: UITableViewCell {
     @IBOutlet var hospitalTypeLabel2: UILabel!
     @IBOutlet var expandedHospitalTypeIcon3: UIImageView!
     @IBOutlet var hospitalTypeLabel3: UILabel!
-    @IBOutlet var address: UILabel!
-        /*= {
-        let label = UILabel()
-        label.contentMode = .scaleToFill
-        label.numberOfLines = 0
-        //label.leadingMargin(pixel: 10)
-        //label.trailingMargin(pixel: 10)
-     
-     return label
-    }()*/
+    @IBOutlet var address: UIButton!
     @IBOutlet weak var minimizeButton: UIButton!
     @IBOutlet weak var expandButton: UIButton!
-    @IBOutlet var phoneNumber: UILabel!
+    @IBOutlet var phoneNumber: UIButton!
     @IBOutlet weak var countyLabel: UILabel!
     @IBOutlet weak var regionLabel: UILabel!
     @IBOutlet weak var rchLabel: UILabel!

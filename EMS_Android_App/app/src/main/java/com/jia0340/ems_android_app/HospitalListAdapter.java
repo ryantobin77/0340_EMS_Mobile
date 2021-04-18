@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jia0340.ems_android_app.models.Filter;
@@ -52,19 +53,23 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
     private List<Filter> mFilterList;
     private SortField mAppliedSort;
     private List<Hospital> mAllHospitalList;
-
+    private RecyclerView mRecyclerView;
+    private boolean isExpanded;
     /**
      * Constructor of the custom adapter
      *
      * @param hospitalList The dataset that the recyclerView to be populated with
+     * @param hospitalRecyclerView
      */
-    public HospitalListAdapter(List<Hospital> hospitalList, Context context) {
+    public HospitalListAdapter(List<Hospital> hospitalList, Context context, RecyclerView recyclerView) {
         mHospitalList = hospitalList;
         mPinnedList = new ArrayList<Hospital>();
         mContext = context;
         mFilterList = new ArrayList<Filter>();
-        mAppliedSort = SortField.DISTANCE;
+        mAppliedSort = SortField.NAME;
         mAllHospitalList = hospitalList;
+        mRecyclerView = recyclerView;
+        isExpanded = false;
     }
 
     /**
@@ -162,8 +167,6 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
         Hospital hospital = mHospitalList.get(position);
 
         holder.mHospitalName.setText(hospital.getName());
-        holder.mDistanceLabel.setText(mContext.getString(R.string.distance, hospital.getDistance()));
-        //TODO: bug with long street address
         holder.mCountyRegionText.setText(mContext.getString(R.string.county_region, hospital.getCounty(),
                                             hospital.getRegion()));
         holder.mRegionalCoordinatingText.setText(mContext.getString(R.string.regional_coordinating_hospital,
@@ -171,6 +174,12 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
         DateFormat simpleFormat = new SimpleDateFormat("MM/dd/yyyy h:mm:ss aa", Locale.US);
         simpleFormat.setTimeZone(TimeZone.getTimeZone("EST"));
         holder.mLastUpdatedText.setText(mContext.getString(R.string.last_updated, simpleFormat.format(hospital.getLastUpdated())));
+
+        if (hospital.getDistance() == -1) {
+            holder.mDistanceLabel.setText(mContext.getString(R.string.distance_not_found));
+        } else {
+            holder.mDistanceLabel.setText(mContext.getString(R.string.distance, hospital.getDistance()));
+        }
 
         handlePhoneNumber(holder, hospital);
 
@@ -368,6 +377,7 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
                 mHospitalList.add(0, hospital);
                 handleSort();
                 notifyDataSetChanged();
+                mRecyclerView.smoothScrollToPosition(0);
             } else {
                 holder.mFavoriteView.setImageDrawable(ResourcesCompat.getDrawable(mContext.getResources(), R.drawable.outlined_favorite_pin, null));
                 mPinnedList.remove(hospital);
@@ -391,18 +401,20 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
         holder.mExpandedHospitalCard.setVisibility(hospital.isExpanded() ? View.VISIBLE : View.GONE);
 
         holder.mExpandButton.setOnClickListener(view -> {
+            if (!isExpanded) {
+                isExpanded = true;
+                int pos = mHospitalList.indexOf(hospital);
+                Hospital hos = mHospitalList.get(pos);
+                if (pos != -1) {
+                    hos.setExpanded(true);
+                    notifyItemChanged(pos);
+                }
 
-            int pos = mHospitalList.indexOf(hospital);
-            Hospital hos = mHospitalList.get(pos);
-            if(pos!=-1){
-                hos.setExpanded(true);
-                notifyItemChanged(pos);
             }
-
-
         });
 
         holder.mCollapseButton.setOnClickListener(view -> {
+            isExpanded = false;
             int pos = mHospitalList.indexOf(hospital);
             Hospital hos = mHospitalList.get(pos);
             hos.setExpanded(false);
@@ -480,18 +492,18 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
             case DISTANCE:
                 Collections.sort(mPinnedList, (h1, h2) -> {
                     // TODO: handle NumberFormatException
-                    if (Double.parseDouble(h1.getDistance()) < Double.parseDouble(h2.getDistance())) {
+                    if (h1.getDistance() < h2.getDistance()) {
                         return -1;
-                    } else if (Double .parseDouble(h1.getDistance()) > Double.parseDouble(h2.getDistance())) {
+                    } else if (h1.getDistance() > h2.getDistance()) {
                         return 1;
                     } else {
                         return 0;
                     }
                 });
                 Collections.sort(mHospitalList, (h1, h2) -> {
-                    if (Double.parseDouble(h1.getDistance()) < Double.parseDouble(h2.getDistance())) {
+                    if (h1.getDistance() < h2.getDistance()) {
                         return -1;
-                    } else if (Double.parseDouble(h1.getDistance()) > Double.parseDouble(h2.getDistance())) {
+                    } else if (h1.getDistance() > h2.getDistance()) {
                         return 1;
                     } else {
                         return 0;
@@ -503,8 +515,8 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
                 Collections.sort(mHospitalList, (h1, h2) -> h1.getNedocsScore().compareTo(h2.getNedocsScore()));
                 break;
             case NAME:
-                Collections.sort(mPinnedList, (h1, h2) -> h1.getName().compareTo(h2.getName()));
-                Collections.sort(mHospitalList, (h1, h2) -> h1.getName().compareTo(h2.getName()));
+                Collections.sort(mPinnedList, (h1, h2) -> h1.getName().toLowerCase().compareTo(h2.getName().toLowerCase()));
+                Collections.sort(mHospitalList, (h1, h2) -> h1.getName().toLowerCase().compareTo(h2.getName().toLowerCase()));
                 break;
         }
         for (int i = mPinnedList.size() - 1; i >= 0; i--) {

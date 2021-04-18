@@ -214,14 +214,12 @@ class DistanceController {
         mContext.sendBroadcast(intent);
     }
 
-    public String getDistanceToHospital(String hospital) {
+    public double getDistanceToHospital(String hospital) {
 
         if (mHospitalNameIndices == null || mDistances == null) {
-            return "-";
+            return -1;
         }
 
-        double currDist = mDistances.get(mHospitalNameIndices.get(hospital));
-
-        return String.format("%.2f", currDist);
+        return mDistances.get(mHospitalNameIndices.get(hospital));
     }
 }

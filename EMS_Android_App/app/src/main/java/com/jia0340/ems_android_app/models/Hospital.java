@@ -36,7 +36,7 @@ public class Hospital {
     private double mLatitude;
     private double mLongitude;
 
-    private String mDistance;
+    private double mDistance;
     private boolean mExpanded = false;
     private boolean mFavorite = false;
 
@@ -80,7 +80,7 @@ public class Hospital {
         mLongitude = longitude;
 
         //TODO: what do we want this value to be while it's loading??
-        mDistance = "-";
+        mDistance = -1;
 
     }
 
@@ -92,7 +92,7 @@ public class Hospital {
         return mNedocsScore;
     }
 
-    public String getDistance() {
+    public double getDistance() {
         return mDistance;
     }
 
@@ -154,7 +154,7 @@ public class Hospital {
         mFavorite = favorite;
     }
 
-    public void setDistance(String distance) {
+    public void setDistance(double distance) {
         mDistance = distance;
     }
 
