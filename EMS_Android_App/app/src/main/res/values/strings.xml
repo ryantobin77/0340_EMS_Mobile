@@ -29,12 +29,14 @@
     <string name="maternal_center_3">Maternal Center - Level 3</string>
 
     <!--misc. labels-->
-    <string name="distance">%s mi</string>
+    <string name="distance">%.2f mi</string>
+    <string name="distance_not_found">- mi</string>
     <string name="address">%s,\n%s, %s %s</string>
     <string name="county_region">%s - Region %s</string>
     <string name="regional_coordinating_hospital">Regional Coordinating Hospital %s</string>
     <string name="last_updated">Updated %s</string>
     <string name="call_gcc">Are you sure you would like to call the Georgia Coordinating Center?</string>
+    <string name="refresh_failed_error">We were unable to refresh the data. Please try again.</string>
 
     <!--filter-->
     <string name="filter_dialog_title">Filter</string>

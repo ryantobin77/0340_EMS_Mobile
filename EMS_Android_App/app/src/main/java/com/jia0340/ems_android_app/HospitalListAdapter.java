@@ -1,17 +1,24 @@
 package com.jia0340.ems_android_app;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jia0340.ems_android_app.models.Filter;
@@ -46,19 +53,23 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
     private List<Filter> mFilterList;
     private SortField mAppliedSort;
     private List<Hospital> mAllHospitalList;
-
+    private RecyclerView mRecyclerView;
+    private boolean isExpanded;
     /**
      * Constructor of the custom adapter
      *
      * @param hospitalList The dataset that the recyclerView to be populated with
+     * @param hospitalRecyclerView
      */
-    public HospitalListAdapter(List<Hospital> hospitalList, Context context) {
+    public HospitalListAdapter(List<Hospital> hospitalList, Context context, RecyclerView recyclerView) {
         mHospitalList = hospitalList;
         mPinnedList = new ArrayList<Hospital>();
         mContext = context;
         mFilterList = new ArrayList<Filter>();
-        mAppliedSort = SortField.DISTANCE;
+        mAppliedSort = SortField.NAME;
         mAllHospitalList = hospitalList;
+        mRecyclerView = recyclerView;
+        isExpanded = false;
     }
 
     /**
@@ -156,11 +167,6 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
         Hospital hospital = mHospitalList.get(position);
 
         holder.mHospitalName.setText(hospital.getName());
-        holder.mDistanceLabel.setText(mContext.getString(R.string.distance, hospital.getDistance()));
-        holder.mPhoneNumber.setText(hospital.getPhoneNumber());
-        //TODO: bug with long street address
-        holder.mAddressView.setText(mContext.getString(R.string.address, hospital.getStreetAddress(),
-                                            hospital.getCity(), hospital.getState(), hospital.getZipCode()));
         holder.mCountyRegionText.setText(mContext.getString(R.string.county_region, hospital.getCounty(),
                                             hospital.getRegion()));
         holder.mRegionalCoordinatingText.setText(mContext.getString(R.string.regional_coordinating_hospital,
@@ -168,6 +174,16 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
         DateFormat simpleFormat = new SimpleDateFormat("MM/dd/yyyy h:mm:ss aa", Locale.US);
         simpleFormat.setTimeZone(TimeZone.getTimeZone("EST"));
         holder.mLastUpdatedText.setText(mContext.getString(R.string.last_updated, simpleFormat.format(hospital.getLastUpdated())));
+
+        if (hospital.getDistance() == -1) {
+            holder.mDistanceLabel.setText(mContext.getString(R.string.distance_not_found));
+        } else {
+            holder.mDistanceLabel.setText(mContext.getString(R.string.distance, hospital.getDistance()));
+        }
+
+        handlePhoneNumber(holder, hospital);
+
+        handleAddressMapping(holder, hospital);
 
         handleNedocsValues(holder, hospital.getNedocsScore());
 
@@ -361,6 +377,7 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
                 mHospitalList.add(0, hospital);
                 handleSort();
                 notifyDataSetChanged();
+                mRecyclerView.smoothScrollToPosition(0);
             } else {
                 holder.mFavoriteView.setImageDrawable(ResourcesCompat.getDrawable(mContext.getResources(), R.drawable.outlined_favorite_pin, null));
                 mPinnedList.remove(hospital);
@@ -384,18 +401,20 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
         holder.mExpandedHospitalCard.setVisibility(hospital.isExpanded() ? View.VISIBLE : View.GONE);
 
         holder.mExpandButton.setOnClickListener(view -> {
+            if (!isExpanded) {
+                isExpanded = true;
+                int pos = mHospitalList.indexOf(hospital);
+                Hospital hos = mHospitalList.get(pos);
+                if (pos != -1) {
+                    hos.setExpanded(true);
+                    notifyItemChanged(pos);
+                }
 
-            int pos = mHospitalList.indexOf(hospital);
-            Hospital hos = mHospitalList.get(pos);
-            if(pos!=-1){
-                hos.setExpanded(true);
-                notifyItemChanged(pos);
             }
-
-
         });
 
         holder.mCollapseButton.setOnClickListener(view -> {
+            isExpanded = false;
             int pos = mHospitalList.indexOf(hospital);
             Hospital hos = mHospitalList.get(pos);
             hos.setExpanded(false);
@@ -473,18 +492,18 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
             case DISTANCE:
                 Collections.sort(mPinnedList, (h1, h2) -> {
                     // TODO: handle NumberFormatException
-                    if (Double.parseDouble(h1.getDistance()) < Double.parseDouble(h2.getDistance())) {
+                    if (h1.getDistance() < h2.getDistance()) {
                         return -1;
-                    } else if (Double .parseDouble(h1.getDistance()) > Double.parseDouble(h2.getDistance())) {
+                    } else if (h1.getDistance() > h2.getDistance()) {
                         return 1;
                     } else {
                         return 0;
                     }
                 });
                 Collections.sort(mHospitalList, (h1, h2) -> {
-                    if (Double.parseDouble(h1.getDistance()) < Double.parseDouble(h2.getDistance())) {
+                    if (h1.getDistance() < h2.getDistance()) {
                         return -1;
-                    } else if (Double.parseDouble(h1.getDistance()) > Double.parseDouble(h2.getDistance())) {
+                    } else if (h1.getDistance() > h2.getDistance()) {
                         return 1;
                     } else {
                         return 0;
@@ -496,8 +515,8 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
                 Collections.sort(mHospitalList, (h1, h2) -> h1.getNedocsScore().compareTo(h2.getNedocsScore()));
                 break;
             case NAME:
-                Collections.sort(mPinnedList, (h1, h2) -> h1.getName().compareTo(h2.getName()));
-                Collections.sort(mHospitalList, (h1, h2) -> h1.getName().compareTo(h2.getName()));
+                Collections.sort(mPinnedList, (h1, h2) -> h1.getName().toLowerCase().compareTo(h2.getName().toLowerCase()));
+                Collections.sort(mHospitalList, (h1, h2) -> h1.getName().toLowerCase().compareTo(h2.getName().toLowerCase()));
                 break;
         }
         for (int i = mPinnedList.size() - 1; i >= 0; i--) {
@@ -521,6 +540,62 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
         for (Hospital removedHospital: toRemove) {
             mHospitalList.remove(removedHospital);
         }
+    }
+
+    /**
+     * Sets up the phone number textView and handle logic for clicking the phone number
+     * @param holder View for the specific hospital
+     * @param hospital Object for current hospital
+     */
+    public void handlePhoneNumber(ViewHolder holder, Hospital hospital) {
+
+        holder.mPhoneNumber.setText(hospital.getPhoneNumber());
+
+        holder.mPhoneNumber.setPaintFlags(holder.mPhoneNumber.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
+
+        holder.mPhoneNumber.setOnClickListener(view -> {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(mContext, R.style.AlertDialogCustom);
+            builder.setMessage(String.format("Are you sure you would like to call %s?", hospital.getPhoneNumber()))
+                    .setPositiveButton("Yes", (dialogInterface, i) -> {
+
+                        Intent intent = new Intent(Intent.ACTION_DIAL);
+                        intent.setData(Uri.parse(String.format("tel:%s", hospital.getPhoneNumber())));
+                        mContext.startActivity(intent);
+
+                    })
+                    .setNegativeButton("No", (dialogInterface, i) -> dialogInterface.dismiss()).show();
+        });
+    }
+
+    /**
+     * Sets up the address textView and handle logic for clicking the address
+     * @param holder View for the specific hospital
+     * @param hospital Object for current hospital
+     */
+    public void handleAddressMapping(ViewHolder holder, Hospital hospital) {
+        holder.mAddressView.setText(mContext.getString(R.string.address, hospital.getStreetAddress(),
+                hospital.getCity(), hospital.getState(), hospital.getZipCode()));
+
+        holder.mAddressView.setPaintFlags(holder.mAddressView.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
+
+        holder.mAddressView.setOnClickListener(view -> {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(mContext, R.style.AlertDialogCustom);
+            builder.setMessage(String.format("Are you sure you would like to get directions to %s?", hospital.getName()))
+                    .setPositiveButton("Yes", (dialogInterface, i) -> {
+                        Uri gmmIntentUri = Uri.parse(String.format("google.navigation:q=%s,%s", hospital.getLatitude(), hospital.getLongitude()));
+                        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                        mapIntent.setPackage("com.google.android.apps.maps");
+
+                        if (mapIntent.resolveActivity(mContext.getPackageManager()) != null) {
+                            mContext.startActivity(mapIntent);
+                        } else {
+                            Toast.makeText(mContext, "Please install Google Maps to view the directions.", Toast.LENGTH_LONG).show();
+                        }
+                    })
+                    .setNegativeButton("No", (dialogInterface, i) -> dialogInterface.dismiss()).show();
+        });
     }
 
     /**

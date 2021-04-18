@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     private Toolbar mToolbar;
     private FilterSheetDialog mFilterDialog;
     private Button mClearAllButton;
+    private ConstraintLayout mBottomBar;
     private LinearLayout mAppliedFiltersHolder;
     private BroadcastReceiver mFilterDialogReceiver;
     private SearchView mSearchBar;
@@ -85,18 +87,19 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
         mClearAllButton = findViewById(R.id.clearAllButton);
 
-        // Instantiate empty hospital list and attach to Adapter
+        // Instantiate empty hospital list
         mHospitalList = new ArrayList<Hospital>();
-        mHospitalAdapter = new HospitalListAdapter(mHospitalList, this);
 
         // Set up Recycler view and attach Adapter
         RecyclerView hospitalRecyclerView = findViewById(R.id.hospital_list);
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         hospitalRecyclerView.addItemDecoration(itemDecoration);
-        hospitalRecyclerView.setAdapter(mHospitalAdapter);
         hospitalRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mHospitalAdapter = new HospitalListAdapter(mHospitalList, this, hospitalRecyclerView);
+        hospitalRecyclerView.setAdapter(mHospitalAdapter);
 
         // Setup on click handler for clear all filters buton
+        mBottomBar = findViewById(R.id.bottomBar);
         mAppliedFiltersHolder = findViewById(R.id.appliedFiltersHolder);
         mClearAllButton.setOnClickListener(view -> {
             mHospitalAdapter.setFilterList(new ArrayList<Filter>());
@@ -120,6 +123,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             public boolean onClose() {
                 mSearchBar.clearFocus();
                 mSearchBar.setVisibility(View.GONE);
+                mBottomBar.setVisibility(View.VISIBLE);
                 return false;
             }
         });
@@ -142,6 +146,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     @Override
     public boolean onQueryTextSubmit(String query) {
         mSearchBar.setVisibility(View.GONE);
+        mBottomBar.setVisibility(View.VISIBLE);
         return false;
     }
 
@@ -160,6 +165,11 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         if (mDistanceReceiver != null) {
             unregisterReceiver(mDistanceReceiver);
             mDistanceReceiver = null;
+        }
+
+        if (mFilterDialogReceiver != null) {
+            unregisterReceiver(mFilterDialogReceiver);
+            mFilterDialogReceiver = null;
         }
 
         super.onDestroy();
@@ -210,11 +220,13 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         if (id == R.id.action_search) {
             if (mSearchBar.getVisibility() == View.VISIBLE) {
                 mSearchBar.setVisibility(View.GONE);
+                mBottomBar.setVisibility(View.VISIBLE);
             } else {
                 mSearchBar.setVisibility(View.VISIBLE);
                 mSearchBar.setFocusable(true);
                 mSearchBar.setIconified(false);
                 mSearchBar.requestFocusFromTouch();
+                mBottomBar.setVisibility(View.GONE);
             }
         }
         if (id == R.id.action_call) {
@@ -249,6 +261,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 // Now we can update the recyclerView
                 mHospitalAdapter.setAllHospitalList(mHospitalList);
                 mHospitalAdapter.setHospitalList(mHospitalList);
+                mHospitalAdapter.handleSort();
                 mHospitalAdapter.notifyDataSetChanged();
 
                 // Now we can finish setting up the app
@@ -314,7 +327,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 // Failed to collect hospital data
                 // TODO: what do we want to happen when it fails?
                 Log.d("MainActivity", t.getMessage());
-                Toast.makeText(MainActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, R.string.refresh_failed_error, Toast.LENGTH_LONG).show();
+                // Notify the swipe refresher that the data is done refreshing
+                mSwipeContainer.setRefreshing(false);
             }
         });
     }
@@ -347,6 +362,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                             2);
                 } else {
                     mPermissionsGranted = true;
+                    instantiateDistanceController();
                 }
 
             }
@@ -361,8 +377,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                             1);
                 } else {
                     mPermissionsGranted = true;
+                    instantiateDistanceController();
                 }
-
             }
         }
     }
