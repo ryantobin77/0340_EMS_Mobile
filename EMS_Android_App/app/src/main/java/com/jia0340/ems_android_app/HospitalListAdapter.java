@@ -12,7 +12,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jia0340.ems_android_app.models.Filter;
@@ -47,21 +46,20 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
     private List<Filter> mFilterList;
     private SortField mAppliedSort;
     private List<Hospital> mAllHospitalList;
-    private RecyclerView mRecyclerView;
-
+    private boolean isExpanded;
     /**
      * Constructor of the custom adapter
      *
      * @param hospitalList The dataset that the recyclerView to be populated with
      */
-    public HospitalListAdapter(List<Hospital> hospitalList, Context context, RecyclerView recyclerView) {
+    public HospitalListAdapter(List<Hospital> hospitalList, Context context) {
         mHospitalList = hospitalList;
         mPinnedList = new ArrayList<Hospital>();
         mContext = context;
         mFilterList = new ArrayList<Filter>();
         mAppliedSort = SortField.DISTANCE;
         mAllHospitalList = hospitalList;
-        mRecyclerView = recyclerView;
+        isExpanded = false;
     }
 
     /**
@@ -364,7 +362,6 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
                 mHospitalList.add(0, hospital);
                 handleSort();
                 notifyDataSetChanged();
-                mRecyclerView.smoothScrollToPosition(0);
             } else {
                 holder.mFavoriteView.setImageDrawable(ResourcesCompat.getDrawable(mContext.getResources(), R.drawable.outlined_favorite_pin, null));
                 mPinnedList.remove(hospital);
@@ -388,18 +385,20 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
         holder.mExpandedHospitalCard.setVisibility(hospital.isExpanded() ? View.VISIBLE : View.GONE);
 
         holder.mExpandButton.setOnClickListener(view -> {
+            if (!isExpanded) {
+                isExpanded = true;
+                int pos = mHospitalList.indexOf(hospital);
+                Hospital hos = mHospitalList.get(pos);
+                if (pos != -1) {
+                    hos.setExpanded(true);
+                    notifyItemChanged(pos);
+                }
 
-            int pos = mHospitalList.indexOf(hospital);
-            Hospital hos = mHospitalList.get(pos);
-            if(pos!=-1){
-                hos.setExpanded(true);
-                notifyItemChanged(pos);
             }
-
-
         });
 
         holder.mCollapseButton.setOnClickListener(view -> {
+            isExpanded = false;
             int pos = mHospitalList.indexOf(hospital);
             Hospital hos = mHospitalList.get(pos);
             hos.setExpanded(false);
