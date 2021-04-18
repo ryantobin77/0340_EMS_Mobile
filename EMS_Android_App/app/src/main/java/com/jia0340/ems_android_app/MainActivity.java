@@ -160,6 +160,11 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             mDistanceReceiver = null;
         }
 
+        if (mFilterDialogReceiver != null) {
+            unregisterReceiver(mFilterDialogReceiver);
+            mFilterDialogReceiver = null;
+        }
+
         super.onDestroy();
     }
 
