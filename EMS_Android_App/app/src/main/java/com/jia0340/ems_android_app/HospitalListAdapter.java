@@ -55,6 +55,7 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
     private List<Hospital> mAllHospitalList;
     private RecyclerView mRecyclerView;
     private boolean isExpanded;
+    private int expandedHos;
     /**
      * Constructor of the custom adapter
      *
@@ -401,10 +402,16 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
         holder.mExpandedHospitalCard.setVisibility(hospital.isExpanded() ? View.VISIBLE : View.GONE);
 
         holder.mExpandButton.setOnClickListener(view -> {
-            if (!isExpanded) {
+            if (!hospital.isExpanded()) {
+                if (isExpanded) {
+                    Hospital preHos = mHospitalList.get(expandedHos);
+                    preHos.setExpanded(false);
+                    notifyItemChanged(expandedHos);
+                }
                 isExpanded = true;
                 int pos = mHospitalList.indexOf(hospital);
                 Hospital hos = mHospitalList.get(pos);
+                expandedHos = pos;
                 if (pos != -1) {
                     hos.setExpanded(true);
                     notifyItemChanged(pos);
