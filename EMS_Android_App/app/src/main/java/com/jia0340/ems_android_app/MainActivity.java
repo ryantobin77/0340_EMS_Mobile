@@ -151,15 +151,16 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     //Handles submit action from search bar
     @Override
     public boolean onQueryTextSubmit(String query) {
-        mSearchBar.setVisibility(View.GONE);
-        mBottomBar.setVisibility(View.VISIBLE);
+        if (query == null || query.equals("")) {
+            mSearchBar.setVisibility(View.GONE);
+            mBottomBar.setVisibility(View.VISIBLE);
+        }
         return false;
     }
 
     //Handles text changing in search bar
     @Override
     public boolean onQueryTextChange(String newText) {
-        System.out.println(newText);
         mHospitalAdapter.handleSearch(newText);
         mHospitalAdapter.notifyDataSetChanged();
         return false;
@@ -224,10 +225,12 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
         }
         if (id == R.id.action_search) {
-            if (mSearchBar.getVisibility() == View.VISIBLE) {
+            if (mSearchBar.getVisibility() == View.VISIBLE && (mSearchBar.getQuery() == null || mSearchBar.getQuery().length() == 0)) {
                 mSearchBar.setVisibility(View.GONE);
                 mBottomBar.setVisibility(View.VISIBLE);
-            } else {
+            } else if (mSearchBar.getVisibility() == View.VISIBLE) {
+                mSearchBar.setQuery(mSearchBar.getQuery(), true);
+            } else if (mSearchBar.getVisibility() == View.GONE){
                 mSearchBar.setVisibility(View.VISIBLE);
                 mSearchBar.setFocusable(true);
                 mSearchBar.setIconified(false);
