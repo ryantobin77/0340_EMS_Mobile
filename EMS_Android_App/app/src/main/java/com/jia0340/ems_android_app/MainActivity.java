@@ -142,6 +142,12 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         mSwipeContainer.setOnRefreshListener(() -> updateHospitalData());
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initializeHospitalData();
+    }
+
     //Handles submit action from search bar
     @Override
     public boolean onQueryTextSubmit(String query) {
