@@ -49,6 +49,7 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
     private List<Hospital> mAllHospitalList;
     private RecyclerView mRecyclerView;
     private boolean isExpanded;
+    private int expandedHos;
     /**
      * Constructor of the custom adapter
      *
@@ -60,7 +61,7 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
         mPinnedList = new ArrayList<Hospital>();
         mContext = context;
         mFilterList = new ArrayList<Filter>();
-        mAppliedSort = SortField.DISTANCE;
+        mAppliedSort = SortField.NAME;
         mAllHospitalList = hospitalList;
         mRecyclerView = recyclerView;
         isExpanded = false;
@@ -390,10 +391,16 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
         holder.mExpandedHospitalCard.setVisibility(hospital.isExpanded() ? View.VISIBLE : View.GONE);
 
         holder.mExpandButton.setOnClickListener(view -> {
-            if (!isExpanded) {
+            if (!hospital.isExpanded()) {
+                if (isExpanded) {
+                    Hospital preHos = mHospitalList.get(expandedHos);
+                    preHos.setExpanded(false);
+                    notifyItemChanged(expandedHos);
+                }
                 isExpanded = true;
                 int pos = mHospitalList.indexOf(hospital);
                 Hospital hos = mHospitalList.get(pos);
+                expandedHos = pos;
                 if (pos != -1) {
                     hos.setExpanded(true);
                     notifyItemChanged(pos);
@@ -504,8 +511,8 @@ class HospitalListAdapter extends RecyclerView.Adapter<HospitalListAdapter.ViewH
                 Collections.sort(mHospitalList, (h1, h2) -> h1.getNedocsScore().compareTo(h2.getNedocsScore()));
                 break;
             case NAME:
-                Collections.sort(mPinnedList, (h1, h2) -> h1.getName().compareTo(h2.getName()));
-                Collections.sort(mHospitalList, (h1, h2) -> h1.getName().compareTo(h2.getName()));
+                Collections.sort(mPinnedList, (h1, h2) -> h1.getName().toLowerCase().compareTo(h2.getName().toLowerCase()));
+                Collections.sort(mHospitalList, (h1, h2) -> h1.getName().toLowerCase().compareTo(h2.getName().toLowerCase()));
                 break;
         }
         for (int i = mPinnedList.size() - 1; i >= 0; i--) {
