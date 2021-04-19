@@ -86,41 +86,43 @@ class FilterSelectorViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     @IBAction func expandCollapseField(_ sender: UIButton) {
-        var selectedField: UITableView!
-        var heightConstraint: NSLayoutConstraint!
-        var selectedButton: UIButton!
+        let allFields = [specialtyCenterValues, emsRegionValues, countyValues, rchValues]
+        let allHeights = [specialtyCenterHeight, emsRegionHeight, countyHeight, rchHeight]
+        let allButtons = [specialtyCenterButton, emsRegionButton, countyButton, rchButton]
+        var selectedIndex = Int()
         
         switch sender {
         case specialtyCenterButton:
-             selectedField = specialtyCenterValues
-             heightConstraint = specialtyCenterHeight
-             selectedButton = specialtyCenterButton
+            selectedIndex = 0
         case emsRegionButton:
-            selectedField = emsRegionValues
-            heightConstraint = emsRegionHeight
-            selectedButton = emsRegionButton
+            selectedIndex = 1
         case countyButton:
-            selectedField = countyValues
-            heightConstraint = countyHeight
-            selectedButton = countyButton
+            selectedIndex = 2
         case rchButton:
-            selectedField = rchValues
-            heightConstraint = rchHeight
-            selectedButton = rchButton
+            selectedIndex = 3
         default:
-            selectedField = nil
-            heightConstraint = nil
-            selectedButton = nil
+            selectedIndex = -1
         }
         
-        if selectedField?.isHidden == true{
-            selectedField?.isHidden = false
-            heightConstraint?.constant = 300
-            selectedButton.isSelected = true
-        } else if selectedField?.isHidden == false {
-            selectedField?.isHidden = true
-            heightConstraint?.constant = 50
-            selectedButton.isSelected = false
+        if selectedIndex != -1 {
+            if allFields[selectedIndex]?.isHidden == true{
+                for i in 0...3 {
+                    if (i == selectedIndex) {
+                        allFields[i]?.isHidden = false
+                        allHeights[i]?.constant = 300
+                        allButtons[i]?.isSelected = true
+                    } else {
+                        allFields[i]?.isHidden = true
+                        allHeights[i]?.constant = 50
+                        allButtons[i]?.isSelected = false
+                    }
+                }
+                
+            } else {
+                allFields[selectedIndex]?.isHidden = true
+                allHeights[selectedIndex]?.constant = 50
+                allButtons[selectedIndex]?.isSelected = false
+            }
         }
         
     }

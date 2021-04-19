@@ -627,41 +627,43 @@ class HomeVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGe
     func addFilterCards() {
         // remove all existing filter cards before adding
         self.appliedFiltersView.subviews.forEach({ $0.removeFromSuperview() })
-        
-        var appliedFiltersViewWidth = 0
-        for i in 0...(self.appliedFilters.count - 1) {
-            let filter: FilterIH = self.appliedFilters[i]
-            if let filterCard = Bundle.main.loadNibNamed("FilterCard", owner: nil, options: nil)!.first as? FilterCard {
-                switch filter.field {
-                case .type:
-                    filterCard.valueLabel.text = HospitalType(rawValue: filter.value)!.getHospitalDisplayString()
-                case .emsRegion:
-                    filterCard.valueLabel.text = "Region " + filter.value
-                case .county:
-                    filterCard.valueLabel.text = filter.value
-                case .rch:
-                    filterCard.valueLabel.text = "Regional Coordinating Hospital " + filter.value
-                default:
-                    filterCard.valueLabel.text = filter.value
-                }
-
-                filterCard.removeButton.field = filter.field
-                filterCard.removeButton.value = filter.value
-                filterCard.removeButton.addTarget(self, action: #selector(self.removeFilter(_:)), for: .touchUpInside)
-                self.appliedFiltersView.addArrangedSubview(filterCard)
-                
-                filterCard.translatesAutoresizingMaskIntoConstraints = false
-                let filterCardWidth = filterCard.removeButton.frame.width + filterCard.valueLabel.intrinsicContentSize.width + 12
-                filterCard.widthAnchor.constraint(equalToConstant: filterCardWidth).isActive = true
-                filterCard.heightAnchor.constraint(equalToConstant: 22).isActive = true
-                
-                appliedFiltersViewWidth += Int(filterCardWidth) + 10
-            }
-        }
             
-        self.appliedFiltersView.translatesAutoresizingMaskIntoConstraints = false
-        self.appliedFiltersView.widthAnchor.constraint(equalToConstant: CGFloat(appliedFiltersViewWidth)).isActive = true
-        bottomBarScrollView.contentSize = CGSize(width: appliedFiltersViewWidth, height: 55)
+        if self.appliedFilters.count > 0 {
+            var appliedFiltersViewWidth = 0
+            for i in 0...(self.appliedFilters.count - 1) {
+                let filter: FilterIH = self.appliedFilters[i]
+                if let filterCard = Bundle.main.loadNibNamed("FilterCard", owner: nil, options: nil)!.first as? FilterCard {
+                    switch filter.field {
+                    case .type:
+                        filterCard.valueLabel.text = HospitalType(rawValue: filter.value)!.getHospitalDisplayString()
+                    case .emsRegion:
+                        filterCard.valueLabel.text = "Region " + filter.value
+                    case .county:
+                        filterCard.valueLabel.text = filter.value
+                    case .rch:
+                        filterCard.valueLabel.text = "Regional Coordinating Hospital " + filter.value
+                    default:
+                        filterCard.valueLabel.text = filter.value
+                    }
+
+                    filterCard.removeButton.field = filter.field
+                    filterCard.removeButton.value = filter.value
+                    filterCard.removeButton.addTarget(self, action: #selector(self.removeFilter(_:)), for: .touchUpInside)
+                    self.appliedFiltersView.addArrangedSubview(filterCard)
+                    
+                    filterCard.translatesAutoresizingMaskIntoConstraints = false
+                    let filterCardWidth = filterCard.removeButton.frame.width + filterCard.valueLabel.intrinsicContentSize.width + 12
+                    filterCard.widthAnchor.constraint(equalToConstant: filterCardWidth).isActive = true
+                    filterCard.heightAnchor.constraint(equalToConstant: 22).isActive = true
+                    
+                    appliedFiltersViewWidth += Int(filterCardWidth) + 10
+                }
+            }
+                
+            self.appliedFiltersView.translatesAutoresizingMaskIntoConstraints = false
+            self.appliedFiltersView.widthAnchor.constraint(equalToConstant: CGFloat(appliedFiltersViewWidth)).isActive = true
+            bottomBarScrollView.contentSize = CGSize(width: appliedFiltersViewWidth, height: 55)
+        }
     }
     
     @IBAction func onSortClicked(_ sender: UIBarButtonItem) {
