@@ -20,20 +20,22 @@ The EMS Mobile App is a mobile application that allows EMTs to better find a hos
 
 ### Dependent libraries
 - All dependent libraries can be found in the repo directory at ```0340_EMS_Mobile/Backend/EMS_Django_Backend/requirements.txt``` 
-- See build instructions for Django Backend to install dependent libraries 
+- See Build Instructions for the Django Backend below to install dependent libraries 
 
 ### Build Instructions
 #### Django Backend
 1. Initialize your virtualenv with ```virtualenv venv``` in the root directory. Do not push this to Git
 2. Activate virtualenv with ```source venv/bin/activate```
-3. Install dependent libraries with ```pip install -r requirements.txt```
-4. Go into the backend directory ```cd Backend/EMS_Django_Backend```
+3. Go into the backend directory ```cd Backend/EMS_Django_Backend```
+4. Install dependent libraries with ```pip install -r requirements.txt```
 5. Run migrations ```python manage.py migrate```
-6. Create a superuser ```python manage.py createsuperuser```
-7. Fill out and remember the necessary superuser credentials
-8. The Django Backend is now ready to run
+6. The Django Backend is now ready to run
 
 #### iOS App
+1. Open up XCode
+2. Click File > Open
+3. Navigate to the repo's root directory and go into "EMS\ iOS\ App" and click on "EMS\ iOS\ App.xcodeproj" and click open
+4. Click Product > Build to build the project
 
 #### Android App
 1. Open “EMS_Android_App” folder using Android Studio
@@ -58,7 +60,7 @@ The EMS Mobile App is a mobile application that allows EMTs to better find a hos
 ### Run Instructions
 
 #### Run Instructions for Django Backend
-From the root directory with virtualenv activated, navigate to  ```cd Backend/EMS_Django_Backend```. Then, run the following:
+From the root directory on the repo with virtualenv activated, navigate to  ```cd Backend/EMS_Django_Backend```. Then, run the following:
 
 ```bash
 python manage.py runserver
@@ -84,6 +86,10 @@ python manage.py runserver
 #### Django Backend
 
 #### iOS App
+1. Ensure the latest version of XCode is installed along with Swift 5. Earlier versions of Swift are not compatible with this app.
+2. Our application is dependent on location. Ensure the simulator has a location to use:
+- When the simulator opens, click on the simulator. Click Features > Location > Custom Location
+- We recommend using the following location: lat = 33.77718 and long = -84.39235
 
 #### Android App
 1. Under SDK tools within the SDK Manager, make sure Android ADK Build tools, Android Emulator, Android ADK Platform-Tools, and Android ADK Tools are installed
