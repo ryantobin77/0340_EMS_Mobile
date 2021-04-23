@@ -87,12 +87,15 @@ python manage.py runserver
 #### Django Backend
 
 #### iOS App
-1. Ensure the latest version of XCode is installed along with Swift 5. Earlier versions of Swift are not compatible with this app.
-2. Our application is dependent on location. Ensure the simulator has a location to use:
+There should be no errors that occur during installation / running the project, but If you do run into any errors, verify the following:
+1. Ensure your Mac has the latest software installed
+2. Ensure the latest version of XCode is installed along with Swift 5. Earlier versions of Swift are not compatible with this app.
+3. Our application is dependent on location. Ensure the simulator has a location to use:
     - When the simulator opens, click on the simulator. Click Features > Location > Custom Location
     - We recommend using the following location: lat = 33.77718 and long = -84.39235
 
 #### Android App
+There should be no errors that occur during installation / running the project, but If you do run into any errors, verify the following:
 1. Under SDK tools within the SDK Manager, make sure Android ADK Build tools, Android Emulator, Android ADK Platform-Tools, and Android ADK Tools are installed
 2. Go to Project Tab within Project Structure 
     - Ensure Android Gradle Plugin Version is 4.1.2
