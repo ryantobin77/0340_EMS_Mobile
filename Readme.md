@@ -29,13 +29,13 @@ The EMS Mobile App is a mobile application that allows EMTs to better find a hos
 3. Go into the backend directory ```cd Backend/EMS_Django_Backend```
 4. Install dependent libraries with ```pip install -r requirements.txt```
 5. Run migrations ```python manage.py migrate```
-6. The Django Backend is now ready to run
+6. The Django Backend is now built and ready to run
 
 #### iOS App
 1. Open up XCode
 2. Click File > Open
 3. Navigate to the repo's root directory and go into "EMS\ iOS\ App" and click on "EMS\ iOS\ App.xcodeproj" and click open
-4. Click Product > Build to build the project
+4. Within XCode, click Product > Build to build the project
 
 #### Android App
 1. Open “EMS_Android_App” folder using Android Studio
@@ -60,9 +60,10 @@ The EMS Mobile App is a mobile application that allows EMTs to better find a hos
 ### Run Instructions
 
 #### Run Instructions for Django Backend
-From the root directory on the repo with virtualenv activated, navigate to  ```cd Backend/EMS_Django_Backend```. Then, run the following:
+In terminal from the root directory of the repo with virtualenv activated, run the following:
 
 ```bash
+cd Backend/EMS_Django_Backend
 python manage.py runserver
 ```
 
@@ -71,7 +72,7 @@ python manage.py runserver
 2. Open up XCode
 3. Click File > Open
 3. Navigate to the repo's root directory and go into "EMS\ iOS\ App" and click on "EMS\ iOS\ App.xcodeproj" and click open
-4. In the top left of the XCode window, select a simulator to run the app
+4. In the top left of the XCode window, select a simulator to run the application
 5. Press the play button to run the app
 6. Wait a few seconds and the iOS simulator will open with the application
 
