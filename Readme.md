@@ -77,7 +77,7 @@ python manage.py runserver
 6. Wait a few seconds and the iOS simulator will open with the application
 
 #### Run Instructions for the Android App
-1. Make sure the Django Backen is running
+1. Make sure the Django Backend is running
 2. Open the directory "EMS_Android_App" using Android Studio
 3. Click the "Run 'app'" button (it looks like a green play icon)
 4. Your emulator should open and EMS Mobile App will open
@@ -89,8 +89,8 @@ python manage.py runserver
 #### iOS App
 1. Ensure the latest version of XCode is installed along with Swift 5. Earlier versions of Swift are not compatible with this app.
 2. Our application is dependent on location. Ensure the simulator has a location to use:
-- When the simulator opens, click on the simulator. Click Features > Location > Custom Location
-- We recommend using the following location: lat = 33.77718 and long = -84.39235
+    - When the simulator opens, click on the simulator. Click Features > Location > Custom Location
+    - We recommend using the following location: lat = 33.77718 and long = -84.39235
 
 #### Android App
 1. Under SDK tools within the SDK Manager, make sure Android ADK Build tools, Android Emulator, Android ADK Platform-Tools, and Android ADK Tools are installed
