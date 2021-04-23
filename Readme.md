@@ -4,6 +4,52 @@ The EMS Mobile App is a mobile application that allows EMTs to better find a hos
 
 ## Release Notes
 
+### Software Features
+
+#### Display List of Hospitals
+The main page displays a list containing the following information about each hospital in Georgia:
+- Name 
+- Nedocs score - a measure of the severity of overcrowding in the hospital’s emergency department (Normal, Busy, Overcrowded, Severe)
+- Specialty centers (i.e. Adult Trauma Center, Primary Stroke Center, etc.)
+- Diversions – whether the hospital is redirecting certain types of ambulance traffic to other hospitals due to overcrowding 
+- Distance to hospital from current location
+
+You can expand any of the hospitals to see more information about that specific hospital:
+- Phone number 
+- Street address 
+- Specific information about diversions
+- Full-length descriptions of specialty centers
+- County 
+- EMS region 
+- Regional Coordinating Hospital 
+- Time of last data update - note this is the time that the hospital last input their data, not the last time the application refreshed data from the database, and will be unique to each hospital
+
+#### Pin
+You can pin any number of hospitals to the top of the list to more easily monitor their status and can choose to snip them again at any time. Your pinned hospitals will remain at the top of the list even if you apply a different sort on the hospital list and will be sorted within themselves.
+
+#### Filter
+You can open the filter menu by selecting the filter icon in the top right corner of the main page to filter the list of hospitals on any combination of the following attributes:
+- Specialty centers
+- EMS region
+- County
+- Regional coordinating hospital
+You can view all currently applied filters in the bottom bar of the main page. You can remove an individual filter by pressing the “x” on a specific filter card or clear all filters using the button in the bottom right corner of the main page.
+
+#### Sort
+You can open the sort menu by selecting the sort icon in the top right corner of the main page to sort the list of hospitals on one of the following attributes
+- A-Z (by name)
+- Distance from current location (from nearest to furthest)
+- Nedocs score (from normal to severe)
+
+#### Search
+You can open the search bar by selecting the search icon in the top right corner of the main page. You can then enter a search term to display only hospitals that contain your search term in the name.
+
+#### Refresh
+The app will automatically refresh all hospital data from the database when the app is first opened and every time it is reopened. Additionally, you can swipe down on the hospital list to refresh the data at any time.
+
+#### Contact
+After expanding a specific hospital’s information, you have a couple of options to make contact with that hospital. You can click on the hospital’s phone number to open your device’s phone application and make a call to the hospital or you can click on the hospital’s address to open your device’s mapping application and navigate to the hospital. Additionally, you can call the Georgia Coordinating Center by selecting the phone icon in the top toolbar on the main page.
+
 ## Install Guide
 
 ### Prerequisites
