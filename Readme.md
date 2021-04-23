@@ -31,14 +31,14 @@ The EMS Mobile App is a mobile application that allows EMTs to better find a hos
 2. Open the SDK Manager (icon in the top navigation bar)
     - Make sure the SDK for version 29 is installed and selected
 4. Go to File > Project Structure
-    - Ensure Compile SDK Version is 29
-    - Build Tools Version is 30.0.3
+    - Ensure Compile SDK Version is 29
+    - Build Tools Version is 30.0.3
 6. Open the AVD Manager (icon in the top navigation bar)
-    - If there isn’t an emulator installed, create a virtual device with the SDK version <= 29
+    - If there isn’t an emulator installed, create a virtual device with the SDK version <= 29
 7. At the top of the screen, click the drop down next to the hammer icon
-    - Select Edit Configurations
-    - A configuration named app with module EMS_Android_App.app that deploys the default APK should be created and selected
-    - Note: If there isn't a drop down, create the "Add Configuration" button and create a configuration with these specifications
+    - Select Edit Configurations
+    - A configuration named app with module EMS_Android_App.app that deploys the default APK should be created and selected
+    - Note: If there isn't a drop down, create the "Add Configuration" button and create a configuration with these specifications
 8. Make sure your emulator is selected in the second drop down
 9. Press the build button (hammer icon) to build the project
 
@@ -72,5 +72,5 @@ python manage.py runserver
 ### Android App
 1. Under SDK tools within the SDK Manager, make sure Android ADK Build tools, Android Emulator, Android ADK Platform-Tools, and Android ADK Tools are installed
 2. Go to Project Tab within Project Structure 
-    - Ensure Android Gradle Plugin Version is 4.1.2
-    - Ensure Gradle Version is 6.5
+    - Ensure Android Gradle Plugin Version is 4.1.2
+    - Ensure Gradle Version is 6.5
