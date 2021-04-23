@@ -131,10 +131,17 @@ python manage.py runserver
 ### Troubleshooting
 
 #### Django Backend
+There should be no errors that occur during installation / running the project, but If you do run into any errors, verify the following:
+1. Ensure you are running python 3.8. Earlier versions of python are not compatible with this application.
+2. Ensure all dependencies are installed as detailed above in the build instructions
+3. Ensure you are running the Django backend with virtualenv activated. Failure to do so will not allow the application to run with the correct dependencies
+4. Make sure you have ran the migrations as detailed above in the build instructions or hospital data will be unable to be loaded into the database
+5. Ensure you have an internet connection. Our data is scraped from the Georgia RCC website (georgiarcc.org), so a stable internet connection is required
+6. If the application seems to be unable to load hospital data, check the Georgia RCC website (georgiarcc.org) and ensure our web scraper is still compatible with any website updates. Big updates to this website can affect the performance of the web scraper.
 
 #### iOS App
 There should be no errors that occur during installation / running the project, but If you do run into any errors, verify the following:
-1. Ensure your Mac has the latest software installed
+1. Ensure your Mac has the latest software installed and is updated
 2. Ensure the latest version of XCode is installed along with Swift 5. Earlier versions of Swift are not compatible with this app.
 3. Our application is dependent on location. Ensure the simulator has a location to use:
     - When the simulator opens, click on the simulator. Click Features > Location > Custom Location
