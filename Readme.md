@@ -148,7 +148,7 @@ There should be no errors that occur during installation / running the project, 
 6. If the application seems to be unable to load hospital data, check the Georgia RCC website (georgiarcc.org) and ensure our web scraper is still compatible with any website updates. Big updates to this website can affect the performance of the web scraper.
 
 #### iOS App
-There should be no errors that occur during installation / running the project, but If you do run into any errors, verify the following:
+There should be no errors that occur during installation / running the project, but if you do run into any errors, verify the following:
 1. Ensure your Mac has the latest software installed and is updated
 2. Ensure the latest version of XCode is installed along with Swift 5. Earlier versions of Swift are not compatible with this app.
 3. Our application is dependent on location. Ensure the simulator has a location to use:
@@ -156,7 +156,7 @@ There should be no errors that occur during installation / running the project, 
     - We recommend using the following location: lat = 33.77718 and long = -84.39235
 
 #### Android App
-There should be no errors that occur during installation / running the project, but If you do run into any errors, verify the following:
+There should be no errors that occur during installation / running the project, but if you do run into any errors, verify the following:
 1. Under SDK tools within the SDK Manager, make sure Android ADK Build tools, Android Emulator, Android ADK Platform-Tools, and Android ADK Tools are installed
 2. Go to Project Tab within Project Structure 
     - Ensure Android Gradle Plugin Version is 4.1.2
