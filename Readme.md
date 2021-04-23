@@ -58,6 +58,24 @@ After expanding a specific hospital’s information, you have a couple of option
 - Install Android Studio with SDK 29
 - Install Python 3.8 with pip and virtualenv
 - Clone the Git repository
+- Install asgiref (note that all of the following installations are done automatically upon running ```pip install -r requirements.txt``` )
+- Install beautifulsoup4
+- Install bs4
+- Install certifi
+- Install chardet
+- Install Django
+- Install idna
+- Install lxml
+- Install numpy
+- Install pandas
+- Install python-dateutil
+- Install pytz
+- Install requests
+- Install six
+- Install soupsieve
+- Install sqlparse
+- Install urllib3
+- Install wheel
 
 ### Download Instructions
 1. In terminal, navigate to the folder where you would like to save the project
