@@ -64,14 +64,13 @@ After expanding a specific hospital’s information, you have a couple of option
 
 - IOS application reuses cards which causes errors when expanding/pinning 
 
-- Android does not have a loading screen 
+- Android application does not have a loading screen 
 
 - IOS filter cards have variable sizes 
 
 - Blue bar on bottom of screen unconstrained on some devices in iOS 
 
-#### Web scraper running locally
-In order to deploy this app, a web hosting service would be required to continually run the python web scraper rather than hosting it on an individual's personal computer. However, our team lacked the web hosting resources necessary to do this and thus requires the web scraper to be run locally. This could, however, be easily fixed if funding for a web hosting service was obtained. In this case, the web scraper could simply be run as a cron job on a server.
+- Web scraper running locally - In order to deploy this app, a web hosting service would be required to continually run the python web scraper rather than hosting it on an individual's personal computer. However, our team lacked the web hosting resources necessary to do this and thus requires the web scraper to be run locally. This could, however, be easily fixed if funding for a web hosting service was obtained. In this case, the web scraper could simply be run as a cron job on a server.
 
 ## Install Guide
 
