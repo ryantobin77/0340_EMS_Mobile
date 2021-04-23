@@ -79,13 +79,13 @@ python manage.py runserver
 3. Click the "Run 'app'" button (it looks like a green play icon)
 4. Your emulator should open and EMS Mobile App will open
 
-## Troubleshooting
+### Troubleshooting
 
-### Django Backend
+#### Django Backend
 
-### iOS App
+#### iOS App
 
-### Android App
+#### Android App
 1. Under SDK tools within the SDK Manager, make sure Android ADK Build tools, Android Emulator, Android ADK Platform-Tools, and Android ADK Tools are installed
 2. Go to Project Tab within Project Structure 
     - Ensure Android Gradle Plugin Version is 4.1.2
