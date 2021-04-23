@@ -1,20 +1,20 @@
 # EMS Mobile App
 
-The EMS Mobile App is a mobile application that allows EMTs to better find a hospital for their patients. The application consists of 3 components: a Django backend, an iOS app, and an Android app
+The EMS Mobile App is a mobile application that allows EMTs to better find a hospital for their patients. The application consists of 3 components: a Django backend / Python Webscraper, an iOS app, and an Android app
 
 ## Release Notes
 
-### Software Features
+### New Software Features
 
 #### Display List of Hospitals
 The main page displays a list containing the following information about each hospital in Georgia:
 - Name 
 - Nedocs score - a measure of the severity of overcrowding in the hospital’s emergency department (Normal, Busy, Overcrowded, Severe)
-- Specialty centers (i.e. Adult Trauma Center, Primary Stroke Center, etc.)
+- Specialty centers - what the hospital specializes in (i.e. Adult Trauma Center, Primary Stroke Center, etc.)
 - Diversions – whether the hospital is redirecting certain types of ambulance traffic to other hospitals due to overcrowding 
 - Distance to hospital from current location
 
-You can expand any of the hospitals to see more information about that specific hospital:
+You can expand any of the hospitals to see any of the following additional information about that specific hospital:
 - Phone number 
 - Street address 
 - Specific information about diversions
@@ -33,10 +33,10 @@ You can open the filter menu by selecting the filter icon in the top right corne
 - EMS region
 - County
 - Regional coordinating hospital
-You can view all currently applied filters in the bottom bar of the main page. You can remove an individual filter by pressing the “x” on a specific filter card or clear all filters using the button in the bottom right corner of the main page.
+- You can view all currently applied filters in the bottom bar of the main page. You can remove an individual filter by pressing the “x” on a specific filter card or clear all filters using the button in the bottom right corner of the main page
 
 #### Sort
-You can open the sort menu by selecting the sort icon in the top right corner of the main page to sort the list of hospitals on one of the following attributes
+You can open the sort menu by selecting the sort icon in the top right corner of the main page to sort the list of hospitals on one of the following attributes:
 - A-Z (by name)
 - Distance from current location (from nearest to furthest)
 - Nedocs score (from normal to severe)
@@ -51,25 +51,12 @@ The app will automatically refresh all hospital data from the database when the 
 After expanding a specific hospital’s information, you have a couple of options to make contact with that hospital. You can click on the hospital’s phone number to open your device’s phone application and make a call to the hospital or you can click on the hospital’s address to open your device’s mapping application and navigate to the hospital. Additionally, you can call the Georgia Coordinating Center by selecting the phone icon in the top toolbar on the main page.
 
 ### Bug fixes made since last release 
-
-- Multiple hospitals can no longer be expanded in Android 
-
-- Search works when sort or filter are applied in iOS 
-
-- Search bar remains visible when search is applied in iOS 
-
-- Functionality of removing one filter when multiple are applied works in iOS 
+- This is the first version of the software, so no bug fixes were needed
 
 ### Known Bugs and Defects 
-
-- IOS application reuses cards which causes errors when expanding/pinning 
-
-- Android application does not have a loading screen 
-
-- IOS filter cards have variable sizes 
-
-- Blue bar on bottom of screen unconstrained on some devices in iOS 
-
+- The Android application does not have a loading screen to match the iOS application
+- Filter cards in iOS have variable sizes 
+- The blue bar on the bottom of the screen which holds filter cards is unconstrained on some devices in iOS
 - Web scraper running locally - In order to deploy this app, a web hosting service would be required to continually run the python web scraper rather than hosting it on an individual's personal computer. However, our team lacked the web hosting resources necessary to do this and thus requires the web scraper to be run locally. This could, however, be easily fixed if funding for a web hosting service was obtained. In this case, the web scraper could simply be run as a cron job on a server.
 
 ## Install Guide
@@ -80,7 +67,16 @@ After expanding a specific hospital’s information, you have a couple of option
 - Install Android Studio with SDK 29
 - Install Python 3.8 with pip and virtualenv
 - Clone the Git repository
-- Install asgiref (note that all of the following installations are done automatically upon running ```pip install -r requirements.txt``` )
+
+### Download Instructions
+1. In terminal, navigate to the folder where you would like to save the project
+2. Clone the project to this location using ```git clone https://github.com/ryantobin77/0340_EMS_Mobile.git```
+3. A repository named "0340_EMS_Mobile" now exists
+
+### Dependent libraries
+- All dependent libraries can be found in the repo directory at ```0340_EMS_Mobile/Backend/EMS_Django_Backend/requirements.txt```  and are also listed below
+- See Build Instructions for the Django Backend below to install the following dependent libraries:
+- Install asgiref
 - Install beautifulsoup4
 - Install bs4
 - Install certifi
@@ -99,17 +95,8 @@ After expanding a specific hospital’s information, you have a couple of option
 - Install urllib3
 - Install wheel
 
-### Download Instructions
-1. In terminal, navigate to the folder where you would like to save the project
-2. Clone the project to this location using ```git clone https://github.com/ryantobin77/0340_EMS_Mobile.git```
-3. A repository named "0340_EMS_Mobile" now exists
-
-### Dependent libraries
-- All dependent libraries can be found in the repo directory at ```0340_EMS_Mobile/Backend/EMS_Django_Backend/requirements.txt``` 
-- See Build Instructions for the Django Backend below to install dependent libraries 
-
 ### Build Instructions
-#### Django Backend
+#### Django Backend and Python Webscraper
 1. Initialize your virtualenv with ```virtualenv venv``` in the root directory. Do not push this to Git
 2. Activate virtualenv with ```source venv/bin/activate```
 3. Go into the backend directory ```cd Backend/EMS_Django_Backend```
@@ -154,7 +141,7 @@ python manage.py runserver
 ```
 
 #### Run Instructions for Python Webscraper
-In terminal from the root directory of the repo, run the following:
+In a separate terminal window from the root directory of the repo with virtualenv activated, run the following:
 
 ```bash
 cd Backend/EMS_Django_Backend
@@ -162,7 +149,7 @@ python schedule.py
 ```
 
 #### Run Instructions for the iOS App
-1. Make sure the Django Backend is running
+1. Make sure the Django Backend and Python Webscraper is running
 2. Open up XCode
 3. Click File > Open
 3. Navigate to the repo's root directory and go into "EMS\ iOS\ App" and click on "EMS\ iOS\ App.xcodeproj" and click open
@@ -171,18 +158,18 @@ python schedule.py
 6. Wait a few seconds and the iOS simulator will open with the application
 
 #### Run Instructions for the Android App
-1. Make sure the Django Backend is running
+1. Make sure the Django Backend and Python webscraper is running
 2. Open the directory "EMS_Android_App" using Android Studio
 3. Click the "Run 'app'" button (it looks like a green play icon)
 4. Your emulator should open and EMS Mobile App will open
 
 ### Troubleshooting
 
-#### Django Backend
+#### Django Backend and Python Webscraper
 There should be no errors that occur during installation / running the project, but If you do run into any errors, verify the following:
 1. Ensure you are running python 3.8. Earlier versions of python are not compatible with this application.
 2. Ensure all dependencies are installed as detailed above in the build instructions
-3. Ensure you are running the Django backend with virtualenv activated. Failure to do so will not allow the application to run with the correct dependencies
+3. Ensure you are running the Django backend and Python webscraper with virtualenv activated. Failure to do so will not allow the application to run with the correct dependencies
 4. Make sure you have ran the migrations as detailed above in the build instructions or hospital data will be unable to be loaded into the database
 5. Ensure you have an internet connection. Our data is scraped from the Georgia RCC website (georgiarcc.org), so a stable internet connection is required
 6. If the application seems to be unable to load hospital data, check the Georgia RCC website (georgiarcc.org) and ensure our web scraper is still compatible with any website updates. Big updates to this website can affect the performance of the web scraper.
