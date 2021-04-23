@@ -113,6 +113,14 @@ cd Backend/EMS_Django_Backend
 python manage.py runserver
 ```
 
+#### Run Instructions for Python Webscraper
+In terminal from the root directory of the repo, run the following:
+
+```bash
+cd Backend/EMS_Django_Backend
+python schedule.py
+```
+
 #### Run Instructions for the iOS App
 1. Make sure the Django Backend is running
 2. Open up XCode
