@@ -26,12 +26,12 @@ The EMS Mobile App is a mobile application that allows EMTs to better find a hos
 #### Django Backend
 1. Initialize your virtualenv with ```virtualenv venv``` in the root directory. Do not push this to Git
 2. Activate virtualenv with ```source venv/bin/activate```
-3. Install dependencies with ```pip install -r requirements.txt```
+3. Install dependent libraries with ```pip install -r requirements.txt```
 4. Go into the backend directory ```cd Backend/EMS_Django_Backend```
 5. Run migrations ```python manage.py migrate```
 6. Create a superuser ```python manage.py createsuperuser```
 7. Fill out and remember the necessary superuser credentials
-8. The backend is now ready to run
+8. The Django Backend is now ready to run
 
 #### iOS App
 
