@@ -44,6 +44,7 @@ def run_scrape():
     static_info = pandas.read_json("scrapers/Hospital.json", lines=True)
 
     all_info = pandas.merge(df, static_info, on='Hospital',how='inner')
+    all_info = all_info.drop_duplicates("Hospital", keep='first')
     all_info.to_json("scrapers/georgiarcc.json", orient='records', lines=True)
 
 
